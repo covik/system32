@@ -3,5 +3,11 @@
   "extends": [
     "config:base"
   ],
-  "ignorePaths": ["mysql.Dockerfile"]
+  "ignorePaths": ["mysql.Dockerfile"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ]
 }
