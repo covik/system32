@@ -1,0 +1,48 @@
+{
+  "name": "fms-infrastructure",
+  "private": true,
+  "description": "Zara Fleet infrastructure",
+  "homepage": "https://app.zarafleet.com",
+  "bugs": {
+    "url": "https://github.com/Covik/fms-infrastructure/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Covik/fms-infrastructure"
+  },
+  "license": "UNLICENSED",
+  "author": "Mate Nakic",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "yarn build && ../scripts/start-local-environment.sh",
+    "dev:destroy": "../scripts/destroy-local-environment.sh",
+    "lint": "eslint --max-warnings 0 ./",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@pulumi/command": "^0.5.2",
+    "@pulumi/digitalocean": "^4.16.0",
+    "@pulumi/docker": "^3.4.1",
+    "@pulumi/kubernetes": "^3.22.0",
+    "@pulumi/pulumi": "^3.44.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.5",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "^2.8.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "engines": {
+    "node": ">= 18",
+    "yarn": ">= 1.22"
+  }
+}

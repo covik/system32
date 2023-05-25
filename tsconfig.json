@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs", // ATM using ESM is pure pain
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "importsNotUsedAsValues": "preserve", // https://typescript-eslint.io/rules/consistent-type-imports
+    "isolatedModules": true,
+
+    "skipLibCheck": true,
+    "allowJs": false,
+    "experimentalDecorators": true,
+
+    "allowUnreachableCode": true, // https://eslint.org/docs/latest/rules/no-unreachable
+    "allowUnusedLabels": true, // https://eslint.org/docs/latest/rules/no-unused-labels
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": false, // https://typescript-eslint.io/rules/explicit-function-return-type/
+    "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": false, // https://typescript-eslint.io/rules/no-unused-vars/
+    "noUnusedParameters": false, // https://typescript-eslint.io/rules/no-unused-vars/
+    "strict": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "outDir": "dist",
+    "noEmit": false
+  },
+  "include": ["src/*.ts", "index.ts"],
+  "exclude": ["node_modules", "tmp"],
+  "ts-node": {
+    "transpileOnly": true // type checking is done in CI and IDE
+  }
+}

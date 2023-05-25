@@ -1,0 +1,6 @@
+node_modules
+tmp
+.idea
+*.log
+dist
+Pulumi.local.yaml
