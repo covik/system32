@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@pulumi/command": "0.7.2",
-    "@pulumi/digitalocean": "4.16.0",
+    "@pulumi/digitalocean": "4.19.3",
     "@pulumi/docker": "3.4.1",
     "@pulumi/kubernetes": "3.22.0",
     "@pulumi/pulumi": "3.68.0"
