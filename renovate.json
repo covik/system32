@@ -12,6 +12,10 @@
     {
       "matchManagers": ["npm"],
       "rangeStrategy": "pin"
+    },
+    {
+      "matchPackagePatterns": ["^eslint"],
+      "groupName": "eslint packages"
     }
   ]
 }
