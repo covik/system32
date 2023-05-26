@@ -1,4 +1,6 @@
 config:
+  vfm:backend-email-password:
+    secure: AAABALcs8bNSGRApfQQKkIfkHNyRS9JhBIBEJ3B0h+vo2Fuig97wsdSnbxBLcLxd
   vfm:container-registry-token:
     secure: AAABAJjqAqy5iDsSxrXHzgTyii1TTkV4jfUAINMWhU/9WY8TjVHkzfYcBRi5Ht4MSMbIXrCaPvM9EmGRPDxcAsn/MEPqsIl8
   vfm:k8s-cluster-token:

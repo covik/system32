@@ -15,7 +15,7 @@ export interface ApplicationArguments {
   databaseConnection: DatabaseConnectionSettings;
   routes: string[];
   teltonikaNodePort: pulumi.Input<number>;
-  emailPassword?: string;
+  emailPassword?: pulumi.Input<string>;
 }
 
 export class Application extends pulumi.ComponentResource {
@@ -75,7 +75,9 @@ export class Application extends pulumi.ComponentResource {
   <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
   <entry key='database.url'>jdbc:mysql://${databaseConnection.host}:${
             databaseConnection.port
-          }/${databaseConnection.database}?zeroDateTimeBehavior=round&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;ssl-mode=REQUIRED&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_require_primary_key=1</entry>
+          }/${
+            databaseConnection.database
+          }?zeroDateTimeBehavior=round&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;ssl-mode=REQUIRED&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_require_primary_key=1</entry>
   <entry key='database.user'>${databaseConnection.user}</entry>
   <entry key='database.password'>${databaseConnection.password}</entry>
   <entry key='database.saveOriginal'>false</entry>
@@ -97,15 +99,14 @@ export class Application extends pulumi.ComponentResource {
 
 ${
   emailPassword !== ''
-    ? `
+    ? pulumi.interpolate`
   <entry key='mail.smtp.host'>smtp.zoho.eu</entry>
   <entry key='mail.smtp.port'>587</entry>
   <entry key='mail.smtp.starttls.enable'>true</entry>
   <entry key='mail.smtp.from'>notifications@zarafleet.com</entry>
   <entry key='mail.smtp.auth'>true</entry>
   <entry key='mail.smtp.username'>notifications@zarafleet.com</entry>
-  <entry key='mail.smtp.password'>${emailPassword}</entry>
-`
+  <entry key='mail.smtp.password'>${emailPassword}</entry>`
     : ''
 }
 
@@ -188,7 +189,7 @@ Kontakt je uključen na vozilu $device.name
                       mountPath: '/opt/traccar/templates/full/ignitionOn.vm',
                       subPath: 'ignitionOn.vm',
                       readOnly: true,
-                    }
+                    },
                   ],
                 },
               ],

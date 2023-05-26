@@ -302,7 +302,7 @@ export function resources(): void {
       databaseConnection,
       routes: ['/api', `${Domain.traccar}/`, `${Domain.newFrontend}/api`],
       teltonikaNodePort: 32027,
-      emailPassword: process.env['NOTIFICATIONS_EMAIL_PASSWORD'] as string,
+      emailPassword: config.requireSecret('backend-email-password'),
     },
     kubernetesComponentOptions,
   );
