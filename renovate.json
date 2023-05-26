@@ -20,6 +20,10 @@
     {
       "matchPackageNames": ["node", "@types/node"],
       "groupName": "node-js"
+    },
+    {
+      "matchPackageNames": ["pulumi/pulumi-base", "@pulumi/pulumi"],
+      "groupName": "pulumi"
     }
   ]
 }
