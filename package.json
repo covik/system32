@@ -20,6 +20,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint --max-warnings 0 ./",
+    "prepare": "husky install",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

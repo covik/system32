@@ -11,3 +11,12 @@ progress:
 		--network host \
 		fms-infrastructure:local \
 		bash
+
+lint-commit:
+	docker run --rm -v $$PWD:/src --entrypoint yarn fms-infrastructure:local commitlint --edit .git/COMMIT_EDITMSG
+
+check-format:
+	docker run --rm -v $$PWD:/src --entrypoint yarn fms-infrastructure:local format:check
+
+type-check:
+	docker run --rm -v $$PWD:/src --entrypoint yarn fms-infrastructure:local type-check
