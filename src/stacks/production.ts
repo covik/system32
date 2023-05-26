@@ -7,6 +7,8 @@ import * as frontend from '../resources/frontend';
 import { DockerCredentials } from '../utils';
 import type { DatabaseConnectionSettings } from '../resources/backend';
 
+const config = new pulumi.Config();
+
 class Domain {
   public static primary = 'zarafleet.com';
   public static frontend = 'app.zarafleet.com';
@@ -66,8 +68,7 @@ class Cluster {
 class GitHubContainerRegistry {
   public static url = 'ghcr.io';
   public static user = 'covik';
-  public static password =
-    process.env['CLUSTER_CONTAINER_REGISTRY_TOKEN'] ?? '';
+  public static password = config.requireSecret('container-registry-token');
 }
 
 function generateKubeconfig(
@@ -181,11 +182,13 @@ export function resources(): void {
   const provider = createK8sProvider(kubeconfig, cluster);
   const namespace = createNamespace('vfm', provider);
 
-  const containerRegistryCredentials = DockerCredentials.forRegistry(
-    GitHubContainerRegistry.url,
-  )
-    .asUser(GitHubContainerRegistry.user)
-    .withPassword(GitHubContainerRegistry.password);
+  const containerRegistryCredentials = GitHubContainerRegistry.password.apply(
+    (password) =>
+      DockerCredentials.forRegistry(GitHubContainerRegistry.url)
+        .asUser(GitHubContainerRegistry.user)
+        .withPassword(password),
+  );
+
   const containerRegistry = new k8s.core.v1.Secret(
     'container-registry-credentials',
     {
@@ -195,9 +198,9 @@ export function resources(): void {
       },
       type: 'kubernetes.io/dockerconfigjson',
       data: {
-        '.dockerconfigjson': Buffer.from(
-          containerRegistryCredentials.toJSON(),
-        ).toString('base64'),
+        '.dockerconfigjson': containerRegistryCredentials.apply((credentials) =>
+          Buffer.from(credentials.toJSON()).toString('base64'),
+        ),
       },
     },
     { provider, parent: namespace },

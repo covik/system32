@@ -1,13 +1,13 @@
 /* eslint-disable no-new */
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
-import { DockerCredentials } from '../utils';
+import type { DockerCredentials } from '../utils';
 import type { ComponentResourceOptions } from '@pulumi/pulumi/resource';
 
 export interface ApplicationArguments {
   image: pulumi.Input<string>;
   hotReload: false | { hostPath: pulumi.Input<string> };
-  containerRegistryCredentials?: DockerCredentials;
+  containerRegistryCredentials?: pulumi.Output<DockerCredentials>;
   hostname: undefined | pulumi.Input<string>;
 }
 
@@ -35,7 +35,7 @@ export class Application extends pulumi.ComponentResource {
     );
 
     const containerRegistry: k8s.core.v1.Secret | undefined =
-      containerRegistryCredentials instanceof DockerCredentials
+      containerRegistryCredentials
         ? new k8s.core.v1.Secret(
             'container-registry-credentials',
             {
@@ -45,9 +45,10 @@ export class Application extends pulumi.ComponentResource {
               },
               type: 'kubernetes.io/dockerconfigjson',
               data: {
-                '.dockerconfigjson': Buffer.from(
-                  containerRegistryCredentials.toJSON(),
-                ).toString('base64'),
+                '.dockerconfigjson': containerRegistryCredentials.apply(
+                  (credentials) =>
+                    Buffer.from(credentials.toJSON()).toString('base64'),
+                ),
               },
             },
             { parent: namespace },
