@@ -16,6 +16,10 @@
     {
       "matchPackagePatterns": ["^eslint"],
       "groupName": "eslint packages"
+    },
+    {
+      "matchPackageNames": ["node", "@types/node"],
+      "groupName": "node-js"
     }
   ]
 }
