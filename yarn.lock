@@ -229,14 +229,14 @@
     picocolors "^1.0.0"
     tslib "^2.5.0"
 
-"@pulumi/command@^0.5.2":
+"@pulumi/command@0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.5.2.tgz#c7af6a866c71f41c2d16a5c3dd91dc9506836ed9"
   integrity sha512-02sxCkwXelYPpe4BC3X74nB1eJKG5j1I+G2STQD4PRDxSYI1jupWQQQAftUbSLG/13U4RqjB86kfQ7aZS6YH7w==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
-"@pulumi/digitalocean@^4.16.0":
+"@pulumi/digitalocean@4.16.0":
   version "4.16.0"
   resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.16.0.tgz#c5cca57cb9778db7150c9c477b521d1e2559eec1"
   integrity sha512-Vfr9lLWK5eMt8CxsqlgDlCFTk2oo34eF6zI3j8pGa5ekYEZJn+9PS1FHnJimuDikfsIWALnULqof6b8XINmHDA==
@@ -246,7 +246,7 @@
     read-package-tree "^5.2.1"
     resolve "^1.7.1"
 
-"@pulumi/docker@^3.4.1":
+"@pulumi/docker@3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@pulumi/docker/-/docker-3.4.1.tgz#70551e9b4eb7b7b9297db368a4334548b9b1222a"
   integrity sha512-SOZ7Cz6JrUnbTbOrwL5tuiGnFq3IIvGQqZnksIoPuJAjEKYB1bsc3EUtrLVLlLYKQAP/vML0YQVY6BWYXoidtg==
@@ -254,7 +254,7 @@
     "@pulumi/pulumi" "^3.0.0"
     semver "^5.4.0"
 
-"@pulumi/kubernetes@^3.22.0":
+"@pulumi/kubernetes@3.22.0":
   version "3.22.0"
   resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-3.22.0.tgz#a50140dd03afb4750c5e44c4f1e647358078a146"
   integrity sha512-+m4yILXE01jfsTrozPLtQ2W629voij52hUWMnghEKTMruQfN9Ez6asFPnmB4PjbdEKV2fx1mHuiz9CGqy76MMg==
@@ -373,7 +373,7 @@
   resolved "https://registry.yarnpkg.com/@types/tmp/-/tmp-0.0.33.tgz#1073c4bc824754ae3d10cfab88ab0237ba964e4d"
   integrity sha512-gVC1InwyVrO326wbBZw+AO3u2vRXz/iRWq9jYhpG4W8LXyIgDv3ZmcLQ5Q4Gs+gFMyqx+viFoFT+l3p61QFCmQ==
 
-"@typescript-eslint/eslint-plugin@^5.41.0":
+"@typescript-eslint/eslint-plugin@5.59.7":
   version "5.59.7"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.59.7.tgz#e470af414f05ecfdc05a23e9ce6ec8f91db56fe2"
   integrity sha512-BL+jYxUFIbuYwy+4fF86k5vdT9lT0CNJ6HtwrIvGh0PhH8s0yy5rjaKH2fDCrz5ITHy07WCzVGNvAmjJh4IJFA==
@@ -389,7 +389,7 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/parser@^5.41.0":
+"@typescript-eslint/parser@5.59.7":
   version "5.59.7"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-5.59.7.tgz#02682554d7c1028b89aa44a48bf598db33048caa"
   integrity sha512-VhpsIEuq/8i5SF+mPg9jSdIwgMBBp0z9XqjiEay+81PYLJuroN+ET1hM5IhkiYMJd9MkTz8iJLt7aaGAgzWUbQ==
@@ -2002,7 +2002,7 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier@^2.8.8:
+prettier@2.8.8:
   version "2.8.8"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.8.tgz#e8c5d7e98a4305ffe3de2e1fc4aca1a71c28b1da"
   integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
@@ -2354,7 +2354,7 @@ tr46@~0.0.3:
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
   integrity sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==
 
-ts-node@^10.9.1:
+ts-node@10.9.1:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
   integrity sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==
@@ -2435,7 +2435,7 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
-typescript@^4.8.4:
+typescript@4.9.5:
   version "4.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
