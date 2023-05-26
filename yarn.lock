@@ -301,10 +301,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pulumi/command@0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.5.2.tgz#c7af6a866c71f41c2d16a5c3dd91dc9506836ed9"
-  integrity sha512-02sxCkwXelYPpe4BC3X74nB1eJKG5j1I+G2STQD4PRDxSYI1jupWQQQAftUbSLG/13U4RqjB86kfQ7aZS6YH7w==
+"@pulumi/command@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.7.2.tgz#f0ca9dd398525aa04c36ba0bec053879c18c8afe"
+  integrity sha512-R/eAIXIywSkn2cHIaNqs0EXcXduNeDuS+wom6oadB5KEP+6elgJbo4WMDP+OuDYGkkxEWIKjk0bPPO7570aXFQ==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
