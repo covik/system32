@@ -56,7 +56,8 @@ class Cluster {
   public static title: string = Project.nameLowercase;
   public static version = `${Kubernetes.version}-do.0`;
   public static region: string = Project.region;
-  public static readToken: string = process.env['CLUSTER_TOKEN'] ?? '';
+  public static readToken: pulumi.Output<string> =
+    config.requireSecret('k8s-cluster-token');
   public static nodePool = {
     title: 'worker',
     size: 's-1vcpu-2gb',
