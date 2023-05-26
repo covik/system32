@@ -8,6 +8,10 @@
     {
       "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
+    },
+    {
+      "matchManagers": ["npm"],
+      "rangeStrategy": "pin"
     }
   ]
 }
