@@ -17,6 +17,8 @@
     "build": "tsc",
     "dev": "yarn build && ../scripts/start-local-environment.sh",
     "dev:destroy": "../scripts/destroy-local-environment.sh",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint --max-warnings 0 ./",
     "type-check": "tsc --noEmit"
   },
