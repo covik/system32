@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "ignorePaths": ["mysql.Dockerfile"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "matchManagers": ["npm"],
+      "rangeStrategy": "pin"
+    },
+    {
+      "matchPackagePatterns": ["^eslint"],
+      "groupName": "eslint packages"
+    },
+    {
+      "matchPackageNames": ["node", "@types/node"],
+      "groupName": "node-js"
+    },
+    {
+      "matchPackageNames": ["pulumi/pulumi-base", "@pulumi/pulumi"],
+      "groupName": "pulumi"
+    }
+  ]
+}
