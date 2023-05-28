@@ -3,6 +3,6 @@ config:
     secure: AAABALcs8bNSGRApfQQKkIfkHNyRS9JhBIBEJ3B0h+vo2Fuig97wsdSnbxBLcLxd
   vfm:container-registry-token:
     secure: AAABAJjqAqy5iDsSxrXHzgTyii1TTkV4jfUAINMWhU/9WY8TjVHkzfYcBRi5Ht4MSMbIXrCaPvM9EmGRPDxcAsn/MEPqsIl8
-  vfm:frontend-image: fms-react:latest@sha256:2ae0544cfb26103683aea6dea29ffc2874cd50de594bb267deef70e311cc7971
+  vfm:frontend-image: fms-react:latest@sha256:8c72c4321d2cad4628e03098ca61d284b2dfd562427b42b5066a40c94e1d1c63
   vfm:k8s-cluster-token:
     secure: AAABACG0FntK3zeaMZON+GhNrtbCI1yq0izKVpfrka9xUVDkpD5Tx/u32jMY5kF1AYJv5Ay6upCdsirw8qHNjSOqNrwR3CV3zuIZsCI8tLP6kF62CeE2vzSXLpSE61zgpNBZRW371Q==
