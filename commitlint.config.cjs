@@ -10,6 +10,7 @@ module.exports = {
         'tooling',
         'production',
         'local',
+        'test',
       ],
     ],
   },
