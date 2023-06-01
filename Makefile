@@ -20,3 +20,6 @@ check-format:
 
 type-check:
 	docker run --rm -v $$PWD:/src --entrypoint yarn fms-infrastructure:local type-check
+
+lint:
+	docker run --rm -v $$PWD:/src --entrypoint yarn fms-infrastructure:local lint
