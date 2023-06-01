@@ -1,9 +1,16 @@
 import * as digitalocean from '@pulumi/digitalocean';
 import * as k8s from '@pulumi/kubernetes';
+import * as pulumi from '@pulumi/pulumi';
+import * as frontend from '../resources/frontend';
 import * as traefik from '../resources/traefik';
-import type * as pulumi from '@pulumi/pulumi';
+import {
+  createContainerRegistryCredentials,
+  resolveRegistryImage,
+} from '../utils';
 
 export function resources(): void {
+  const config = new pulumi.Config();
+
   const vpc = new digitalocean.Vpc('primary-vpc', {
     name: 'fms-test',
     region: 'fra1',
@@ -36,7 +43,7 @@ export function resources(): void {
   const ipAddress = getNodeIpAddress(cluster);
   const primaryDomainId = getRootDomainId();
 
-  new digitalocean.DnsRecord('domain', {
+  const domain = new digitalocean.DnsRecord('domain', {
     name: 'test',
     domain: primaryDomainId,
     value: ipAddress,
@@ -54,9 +61,27 @@ export function resources(): void {
     },
   };
 
+  const containerRegistryCredentials =
+    createContainerRegistryCredentials(config);
+
+  const unstableFrontendImage = resolveRegistryImage(
+    config.require('frontend-unstable-image'),
+    config,
+  );
+
   new traefik.IngressController(
     'traefik-ingress',
     { nodePort: 30080 },
+    kubernetesComponentOptions,
+  );
+
+  new frontend.Application(
+    'unstable-zara-fleet',
+    {
+      image: unstableFrontendImage,
+      containerRegistryCredentials,
+      hostname: domain.fqdn,
+    },
     kubernetesComponentOptions,
   );
 }
