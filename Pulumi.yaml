@@ -3,3 +3,14 @@ runtime:
   name: nodejs
   options:
     typescript: false
+config:
+  container-registry-url:
+    type: string
+    default: ghcr.io
+  container-registry-user:
+    type: string
+    default: covik
+  frontend-unstable-image:
+    type: string
+    description: unstable frontend container image tag + sha256 hash
+    default: fms-frontend:latest@sha256:f355f4e2d9ddf9e66d9b314dac684c9f8fc8f815c4f6b38c0ff2f88866a81440
