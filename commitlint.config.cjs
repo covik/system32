@@ -11,7 +11,7 @@ module.exports = {
         'utils',
         'production',
         'local',
-        'test',
+        'dev',
       ],
     ],
   },
