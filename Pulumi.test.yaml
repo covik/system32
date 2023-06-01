@@ -1,0 +1,5 @@
+config:
+  vfm:container-registry-token:
+    secure: AAABAAZI4mvGT+3lQ/G5S/D5AzKKhS04y7ct3g3u2f/hYZu6nTHKrrMMw2Olf6SE3jQ4EiEjv0307kFT7TjChmwK/Aj464vG
+  vfm:k8s-cluster-token:
+    secure: AAABAC0oy2XPpGZYiPgtTd8jHyGbQ/bWYGn4wXalZueVkTNT5XLQB3pfIMQX0FOVEJl/vHLJcOfkLxn8LqRLQh0NEf1yoWAF1BM+9j2d7ck9Hdnn8OVRIAvwN/l9tDCuEzTj0PnAbw==
