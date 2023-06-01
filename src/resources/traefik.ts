@@ -24,13 +24,13 @@ export class IngressController extends pulumi.ComponentResource {
       },
     );
 
-    new k8s.helm.v3.Chart(
+    new k8s.helm.v3.Release(
       'ingress-controller',
       {
         chart: 'traefik',
         version: '23.0.1',
         namespace: namespace.metadata.name,
-        fetchOpts: {
+        repositoryOpts: {
           repo: 'https://helm.traefik.io/traefik',
         },
         values: {
