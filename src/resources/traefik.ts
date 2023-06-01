@@ -36,6 +36,9 @@ export class IngressController extends pulumi.ComponentResource {
         values: {
           service: {
             type: 'NodePort',
+            annotations: {
+              'kubernetes.digitalocean.com/firewall-managed': 'false',
+            },
           },
           ports: {
             web: {
@@ -51,27 +54,10 @@ export class IngressController extends pulumi.ComponentResource {
             },
           },
         },
-        transformations: [
-          (obj: TraefikResource) => {
-            if (obj.kind === 'Service') {
-              obj.metadata.annotations = {
-                'kubernetes.digitalocean.com/firewall-managed': 'false',
-              };
-            }
-          },
-        ],
       },
       { parent: namespace },
     );
 
     this.registerOutputs();
   }
-}
-
-interface TraefikResource {
-  kind: string;
-  metadata: {
-    namespace: pulumi.Input<string>;
-    annotations: Record<string, unknown>;
-  };
 }
