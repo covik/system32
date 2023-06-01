@@ -1,11 +1,11 @@
+import { resources as dev } from './dev';
 import { resources as local } from './local';
 import { resources as production } from './production';
-import { resources as test } from './test';
 
 const all: Record<string, () => unknown> = {
   production,
   local,
-  test,
+  dev,
 };
 
 export function findStackResources(stackName: string): () => unknown {
