@@ -30,7 +30,7 @@ export function resources(): void {
     environment: 'Development',
     description: 'Infrastructure for Zara Fleet Management System',
     purpose: 'Web Application',
-    resources: [vpc.vpcUrn, cluster.clusterUrn],
+    resources: [cluster.clusterUrn],
   });
 
   const ipAddress = getNodeIpAddress(cluster);
