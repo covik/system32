@@ -1,7 +1,9 @@
 import * as digitalocean from '@pulumi/digitalocean';
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
+import * as backend from '../resources/backend';
 import * as frontend from '../resources/frontend';
+import * as mysql from '../resources/mysql';
 import * as traefik from '../resources/traefik';
 import {
   createContainerRegistryCredentials,
@@ -81,6 +83,18 @@ export function resources(): void {
       image: unstableFrontendImage,
       containerRegistryCredentials,
       hostname: domain.fqdn,
+    },
+    kubernetesComponentOptions,
+  );
+
+  const databaseConnection = mysql.kubernetes('mysql:8', provider);
+
+  new backend.Application(
+    'traccar',
+    {
+      databaseConnection,
+      routes: ['test.zarafleet.com/api'],
+      teltonikaNodePort: 32027,
     },
     kubernetesComponentOptions,
   );
