@@ -17,10 +17,9 @@ class Domain {
 }
 
 class Project {
-  public static nameLowercase = 'vfm';
-  public static nameUppercase = 'VFM';
-  public static description =
-    'Infrastructure for Vehicle Fleet Management system';
+  public static nameLowercase = 'fms';
+  public static nameUppercase = 'FMS';
+  public static description = 'Infrastructure for Zara Fleet Management System';
   public static environment = 'Production';
   public static purpose = 'Web Application';
   public static region = 'fra1';
@@ -62,7 +61,7 @@ class Cluster {
     title: 'worker',
     size: 's-1vcpu-2gb',
     count: 1,
-    tag: 'vfm-worker',
+    tag: `${Cluster.title}-worker`,
   };
 }
 
