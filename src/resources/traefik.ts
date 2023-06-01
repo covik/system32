@@ -3,6 +3,7 @@ import * as pulumi from '@pulumi/pulumi';
 
 export interface TraefikArguments {
   nodePort: pulumi.Input<number>;
+  annotations?: pulumi.Input<Record<string, string>>;
 }
 
 export class IngressController extends pulumi.ComponentResource {
@@ -36,9 +37,7 @@ export class IngressController extends pulumi.ComponentResource {
         values: {
           service: {
             type: 'NodePort',
-            annotations: {
-              'kubernetes.digitalocean.com/firewall-managed': 'false',
-            },
+            annotations: args.annotations || {},
           },
           ports: {
             web: {
