@@ -6,8 +6,7 @@ import type { ComponentResourceOptions } from '@pulumi/pulumi/resource';
 
 export interface ApplicationArguments {
   image: pulumi.Input<string>;
-  hotReload: false | { hostPath: pulumi.Input<string> };
-  containerRegistryCredentials?: pulumi.Output<DockerCredentials>;
+  containerRegistryCredentials: pulumi.Output<DockerCredentials>;
   hostname: undefined | pulumi.Input<string>;
 }
 
@@ -19,7 +18,7 @@ export class Application extends pulumi.ComponentResource {
   ) {
     super('fms:frontend:Application', name, args, opts);
 
-    const { image, hotReload, containerRegistryCredentials, hostname } = args;
+    const { image, containerRegistryCredentials, hostname } = args;
 
     const namespace = new k8s.core.v1.Namespace(
       'frontend',
@@ -34,26 +33,23 @@ export class Application extends pulumi.ComponentResource {
       },
     );
 
-    const containerRegistry: k8s.core.v1.Secret | undefined =
-      containerRegistryCredentials
-        ? new k8s.core.v1.Secret(
-            'container-registry-credentials',
-            {
-              metadata: {
-                name: 'container-registry',
-                namespace: namespace.metadata.name,
-              },
-              type: 'kubernetes.io/dockerconfigjson',
-              data: {
-                '.dockerconfigjson': containerRegistryCredentials.apply(
-                  (credentials) =>
-                    Buffer.from(credentials.toJSON()).toString('base64'),
-                ),
-              },
-            },
-            { parent: namespace },
-          )
-        : undefined;
+    const containerRegistry: k8s.core.v1.Secret = new k8s.core.v1.Secret(
+      'container-registry-credentials',
+      {
+        metadata: {
+          name: 'container-registry',
+          namespace: namespace.metadata.name,
+        },
+        type: 'kubernetes.io/dockerconfigjson',
+        data: {
+          '.dockerconfigjson': containerRegistryCredentials.apply(
+            (credentials) =>
+              Buffer.from(credentials.toJSON()).toString('base64'),
+          ),
+        },
+      },
+      { parent: namespace },
+    );
 
     const labels = { app: 'frontend' };
 
@@ -62,32 +58,7 @@ export class Application extends pulumi.ComponentResource {
         ? [{ name: containerRegistry.metadata.name }]
         : [];
 
-    const commandOverrideIfHotReload =
-      hotReload !== false ? { command: 'yarn dev:frontend'.split(' ') } : {};
-
-    const containerPort = hotReload !== false ? 8080 : 80;
-
-    const volumeMounts =
-      hotReload === false
-        ? []
-        : [
-            {
-              name: 'hot-reload',
-              mountPath: '/monorepo',
-            },
-          ];
-    const volumes =
-      hotReload === false
-        ? []
-        : [
-            {
-              name: 'hot-reload',
-              hostPath: {
-                path: hotReload.hostPath,
-                type: 'Directory',
-              },
-            },
-          ];
+    const containerPort = 80;
 
     const deployment = new k8s.apps.v1.Deployment(
       'frontend-application',
@@ -107,11 +78,10 @@ export class Application extends pulumi.ComponentResource {
             spec: {
               imagePullSecrets,
               restartPolicy: 'Always',
-              volumes,
+              volumes: [],
               containers: [
                 {
                   name: 'webserver',
-                  ...commandOverrideIfHotReload,
                   image,
                   imagePullPolicy: 'IfNotPresent',
                   ports: [
@@ -121,7 +91,7 @@ export class Application extends pulumi.ComponentResource {
                       protocol: 'TCP',
                     },
                   ],
-                  volumeMounts,
+                  volumeMounts: [],
                 },
               ],
             },

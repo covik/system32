@@ -310,7 +310,6 @@ export function resources(): void {
     'zara',
     {
       image: `ghcr.io/covik/${config.require('frontend-image')}`,
-      hotReload: false,
       containerRegistryCredentials,
       hostname: Domain.newFrontend,
     },
