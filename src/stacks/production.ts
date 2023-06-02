@@ -21,10 +21,6 @@ class Domain {
 
 class Project {
   public static nameLowercase = 'fms';
-  public static nameUppercase = 'FMS';
-  public static description = 'Infrastructure for Zara Fleet Management System';
-  public static environment = 'Production';
-  public static purpose = 'Web Application';
   public static region = 'fra1';
 }
 
@@ -261,10 +257,10 @@ export function resources(): void {
   };
 
   new digitalocean.Project('primary-project', {
-    name: Project.nameUppercase,
-    environment: Project.environment,
-    description: Project.description,
-    purpose: Project.purpose,
+    name: 'FMS',
+    environment: 'Production',
+    description: 'Infrastructure for Zara Fleet Management System',
+    purpose: 'Web Application',
     resources: [
       domain.domainUrn,
       cluster.clusterUrn,
