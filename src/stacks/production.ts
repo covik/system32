@@ -42,17 +42,6 @@ class Kubernetes {
   public static traefikVersion = '10.6.2';
 }
 
-class Cluster {
-  public static version = `${Kubernetes.version}-do.0`;
-  public static readToken: pulumi.Output<string> =
-    config.requireSecret('k8s-cluster-token');
-  public static nodePool = {
-    title: 'worker',
-    size: 's-1vcpu-2gb',
-    count: 1,
-  };
-}
-
 function generateKubeconfig(
   cluster: digitalocean.KubernetesCluster,
   user: pulumi.Input<string>,
@@ -154,17 +143,21 @@ export function resources(): void {
   const cluster = new digitalocean.KubernetesCluster('primary-cluster', {
     name: projectName,
     region,
-    version: Cluster.version,
+    version: `${Kubernetes.version}-do.0`,
     autoUpgrade: false,
     nodePool: {
-      name: Cluster.nodePool.title,
-      size: Cluster.nodePool.size,
+      name: 'worker',
+      size: 's-1vcpu-2gb',
       tags: [clusterNodeTag],
-      nodeCount: Cluster.nodePool.count,
+      nodeCount: 1,
       autoScale: false,
     },
   });
-  const kubeconfig = generateKubeconfig(cluster, 'admin', Cluster.readToken);
+  const kubeconfig = generateKubeconfig(
+    cluster,
+    'admin',
+    config.requireSecret('k8s-cluster-token'),
+  );
   const provider = createK8sProvider(kubeconfig, cluster);
   const namespace = createNamespace('vfm', provider);
 
