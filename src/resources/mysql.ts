@@ -2,7 +2,26 @@ import * as command from '@pulumi/command';
 import * as docker from '@pulumi/docker';
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
+import { createMysqlConnectionString } from '../utils';
 import type { DatabaseConnectionSettings } from './backend';
+
+export const commonFlags = {
+  'zeroDateTimeBehavior': 'round',
+  'serverTimezone': 'UTC',
+  'allowPublicKeyRetrieval': 'true',
+  'ssl-mode': 'REQUIRED',
+  'allowMultiQueries': 'true',
+  'autoReconnect': 'true',
+  'useUnicode': 'yes',
+  'characterEncoding': 'UTF-8',
+};
+
+export const productionFlags = {
+  ...commonFlags,
+  'sessionVariables=sql_require_primary_key': '1',
+};
+
+export const createConnectionString = createMysqlConnectionString;
 
 export function kubernetes(
   image: pulumi.Input<string>,
@@ -113,11 +132,14 @@ export function kubernetes(
   );
 
   return {
-    host: pulumi.interpolate`${service.metadata.name}.${namespace}`,
-    port: service.spec.ports[0].port,
+    url: createConnectionString({
+      host: pulumi.interpolate`${service.metadata.name}.${namespace}`,
+      port: service.spec.ports[0].port,
+      database: 'fms',
+      flags: commonFlags,
+    }),
     user: 'developer',
     password: 'developer',
-    database: 'fms',
   };
 }
 

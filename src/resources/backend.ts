@@ -4,11 +4,9 @@ import * as pulumi from '@pulumi/pulumi';
 import type { ComponentResourceOptions } from '@pulumi/pulumi/resource';
 
 export interface DatabaseConnectionSettings {
-  host: pulumi.Input<string>;
-  port: pulumi.Input<number>;
+  url: pulumi.Input<string>;
   user: pulumi.Input<string>;
   password: pulumi.Input<string>;
-  database: pulumi.Input<string>;
 }
 
 export interface ApplicationArguments {
@@ -73,11 +71,7 @@ export class Application extends pulumi.ComponentResource {
   -->
 
   <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
-  <entry key='database.url'>jdbc:mysql://${databaseConnection.host}:${
-            databaseConnection.port
-          }/${
-            databaseConnection.database
-          }?zeroDateTimeBehavior=round&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;ssl-mode=REQUIRED&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_require_primary_key=1</entry>
+  <entry key='database.url'>${databaseConnection.url}</entry>
   <entry key='database.user'>${databaseConnection.user}</entry>
   <entry key='database.password'>${databaseConnection.password}</entry>
   <entry key='database.saveOriginal'>false</entry>

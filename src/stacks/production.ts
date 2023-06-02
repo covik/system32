@@ -4,6 +4,7 @@ import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 import * as backend from '../resources/backend';
 import * as frontend from '../resources/frontend';
+import * as mysql from '../resources/mysql';
 import {
   createContainerRegistryCredentials,
   resolveRegistryImage,
@@ -194,12 +195,16 @@ export function resources(): void {
       protect: true,
     },
   );
+
   const databaseConnection: DatabaseConnectionSettings = {
-    host: databaseCluster.privateHost,
-    port: databaseCluster.port,
+    url: mysql.createConnectionString({
+      host: databaseCluster.privateHost,
+      port: databaseCluster.port,
+      database: database.name,
+      flags: mysql.productionFlags,
+    }),
     user: databaseUser.name,
     password: databaseUser.password,
-    database: database.name,
   };
 
   new digitalocean.Project('primary-project', {
