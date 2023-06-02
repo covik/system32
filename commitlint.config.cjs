@@ -16,6 +16,7 @@ module.exports = {
         'frontend',
         'traefik',
         'mysql',
+        'cluster',
       ],
     ],
   },
