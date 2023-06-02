@@ -19,12 +19,7 @@ class Domain {
   public static newFrontend = 'next.zarafleet.com';
 }
 
-class Project {
-  public static nameLowercase = 'fms';
-}
-
 class LoadBalancer {
-  public static title: string = Project.nameLowercase;
   public static size = 'lb-small';
   public static ports = {
     http: {
@@ -48,7 +43,6 @@ class Kubernetes {
 }
 
 class Cluster {
-  public static title: string = Project.nameLowercase;
   public static version = `${Kubernetes.version}-do.0`;
   public static readToken: pulumi.Output<string> =
     config.requireSecret('k8s-cluster-token');
@@ -56,7 +50,6 @@ class Cluster {
     title: 'worker',
     size: 's-1vcpu-2gb',
     count: 1,
-    tag: `${Cluster.title}-worker`,
   };
 }
 
@@ -90,7 +83,9 @@ users:
 }
 
 export function resources(): void {
+  const projectName = pulumi.getProject();
   const region = config.require('region');
+  const clusterNodeTag = `${projectName}-worker`;
 
   const domain = new digitalocean.Domain('primary-domain', {
     name: Domain.primary,
@@ -106,10 +101,10 @@ export function resources(): void {
     },
   );
   const loadBalancer = new digitalocean.LoadBalancer('primary-load-balancer', {
-    name: LoadBalancer.title,
+    name: projectName,
     region,
     size: LoadBalancer.size,
-    dropletTag: Cluster.nodePool.tag,
+    dropletTag: clusterNodeTag,
     redirectHttpToHttps: true,
     algorithm: 'round_robin',
     forwardingRules: [
@@ -157,14 +152,14 @@ export function resources(): void {
   );
 
   const cluster = new digitalocean.KubernetesCluster('primary-cluster', {
-    name: Cluster.title,
+    name: projectName,
     region,
     version: Cluster.version,
     autoUpgrade: false,
     nodePool: {
       name: Cluster.nodePool.title,
       size: Cluster.nodePool.size,
-      tags: [Cluster.nodePool.tag],
+      tags: [clusterNodeTag],
       nodeCount: Cluster.nodePool.count,
       autoScale: false,
     },
