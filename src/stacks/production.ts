@@ -9,7 +9,6 @@ import {
   createContainerRegistryCredentials,
   resolveRegistryImage,
 } from '../utils';
-import type { DatabaseConnectionSettings } from '../resources/backend';
 
 class Domain {
   public static primary = 'zarafleet.com';
@@ -196,7 +195,7 @@ export function resources(): void {
     },
   );
 
-  const databaseConnection: DatabaseConnectionSettings = {
+  const databaseConnection: backend.DatabaseConnectionSettings = {
     url: mysql.createConnectionString({
       host: databaseCluster.privateHost,
       port: databaseCluster.port,
