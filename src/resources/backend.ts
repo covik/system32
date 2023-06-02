@@ -1,7 +1,6 @@
 /* eslint-disable no-new */
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
-import type { ComponentResourceOptions } from '@pulumi/pulumi/resource';
 
 export interface DatabaseConnectionSettings {
   url: pulumi.Input<string>;
@@ -20,7 +19,7 @@ export class Application extends pulumi.ComponentResource {
   public constructor(
     name: string,
     args: ApplicationArguments,
-    opts?: ComponentResourceOptions,
+    opts?: pulumi.ComponentResourceOptions,
   ) {
     super('fms:backend:Application', name, args, opts);
 

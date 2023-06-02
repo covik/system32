@@ -2,7 +2,6 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 import type { DockerCredentials } from '../utils';
-import type { ComponentResourceOptions } from '@pulumi/pulumi/resource';
 
 export interface ApplicationArguments {
   image: pulumi.Input<string>;
@@ -14,7 +13,7 @@ export class Application extends pulumi.ComponentResource {
   public constructor(
     name: string,
     args: ApplicationArguments,
-    opts?: ComponentResourceOptions,
+    opts?: pulumi.ComponentResourceOptions,
   ) {
     super('fms:frontend:Application', name, args, opts);
 
