@@ -1,4 +1,5 @@
 import * as command from '@pulumi/command';
+import * as digitalocean from '@pulumi/digitalocean';
 import * as docker from '@pulumi/docker';
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
@@ -173,4 +174,96 @@ export function image(
   return clusterMysqlImage.stdout.apply(
     () => docker.getRemoteImageOutput({ name }).repoDigest,
   );
+}
+
+export interface ClusterArguments {
+  region: digitalocean.DatabaseClusterArgs['region'];
+  vpc: digitalocean.Vpc;
+  restrictTo: pulumi.Input<Array<digitalocean.KubernetesCluster>>;
+}
+
+export class DigitalOceanCluster extends pulumi.ComponentResource {
+  public cluster: digitalocean.DatabaseCluster;
+  public connection: DatabaseConnectionSettings;
+
+  public constructor(
+    name: string,
+    args: ClusterArguments,
+    opts?: pulumi.ComponentResourceOptions,
+  ) {
+    super('fms:mysql:DigitalOcean', name, args, opts);
+
+    const cluster = new digitalocean.DatabaseCluster(
+      'mysql-cluster',
+      {
+        name: 'fms-mysql',
+        engine: 'mysql',
+        version: '8',
+        size: 'db-s-1vcpu-1gb',
+        nodeCount: 1,
+        region: args.region,
+        privateNetworkUuid: args.vpc.id,
+        maintenanceWindows: [
+          {
+            day: 'sunday',
+            hour: '03:00:00',
+          },
+        ],
+      },
+      { parent: this },
+    );
+
+    const user = new digitalocean.DatabaseUser(
+      'mysql-user',
+      {
+        name: 'backend',
+        clusterId: cluster.id,
+      },
+      { parent: this },
+    );
+
+    const database = new digitalocean.DatabaseDb(
+      'mysql-db',
+      {
+        name: 'fleet-management',
+        clusterId: cluster.id,
+      },
+      { parent: this },
+    );
+
+    new digitalocean.DatabaseFirewall(
+      'mysql-access-control',
+      {
+        rules: pulumi.all([args.restrictTo]).apply(([access]) =>
+          access.map((cluster) => ({
+            type: 'k8s',
+            value: cluster.id,
+          })),
+        ),
+        clusterId: cluster.id,
+      },
+      { parent: this },
+    );
+
+    const connectionUrl = createConnectionString({
+      host: cluster.privateHost,
+      port: cluster.port,
+      database: database.name,
+      flags: productionFlags,
+    });
+
+    const connection = {
+      url: connectionUrl,
+      user: user.name,
+      password: user.password,
+    } satisfies DatabaseConnectionSettings;
+
+    this.cluster = cluster;
+    this.connection = connection;
+
+    this.registerOutputs({
+      cluster,
+      connection,
+    });
+  }
 }
