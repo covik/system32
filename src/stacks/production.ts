@@ -4,7 +4,10 @@ import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 import * as backend from '../resources/backend';
 import * as frontend from '../resources/frontend';
-import { DockerCredentials } from '../utils';
+import {
+  createContainerRegistryCredentials,
+  resolveRegistryImage,
+} from '../utils';
 import type { DatabaseConnectionSettings } from '../resources/backend';
 
 const config = new pulumi.Config();
@@ -63,12 +66,6 @@ class Cluster {
     count: 1,
     tag: `${Cluster.title}-worker`,
   };
-}
-
-class GitHubContainerRegistry {
-  public static url = 'ghcr.io';
-  public static user = 'covik';
-  public static password = config.requireSecret('container-registry-token');
 }
 
 function generateKubeconfig(
@@ -182,12 +179,8 @@ export function resources(): void {
   const provider = createK8sProvider(kubeconfig, cluster);
   const namespace = createNamespace('vfm', provider);
 
-  const containerRegistryCredentials = GitHubContainerRegistry.password.apply(
-    (password) =>
-      DockerCredentials.forRegistry(GitHubContainerRegistry.url)
-        .asUser(GitHubContainerRegistry.user)
-        .withPassword(password),
-  );
+  const containerRegistryCredentials =
+    createContainerRegistryCredentials(config);
 
   const containerRegistry = new k8s.core.v1.Secret(
     'container-registry-credentials',
@@ -306,10 +299,15 @@ export function resources(): void {
     kubernetesComponentOptions,
   );
 
+  const unstableFrontendImage = resolveRegistryImage(
+    config.require('frontend-unstable-image'),
+    config,
+  );
+
   new frontend.Application(
     'zara',
     {
-      image: `ghcr.io/covik/${config.require('frontend-image')}`,
+      image: unstableFrontendImage,
       containerRegistryCredentials,
       hostname: Domain.newFrontend,
     },
