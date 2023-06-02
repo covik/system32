@@ -10,8 +10,6 @@ import {
 } from '../utils';
 import type { DatabaseConnectionSettings } from '../resources/backend';
 
-const config = new pulumi.Config();
-
 class Domain {
   public static primary = 'zarafleet.com';
   public static frontend = 'app.zarafleet.com';
@@ -26,6 +24,8 @@ class Kubernetes {
 
 export function resources(): void {
   const projectName = pulumi.getProject();
+  const config = new pulumi.Config();
+
   const region = config.require('region');
   const clusterNodeTag = `${projectName}-worker`;
   const ports = {
