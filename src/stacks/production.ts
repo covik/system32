@@ -19,24 +19,6 @@ class Domain {
   public static newFrontend = 'next.zarafleet.com';
 }
 
-class LoadBalancer {
-  public static size = 'lb-small';
-  public static ports = {
-    http: {
-      external: 80,
-      internal: 32080,
-    },
-    https: {
-      external: 443,
-      internal: 32080,
-    },
-    teltonika: {
-      external: 5027,
-      internal: 32027,
-    },
-  };
-}
-
 class Kubernetes {
   public static version = '1.24.12';
   public static traefikVersion = '10.6.2';
@@ -75,6 +57,12 @@ export function resources(): void {
   const projectName = pulumi.getProject();
   const region = config.require('region');
   const clusterNodeTag = `${projectName}-worker`;
+  const ports = {
+    http: [80, 32080],
+    https: [443, 32080],
+    teltonika: [5027, 32027],
+  } as const;
+  const clusterHttpPort = ports.http[1];
 
   const domain = new digitalocean.Domain('primary-domain', {
     name: Domain.primary,
@@ -92,7 +80,7 @@ export function resources(): void {
   const loadBalancer = new digitalocean.LoadBalancer('primary-load-balancer', {
     name: projectName,
     region,
-    size: LoadBalancer.size,
+    size: 'lb-small',
     dropletTag: clusterNodeTag,
     redirectHttpToHttps: true,
     algorithm: 'round_robin',
@@ -100,25 +88,25 @@ export function resources(): void {
       {
         entryProtocol: 'http',
         targetProtocol: 'http',
-        entryPort: LoadBalancer.ports.http.external,
-        targetPort: LoadBalancer.ports.http.internal,
+        entryPort: ports.http[0],
+        targetPort: clusterHttpPort,
       },
       {
         entryProtocol: 'https',
         targetProtocol: 'http',
-        entryPort: LoadBalancer.ports.https.external,
-        targetPort: LoadBalancer.ports.https.internal,
+        entryPort: ports.https[0],
+        targetPort: ports.https[1],
         certificateName: certificate.name,
       },
       {
         entryProtocol: 'tcp',
         targetProtocol: 'tcp',
-        entryPort: LoadBalancer.ports.teltonika.external,
-        targetPort: LoadBalancer.ports.teltonika.internal,
+        entryPort: ports.teltonika[0],
+        targetPort: ports.teltonika[1],
       },
     ],
     healthcheck: {
-      port: LoadBalancer.ports.http.internal,
+      port: clusterHttpPort,
       protocol: 'http',
       path: '/',
       checkIntervalSeconds: 10,
@@ -258,7 +246,7 @@ export function resources(): void {
 
   createTraefik(
     Kubernetes.traefikVersion,
-    LoadBalancer.ports.http.internal,
+    clusterHttpPort,
     namespace,
     provider,
   );
