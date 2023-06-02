@@ -78,7 +78,6 @@ export class Application extends pulumi.ComponentResource {
             spec: {
               imagePullSecrets,
               restartPolicy: 'Always',
-              volumes: [],
               containers: [
                 {
                   name: 'webserver',
@@ -91,7 +90,6 @@ export class Application extends pulumi.ComponentResource {
                       protocol: 'TCP',
                     },
                   ],
-                  volumeMounts: [],
                 },
               ],
             },
