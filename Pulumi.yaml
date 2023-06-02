@@ -1,4 +1,4 @@
-name: vfm
+name: fms
 runtime:
   name: nodejs
   options:
