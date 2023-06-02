@@ -24,35 +24,6 @@ class Kubernetes {
   public static traefikVersion = '10.6.2';
 }
 
-function generateKubeconfig(
-  cluster: digitalocean.KubernetesCluster,
-  user: pulumi.Input<string>,
-  apiToken: pulumi.Input<string>,
-): pulumi.Output<string> {
-  const clusterName = pulumi.interpolate`do-${cluster.region}-${cluster.name}`;
-
-  const certificate = cluster.kubeConfigs[0].clusterCaCertificate;
-
-  return pulumi.interpolate`apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority-data: ${certificate}
-    server: ${cluster.endpoint}
-  name: ${clusterName}
-contexts:
-- context:
-    cluster: ${clusterName}
-    user: ${clusterName}-${user}
-  name: ${clusterName}
-current-context: ${clusterName}
-kind: Config
-users:
-- name: ${clusterName}-${user}
-  user:
-    token: ${apiToken}
-`;
-}
-
 export function resources(): void {
   const projectName = pulumi.getProject();
   const region = config.require('region');
@@ -283,6 +254,35 @@ export function resources(): void {
     },
     kubernetesComponentOptions,
   );
+}
+
+function generateKubeconfig(
+  cluster: digitalocean.KubernetesCluster,
+  user: pulumi.Input<string>,
+  apiToken: pulumi.Input<string>,
+): pulumi.Output<string> {
+  const clusterName = pulumi.interpolate`do-${cluster.region}-${cluster.name}`;
+
+  const certificate = cluster.kubeConfigs[0].clusterCaCertificate;
+
+  return pulumi.interpolate`apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: ${certificate}
+    server: ${cluster.endpoint}
+  name: ${clusterName}
+contexts:
+- context:
+    cluster: ${clusterName}
+    user: ${clusterName}-${user}
+  name: ${clusterName}
+current-context: ${clusterName}
+kind: Config
+users:
+- name: ${clusterName}-${user}
+  user:
+    token: ${apiToken}
+`;
 }
 
 function createK8sProvider(
