@@ -21,12 +21,10 @@ class Domain {
 
 class Project {
   public static nameLowercase = 'fms';
-  public static region = 'fra1';
 }
 
 class LoadBalancer {
   public static title: string = Project.nameLowercase;
-  public static region: string = Project.region;
   public static size = 'lb-small';
   public static ports = {
     http: {
@@ -52,7 +50,6 @@ class Kubernetes {
 class Cluster {
   public static title: string = Project.nameLowercase;
   public static version = `${Kubernetes.version}-do.0`;
-  public static region: string = Project.region;
   public static readToken: pulumi.Output<string> =
     config.requireSecret('k8s-cluster-token');
   public static nodePool = {
@@ -93,6 +90,8 @@ users:
 }
 
 export function resources(): void {
+  const region = config.require('region');
+
   const domain = new digitalocean.Domain('primary-domain', {
     name: Domain.primary,
   });
@@ -108,7 +107,7 @@ export function resources(): void {
   );
   const loadBalancer = new digitalocean.LoadBalancer('primary-load-balancer', {
     name: LoadBalancer.title,
-    region: LoadBalancer.region,
+    region,
     size: LoadBalancer.size,
     dropletTag: Cluster.nodePool.tag,
     redirectHttpToHttps: true,
@@ -159,7 +158,7 @@ export function resources(): void {
 
   const cluster = new digitalocean.KubernetesCluster('primary-cluster', {
     name: Cluster.title,
-    region: Cluster.region,
+    region,
     version: Cluster.version,
     autoUpgrade: false,
     nodePool: {
@@ -202,7 +201,7 @@ export function resources(): void {
       engine: 'mysql',
       name: 'vfm',
       nodeCount: 1,
-      region: 'fra1',
+      region,
       size: 'db-s-1vcpu-1gb',
       version: '8',
     },
