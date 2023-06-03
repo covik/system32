@@ -113,8 +113,13 @@ export function resources(): void {
     },
   );
 
+  const snapshooterIps = [
+    '174.138.101.117',
+    '143.198.240.52',
+    '138.68.117.142',
+  ] as const;
   const database = new mysql.DigitalOceanCluster('primary-database', {
-    restrictTo: [kubernetes.cluster],
+    restrictTo: [kubernetes.cluster, ...snapshooterIps],
     region,
     vpc,
   });
