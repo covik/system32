@@ -193,6 +193,11 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
   ) {
     super('fms:mysql:DigitalOcean', name, args, opts);
 
+    const resourceOptions = {
+      parent: this,
+      protect: true,
+    };
+
     const cluster = new digitalocean.DatabaseCluster(
       'mysql-cluster',
       {
@@ -210,7 +215,7 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
           },
         ],
       },
-      { parent: this },
+      resourceOptions,
     );
 
     const user = new digitalocean.DatabaseUser(
@@ -219,7 +224,7 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
         name: 'backend',
         clusterId: cluster.id,
       },
-      { parent: this },
+      resourceOptions,
     );
 
     const database = new digitalocean.DatabaseDb(
@@ -228,7 +233,7 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
         name: 'fleet-management',
         clusterId: cluster.id,
       },
-      { parent: this },
+      resourceOptions,
     );
 
     new digitalocean.DatabaseFirewall(
@@ -239,7 +244,7 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
           .apply(([access]) => this.createFirewallAccess(access)),
         clusterId: cluster.id,
       },
-      { parent: this },
+      resourceOptions,
     );
 
     new digitalocean.DatabaseUser(
@@ -248,7 +253,7 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
         name: 'snapshooter',
         clusterId: cluster.id,
       },
-      { parent: this },
+      resourceOptions,
     );
 
     const connectionUrl = createConnectionString({
