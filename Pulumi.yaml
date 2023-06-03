@@ -4,6 +4,8 @@ runtime:
   options:
     typescript: false
 config:
+  pulumi:disable-default-providers:
+    - kubernetes
   container-registry-url:
     type: string
     default: ghcr.io
