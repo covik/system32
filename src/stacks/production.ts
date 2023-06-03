@@ -124,6 +124,12 @@ export function resources(): void {
     vpc,
   });
 
+  const backupStorage = new digitalocean.SpacesBucket('fms-backup', {
+    name: 'fms-backup',
+    acl: 'private',
+    region,
+  });
+
   new digitalocean.Project('primary-project', {
     name: 'FMS',
     environment: 'Production',
@@ -134,6 +140,7 @@ export function resources(): void {
       loadBalancer.loadBalancerUrn,
       database.cluster.clusterUrn,
       kubernetes.cluster.clusterUrn,
+      backupStorage.bucketUrn,
     ],
   });
 
