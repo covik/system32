@@ -178,7 +178,7 @@ export function image(
 
 export interface ClusterArguments {
   region: digitalocean.DatabaseClusterArgs['region'];
-  restrictTo: pulumi.Input<Array<digitalocean.KubernetesCluster>>;
+  restrictTo: pulumi.Input<Array<digitalocean.KubernetesCluster | string>>;
   vpc: digitalocean.Vpc;
 }
 
@@ -234,12 +234,9 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
     new digitalocean.DatabaseFirewall(
       'mysql-access-control',
       {
-        rules: pulumi.all([args.restrictTo]).apply(([access]) =>
-          access.map((cluster) => ({
-            type: 'k8s',
-            value: cluster.id,
-          })),
-        ),
+        rules: pulumi
+          .all([args.restrictTo])
+          .apply(([access]) => this.createFirewallAccess(access)),
         clusterId: cluster.id,
       },
       { parent: this },
@@ -264,6 +261,19 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
     this.registerOutputs({
       cluster,
       connection,
+    });
+  }
+
+  private createFirewallAccess(
+    access: Array<digitalocean.KubernetesCluster | string>,
+  ) {
+    return access.map((value) => {
+      const isKubernetes = value instanceof digitalocean.KubernetesCluster;
+
+      return {
+        type: isKubernetes ? 'k8s' : 'ip_addr',
+        value: isKubernetes ? value.id : value,
+      };
     });
   }
 }
