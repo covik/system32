@@ -157,7 +157,12 @@ export function resources(): void {
     {
       databaseConnection: database.connection,
       emailPassword: config.requireSecret('backend-email-password'),
-      routes: ['/api', `${Domain.traccar}/`, `${Domain.appNext}/api`],
+      routes: [
+        '/api',
+        `${Domain.traccar}/`,
+        `${Domain.app}/api`,
+        `${Domain.appNext}/api`,
+      ],
       teltonikaNodePort,
     },
     kubernetesComponentOptions,
