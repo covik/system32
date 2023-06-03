@@ -10,9 +10,9 @@ export interface DatabaseConnectionSettings {
 
 export interface ApplicationArguments {
   databaseConnection: DatabaseConnectionSettings;
+  emailPassword?: pulumi.Input<string>;
   routes: string[];
   teltonikaNodePort: pulumi.Input<number>;
-  emailPassword?: pulumi.Input<string>;
 }
 
 export class Application extends pulumi.ComponentResource {
