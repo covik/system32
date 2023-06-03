@@ -27,7 +27,7 @@
     "@pulumi/command": "0.7.2",
     "@pulumi/digitalocean": "4.19.3",
     "@pulumi/docker": "4.2.4",
-    "@pulumi/kubernetes": "3.28.1",
+    "@pulumi/kubernetes": "3.29.0",
     "@pulumi/pulumi": "3.69.0"
   },
   "devDependencies": {
