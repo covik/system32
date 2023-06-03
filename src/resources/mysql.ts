@@ -178,8 +178,8 @@ export function image(
 
 export interface ClusterArguments {
   region: digitalocean.DatabaseClusterArgs['region'];
-  vpc: digitalocean.Vpc;
   restrictTo: pulumi.Input<Array<digitalocean.KubernetesCluster>>;
+  vpc: digitalocean.Vpc;
 }
 
 export class DigitalOceanCluster extends pulumi.ComponentResource {
