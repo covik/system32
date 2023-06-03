@@ -51,13 +51,11 @@ export class Application extends pulumi.ComponentResource {
     );
 
     const labels = { app: 'frontend' };
-
+    const containerPort = 80;
     const imagePullSecrets =
       containerRegistry !== undefined
         ? [{ name: containerRegistry.metadata.name }]
         : [];
-
-    const containerPort = 80;
 
     const deployment = new k8s.apps.v1.Deployment(
       'frontend-application',
