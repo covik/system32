@@ -7,6 +7,7 @@ export interface ApplicationArguments {
   image: pulumi.Input<string>;
   containerRegistryCredentials: pulumi.Output<DockerCredentials>;
   hostname?: pulumi.Input<string>;
+  namespace?: string;
 }
 
 export class Application extends pulumi.ComponentResource {
@@ -18,12 +19,14 @@ export class Application extends pulumi.ComponentResource {
     super('fms:frontend:Application', name, args, opts);
 
     const { image, containerRegistryCredentials, hostname } = args;
+    const namespaceName =
+      args.namespace !== undefined ? args.namespace : 'frontend';
 
     const namespace = new k8s.core.v1.Namespace(
-      'frontend',
+      namespaceName,
       {
         metadata: {
-          name: 'frontend',
+          name: namespaceName,
         },
       },
       {
@@ -33,7 +36,7 @@ export class Application extends pulumi.ComponentResource {
     );
 
     const containerRegistry: k8s.core.v1.Secret = new k8s.core.v1.Secret(
-      'container-registry-credentials',
+      `${namespaceName}-container-registry-credentials`,
       {
         metadata: {
           name: 'container-registry',
@@ -58,7 +61,7 @@ export class Application extends pulumi.ComponentResource {
         : [];
 
     const deployment = new k8s.apps.v1.Deployment(
-      'frontend-application',
+      `${namespaceName}-application`,
       {
         metadata: {
           namespace: namespace.metadata.name,
@@ -97,7 +100,7 @@ export class Application extends pulumi.ComponentResource {
     );
 
     const service = new k8s.core.v1.Service(
-      'frontend-http-service',
+      `${namespaceName}-http-service`,
       {
         metadata: {
           namespace: namespace.metadata.name,
@@ -122,7 +125,7 @@ export class Application extends pulumi.ComponentResource {
       hostname !== undefined ? { host: hostname } : {};
 
     new k8s.networking.v1.Ingress(
-      'frontend-ingress',
+      `${namespaceName}-ingress`,
       {
         metadata: {
           namespace: namespace.metadata.name,
