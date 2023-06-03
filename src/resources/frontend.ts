@@ -6,7 +6,7 @@ import type { DockerCredentials } from '../utils';
 export interface ApplicationArguments {
   image: pulumi.Input<string>;
   containerRegistryCredentials: pulumi.Output<DockerCredentials>;
-  hostname: undefined | pulumi.Input<string>;
+  hostname?: pulumi.Input<string>;
 }
 
 export class Application extends pulumi.ComponentResource {
