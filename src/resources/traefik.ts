@@ -26,7 +26,7 @@ export class IngressController extends pulumi.ComponentResource {
     );
 
     new k8s.helm.v3.Release(
-      'ingress-controller',
+      'traefik-helm-chart',
       {
         chart: 'traefik',
         version: '23.0.1',
