@@ -2,6 +2,8 @@ config:
   digitalocean:spaces_access_id: DO00Q6HAGTFKDJJLC4BB
   digitalocean:spaces_secret_key:
     secure: AAABAC3qw1qHSWE2pRI6VU8JWNn37zL/dBCywU7/n8O05u5p5lAVU2JZRZfPvvLCWHuzTzr0mMXhzHrdDSJX0F6lAt3zGjqN+qt0
+  digitalocean:token:
+    secure: AAABANgEY4w13O2Z8uDtpk6EN+p98OVHuM6VQDlRfB2rl5dyz/GLQhKufJpAyz4eVWX2G3DYnFZpwEk9PJrL83jcD39Xh+OCC9UCvAAS5zu4Mcc9mq3O6Imq8scDDeow1cKEICBC2g==
   fms:backend-email-password:
     secure: AAABALcs8bNSGRApfQQKkIfkHNyRS9JhBIBEJ3B0h+vo2Fuig97wsdSnbxBLcLxd
   fms:container-registry-token:

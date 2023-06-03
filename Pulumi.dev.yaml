@@ -1,4 +1,6 @@
 config:
+  digitalocean:token:
+    secure: AAABAD9h7Tc0uNqn15QyhPWvJRbVB8dNAQ12ltamIrAYCVxp2tV9dL7RuDHJIyXuRyXgCwOR++jTIwPbZ8WsZIKAHEkDL4JaRhrpm4t1GFCaxAvRVIBTqPpqNGwE8JJcdWLO2dJ8Kw==
   fms:container-registry-token:
     secure: AAABAAZI4mvGT+3lQ/G5S/D5AzKKhS04y7ct3g3u2f/hYZu6nTHKrrMMw2Olf6SE3jQ4EiEjv0307kFT7TjChmwK/Aj464vG
   fms:k8s-cluster-token:
