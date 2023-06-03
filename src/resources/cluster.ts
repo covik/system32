@@ -4,11 +4,13 @@ import * as pulumi from '@pulumi/pulumi';
 
 export interface ClusterArguments {
   name: pulumi.Input<string>;
-  region: digitalocean.KubernetesClusterArgs['region'];
+  nodePoolName: pulumi.Input<string>;
   nodePoolTags: pulumi.Input<string[]>;
-  version: digitalocean.KubernetesClusterArgs['version'];
-  vpc: digitalocean.Vpc;
+  region: digitalocean.KubernetesClusterArgs['region'];
   token: pulumi.Input<string>;
+  version: digitalocean.KubernetesClusterArgs['version'];
+  vmSize: pulumi.Input<string>;
+  vpc: digitalocean.Vpc;
 }
 
 export class DigitalOceanCluster extends pulumi.ComponentResource {
@@ -27,8 +29,8 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
       name: args.name,
       region: args.region,
       nodePool: {
-        name: 'production-worker',
-        size: 's-1vcpu-2gb',
+        name: args.nodePoolName,
+        size: args.vmSize,
         nodeCount: 1,
         autoScale: false,
         tags: args.nodePoolTags,
