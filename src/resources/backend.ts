@@ -85,7 +85,6 @@ export class Application extends pulumi.ComponentResource {
   <entry key='filter.zero'>true</entry>
 
   <entry key='logger.console'>true</entry>
-  <entry key='logger.level'>severe</entry>
   <entry key='logger.rotate'>false</entry>
   
   <entry key='report.trip.minimalTripDistance'>300</entry>
