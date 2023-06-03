@@ -242,6 +242,15 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
       { parent: this },
     );
 
+    new digitalocean.DatabaseUser(
+      'mysql-user-snapshooter',
+      {
+        name: 'snapshooter',
+        clusterId: cluster.id,
+      },
+      { parent: this },
+    );
+
     const connectionUrl = createConnectionString({
       host: cluster.privateHost,
       port: cluster.port,
