@@ -118,10 +118,12 @@ export function kubernetes(
         namespace,
       },
       spec: {
+        type: 'NodePort',
         selector: labels,
         ports: [
           {
             port: 3306,
+            nodePort: 30306,
             targetPort:
               deployment.spec.template.spec.containers[0].ports[0].name,
             protocol: 'TCP',
