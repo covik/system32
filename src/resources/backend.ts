@@ -88,6 +88,7 @@ export class Application extends pulumi.ComponentResource {
   <entry key='logger.rotate'>false</entry>
   
   <entry key='report.trip.minimalTripDistance'>300</entry>
+  <entry key='report.ignoreOdometer'>true</entry>
 
 ${
   emailPassword !== ''
