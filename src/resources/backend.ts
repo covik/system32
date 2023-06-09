@@ -147,7 +147,7 @@ Kontakt je uključen na vozilu $device.name
               containers: [
                 {
                   name: 'backend',
-                  image: 'traccar/traccar:5.7-alpine',
+                  image: 'traccar/traccar:5.8-alpine',
                   imagePullPolicy: 'IfNotPresent',
                   ports: [
                     {
