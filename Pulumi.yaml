@@ -15,7 +15,7 @@ config:
   frontend-stable-image:
     type: string
     description: frontend general availability container image tag + sha256 hash
-    default: fms-frontend:latest@sha256:35d66a2ed0bf2ed4fd06e320d73c05e8a244fcc0d6ccb5ca7e05a87ad128fc1c
+    default: fms-frontend:latest@sha256:3ee5eb27a52352d4bbd6ea3a2e999d5c90f3108de5aaa3a468416f89c5f19a89
   frontend-unstable-image:
     type: string
     description: unstable frontend container image tag + sha256 hash
