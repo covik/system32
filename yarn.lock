@@ -515,10 +515,10 @@
     shell-quote "^1.6.1"
     tmp "^0.0.33"
 
-"@pulumi/pulumi@3.72.0", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0":
-  version "3.72.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.72.0.tgz#d72616285683d9c57c393608c1f5bbd833ddf35f"
-  integrity sha512-8l8GoH8V2CgLfagTBEZnC74bfY4LwlIYP6xIrKNQPIibV6go6H7/7gcIv4BONwb/KKQyQhhB3zJCU+Q/htKuNA==
+"@pulumi/pulumi@3.72.2", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0":
+  version "3.72.2"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.72.2.tgz#3b74946983b2686540bb04352712c054f3a97257"
+  integrity sha512-QDIaRnlPtzuwM05/fda/8OY7k3IJiUFebDnmijpv6mDC72bL9G5cCwUXWKrKFsgsxPo7IfYcf4CI12QiE9ygnA==
   dependencies:
     "@grpc/grpc-js" "^1.3.8"
     "@logdna/tail-file" "^2.0.6"
