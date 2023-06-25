@@ -17,7 +17,8 @@
     },
     {
       "matchPackageNames": ["node", "@types/node"],
-      "groupName": "node-js"
+      "groupName": "node-js",
+      "bumpVersion": true
     },
     {
       "matchPackageNames": ["pulumi/pulumi-base", "@pulumi/pulumi"],
