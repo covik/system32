@@ -18,7 +18,7 @@
     {
       "matchPackageNames": ["node", "@types/node"],
       "groupName": "node-js",
-      "bumpVersion": true
+      "bumpVersion": "patch"
     },
     {
       "matchPackageNames": ["pulumi/pulumi-base", "@pulumi/pulumi"],
