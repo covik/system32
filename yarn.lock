@@ -501,10 +501,10 @@
     "@pulumi/pulumi" "^3.0.0"
     semver "^5.4.0"
 
-"@pulumi/kubernetes@3.29.1":
-  version "3.29.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-3.29.1.tgz#a7273d2e0bb19dd6a8b5eed9e0b64982c9ac3534"
-  integrity sha512-0IDCtOHP2eeVM6Ls2a3x2kv9C7RYWHW+ZLf8dBxIEfsl8kz1jI44uaND3/rTdTuy8t1WEfdlezwVCxAqJL2r1Q==
+"@pulumi/kubernetes@3.30.1":
+  version "3.30.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-3.30.1.tgz#260e5134f5be99bde6f586a7c71d9ef44b46d605"
+  integrity sha512-LqZHO+FYKZzCMnLoR7WssgJTaOVrFUPuPqv3W2hc4x5kLkxe4DEFsKqnpnJrsmMqKsakGOSt6NeJDRvJO34Dtw==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/glob" "^5.0.35"
