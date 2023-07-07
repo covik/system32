@@ -17,7 +17,7 @@
     },
     {
       "matchPackageNames": ["node", "@types/node"],
-      "matchDepTypes": ["engines"],
+      "matchDepTypes": ["engines", "devDependencies"],
       "groupName": "node-js"
     },
     {
