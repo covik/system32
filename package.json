@@ -28,7 +28,7 @@
     "@pulumi/digitalocean": "4.19.4",
     "@pulumi/docker": "4.3.0",
     "@pulumi/kubernetes": "3.30.1",
-    "@pulumi/pulumi": "3.73.0"
+    "@pulumi/pulumi": "3.74.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.6.6",
