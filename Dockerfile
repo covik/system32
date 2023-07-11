@@ -5,7 +5,7 @@ FROM scratch AS binaries
 COPY --from=pulumi /pulumi/bin/pulumi /pulumi/pulumi
 COPY --from=pulumi /pulumi/bin/pulumi-language-nodejs /pulumi/pulumi-language-nodejs
 
-FROM node:20.3.1-bullseye-slim@sha256:c92280d8fb6e7ca07f258c45e9f18cb643ea798a5441855a05e982cfd2b90789 AS base
+FROM node:20.4.0-bullseye-slim@sha256:77360666adb6622d13d0f32786185b7ddc5e5cd4a9c4140097ee7fdd9b3db527 AS base
 # avoid warnings like "tput: No value for $TERM and no -T specified"
 ENV TERM="xterm"
 RUN unlink /usr/local/bin/npm
