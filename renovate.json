@@ -17,7 +17,7 @@
     },
     {
       "matchPackageNames": ["node", "@types/node"],
-      "matchDepTypes": ["engines", "devDependencies"],
+      "matchDepTypes": ["engines", "devDependencies", "final"],
       "matchManagers": ["npm", "dockerfile"],
       "groupName": "node-js"
     },
