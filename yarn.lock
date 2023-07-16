@@ -353,7 +353,7 @@
     "@opentelemetry/instrumentation" "0.32.0"
     "@opentelemetry/semantic-conventions" "1.6.0"
 
-"@opentelemetry/instrumentation@0.32.0":
+"@opentelemetry/instrumentation@0.32.0", "@opentelemetry/instrumentation@^0.32.0":
   version "0.32.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/instrumentation/-/instrumentation-0.32.0.tgz#27c5975a323a2ba83d9bf2ea8b11faaab37c5827"
   integrity sha512-y6ADjHpkUz/v1nkyyYjsQa/zorhX+0qVGpFvXMcbjU4sHnBnC02c6wcc93sIgZfiQClIWo45TGku1KQxJ5UUbQ==
@@ -520,15 +520,16 @@
     shell-quote "^1.6.1"
     tmp "^0.0.33"
 
-"@pulumi/pulumi@3.74.0", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0":
-  version "3.74.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.74.0.tgz#f3fccdf725cc9253c753c8ef9d167f53d35cbb62"
-  integrity sha512-VKHCH84aiD6FTosr/SmRnp/te1JvpunpPToIG69IlTDMAiDFeRFu/mXUenc1uicWyxG/pKav72f+eKGNdyZqjg==
+"@pulumi/pulumi@3.75.0", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0":
+  version "3.75.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.75.0.tgz#ded52ff7712e987f690a2ea54bc49d54b6522025"
+  integrity sha512-gtraq2JsCWIpMyohWluXGvxPzOnbqqPCVMtE96SPiKaevaBXdfx4PI/Yli29d3KK/thigvb3RrJ9e7X6q6DGew==
   dependencies:
     "@grpc/grpc-js" "^1.8.16"
     "@logdna/tail-file" "^2.0.6"
     "@opentelemetry/api" "^1.2.0"
     "@opentelemetry/exporter-zipkin" "^1.6.0"
+    "@opentelemetry/instrumentation" "^0.32.0"
     "@opentelemetry/instrumentation-grpc" "^0.32.0"
     "@opentelemetry/resources" "^1.6.0"
     "@opentelemetry/sdk-trace-base" "^1.6.0"
