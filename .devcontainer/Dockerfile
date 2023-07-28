@@ -9,10 +9,6 @@ FROM node:20.5.0-bullseye-slim@sha256:45dbc40906607e48873d26caa1a968f1a5187dd5e7
 # avoid warnings like "tput: No value for $TERM and no -T specified"
 ENV TERM="xterm"
 RUN unlink /usr/local/bin/npm
-RUN mkdir /tmp/.yarn /tmp/.pulumi
-ENV YARN_CACHE_FOLDER="/tmp/.yarn" \
-    PULUMI_HOME="/tmp/.pulumi"
-WORKDIR /src
 RUN apt-get update && apt-get --no-install-recommends install -y \
   ca-certificates \
   curl \
@@ -21,19 +17,8 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean
 
-FROM base AS dependencies
-WORKDIR /dependencies
-COPY package.json .
-COPY yarn.lock .
-RUN --mount=type=bind,target=/usr/local/bin/pulumi,source=/pulumi/bin/pulumi,from=pulumi \
-    yarn --frozen-lockfile
-
-FROM base AS local-environment
+FROM base AS dev
+WORKDIR /src
 ENV YARN_CACHE_FOLDER=/src/tmp/Yarn \
     PULUMI_HOME=/src/tmp/Pulumi
-ENV PULUMI_BACKEND_URL=file://${PULUMI_HOME} \
-    PULUMI_CONFIG_PASSPHRASE=""
 COPY --from=binaries /pulumi /usr/local/bin
-RUN groupadd --gid 965 docker && \
-    usermod -aG docker node
-USER node
