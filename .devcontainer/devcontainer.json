@@ -5,5 +5,7 @@
     "target": "dev"
   },
   "init": true,
-  "postCreateCommand": "yarn install --frozen-lockfile"
+  "postCreateCommand": "yarn install --frozen-lockfile",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/src,type=bind,consistency=cached",
+  "workspaceFolder": "/src"
 }
