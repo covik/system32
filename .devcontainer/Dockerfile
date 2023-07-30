@@ -19,8 +19,8 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
   && apt-get clean
 
 FROM base AS dev
-WORKDIR /src
-ENV YARN_CACHE_FOLDER=/src/tmp/Yarn \
-    PULUMI_HOME=/src/tmp/Pulumi
+WORKDIR /fms-infrastructure
+ENV YARN_CACHE_FOLDER=/fms-infrastructure/tmp/Yarn \
+    PULUMI_HOME=/fms-infrastructure/tmp/Pulumi
 COPY --from=binaries /pulumi /usr/local/bin
 USER node
