@@ -13,6 +13,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
   ca-certificates \
   curl \
   git \
+  openssh-client \
   wget \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean
