@@ -7,5 +7,6 @@
   "init": true,
   "postCreateCommand": "yarn install --frozen-lockfile",
   "workspaceMount": "source=${localWorkspaceFolder},target=/src,type=bind,consistency=cached",
-  "workspaceFolder": "/src"
+  "workspaceFolder": "/src",
+  "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"]
 }
