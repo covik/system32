@@ -4,7 +4,6 @@
     "dockerfile": "Dockerfile",
     "target": "dev"
   },
-  "containerUser": "root",
   "init": true,
   "postCreateCommand": "yarn install --frozen-lockfile"
 }

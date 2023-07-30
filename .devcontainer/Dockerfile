@@ -22,3 +22,4 @@ WORKDIR /src
 ENV YARN_CACHE_FOLDER=/src/tmp/Yarn \
     PULUMI_HOME=/src/tmp/Pulumi
 COPY --from=binaries /pulumi /usr/local/bin
+USER node
