@@ -4,7 +4,6 @@
     "dockerfile": "Dockerfile",
     "target": "dev"
   },
-  "init": true,
   "postCreateCommand": "yarn install --frozen-lockfile",
   "workspaceMount": "source=${localWorkspaceFolder},target=/fms-infrastructure,type=bind,consistency=cached",
   "workspaceFolder": "/fms-infrastructure",
