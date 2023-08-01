@@ -24,7 +24,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@pulumi/command": "0.7.2",
+    "@pulumi/command": "0.8.1",
     "@pulumi/digitalocean": "4.20.0",
     "@pulumi/docker": "4.3.0",
     "@pulumi/kubernetes": "3.30.2",
