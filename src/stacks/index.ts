@@ -1,10 +1,8 @@
 import { resources as dev } from './dev';
-import { resources as local } from './local';
 import { resources as production } from './production';
 
 const all: Record<string, () => unknown> = {
   production,
-  local,
   dev,
 };
 

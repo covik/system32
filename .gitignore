@@ -3,5 +3,4 @@ tmp
 .idea
 *.log
 dist
-Pulumi.local.yaml
 .env

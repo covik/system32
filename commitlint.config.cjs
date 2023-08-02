@@ -10,7 +10,6 @@ module.exports = {
         'tooling',
         'utils',
         'production',
-        'local',
         'dev',
         'backend',
         'frontend',

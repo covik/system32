@@ -1,6 +1,4 @@
-import * as command from '@pulumi/command';
 import * as digitalocean from '@pulumi/digitalocean';
-import * as docker from '@pulumi/docker';
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 import { createMysqlConnectionString } from '../utils';
@@ -144,38 +142,6 @@ export function kubernetes(
     user: 'developer',
     password: 'developer',
   };
-}
-
-export function image(
-  name: string,
-  containerRegistry: pulumi.Resource,
-  uid: number,
-  gid: number,
-): pulumi.Output<string> {
-  const mysqlImage = new docker.Image('mysql', {
-    build: {
-      dockerfile: '/monorepo/mysql.Dockerfile',
-      context: '/monorepo',
-      args: {
-        uid: String(uid),
-        gid: String(gid),
-      },
-    },
-    imageName: name,
-    skipPush: true,
-  });
-
-  const clusterMysqlImage = new command.local.Command(
-    'cluster-mysql-image',
-    {
-      create: mysqlImage.baseImageName.apply((name) => `docker push ${name}`),
-    },
-    { dependsOn: [containerRegistry, mysqlImage] },
-  );
-
-  return clusterMysqlImage.stdout.apply(
-    () => docker.getRemoteImageOutput({ name }).repoDigest,
-  );
 }
 
 export interface ClusterArguments {
