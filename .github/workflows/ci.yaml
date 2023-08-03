@@ -26,3 +26,10 @@ jobs:
             pulumi stack select production
             pulumi refresh --skip-preview
             pulumi preview
+
+      - name: Update production
+        if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            pulumi up --skip-preview
