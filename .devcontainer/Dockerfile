@@ -25,3 +25,4 @@ ENV YARN_CACHE_FOLDER=/fms-infrastructure/tmp/Yarn \
     PULUMI_HOME=/fms-infrastructure/tmp/Pulumi
 COPY --from=binaries /pulumi /usr/local/bin
 USER node
+RUN mkdir ~/.cache
