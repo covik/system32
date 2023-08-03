@@ -29,7 +29,7 @@ export class IngressController extends pulumi.ComponentResource {
       'traefik-helm-chart',
       {
         chart: 'traefik',
-        version: '23.0.1',
+        version: '23.2.0',
         namespace: namespace.metadata.name,
         repositoryOpts: {
           repo: 'https://traefik.github.io/charts',
