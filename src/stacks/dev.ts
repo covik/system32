@@ -26,7 +26,7 @@ export function resources(): void {
     'primary-kubernetes-cluster',
     {
       name: 'fms-dev',
-      version: '1.27.2-do.0',
+      version: '1.27.4-do.0',
       vmSize: 's-1vcpu-2gb',
       nodePoolName: 'dev-worker',
       nodePoolTags: [],
