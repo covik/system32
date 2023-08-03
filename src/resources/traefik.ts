@@ -32,7 +32,7 @@ export class IngressController extends pulumi.ComponentResource {
         version: '23.0.1',
         namespace: namespace.metadata.name,
         repositoryOpts: {
-          repo: 'https://helm.traefik.io/traefik',
+          repo: 'https://traefik.github.io/charts',
         },
         values: {
           service: {
