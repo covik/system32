@@ -3,6 +3,7 @@
   "extends": ["config:base", "workarounds:typesNodeVersioning"],
   "ignorePaths": ["mysql.Dockerfile"],
   "postUpdateOptions": ["yarnDedupeHighest"],
+  "timezone": "Europe/Zagreb",
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],
@@ -30,7 +31,8 @@
       "matchDepTypes": ["devDependencies", "engines", "final"],
       "matchUpdateTypes": ["minor", "patch", "digest"],
       "matchCurrentVersion": "!/^0/",
-      "automerge": true
+      "automerge": true,
+      "schedule": ["after 3am on sunday"]
     }
   ]
 }
