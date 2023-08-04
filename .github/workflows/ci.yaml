@@ -20,6 +20,7 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
+            set -e
             yarn format:check
             yarn lint
             yarn build
@@ -32,4 +33,5 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
+            set -e
             pulumi up --skip-preview
