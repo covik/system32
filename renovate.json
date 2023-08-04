@@ -25,6 +25,12 @@
     {
       "matchPackageNames": ["pulumi/pulumi-base", "@pulumi/pulumi"],
       "groupName": "pulumi"
+    },
+    {
+      "matchDepTypes": ["devDependencies", "engines", "final"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
     }
   ]
 }
