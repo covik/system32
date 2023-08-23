@@ -19,7 +19,7 @@ config:
   frontend-unstable-image:
     type: string
     description: unstable frontend container image tag + sha256 hash
-    default: fms-frontend:latest@sha256:cd152892f76b0a8897e6d39cc6a825891a37fbada6b48ac4615c9e57f681fd44
+    default: fms-frontend:latest@sha256:b03f09abe24e8ab62343c910d01a89f0aafe66d457258485cdb8bce2eefdfb33
   region:
     type: string
     description: Region where DigitalOcean resources live
