@@ -77,7 +77,6 @@ export class Application extends pulumi.ComponentResource {
 
   <entry key='web.origin'>*</entry>
   <entry key='web.persistSession'>true</entry>
-  <entry key='web.path'>./legacy</entry>
 
   <entry key='geocoder.enable'>false</entry>
 
@@ -147,7 +146,7 @@ Kontakt je uključen na vozilu $device.name
               containers: [
                 {
                   name: 'backend',
-                  image: 'traccar/traccar:5.8-alpine',
+                  image: 'traccar/traccar:5.12-alpine',
                   imagePullPolicy: 'IfNotPresent',
                   ports: [
                     {
