@@ -11,7 +11,7 @@ config:
     default: ghcr.io
   container-registry-user:
     type: string
-    default: covik
+    default: sudocovik
   frontend-stable-image:
     type: string
     description: frontend general availability container image tag + sha256 hash
