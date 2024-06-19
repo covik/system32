@@ -41,11 +41,11 @@
     "husky": "9.0.11",
     "prettier": "3.3.2",
     "ts-node": "10.9.2",
-    "typescript": "5.4.3",
+    "typescript": "5.4.5",
     "yarn-deduplicate": "6.0.2"
   },
   "resolutions": {
-    "typescript": "5.4.3"
+    "typescript": "5.4.5"
   },
   "engines": {
     "node": ">= 21",
