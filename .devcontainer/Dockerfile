@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM pulumi/pulumi-base:3.120.0@sha256:3427a54cdbd2302cf3aaa9e71658844e8c1f707c2f47cf540dfcba1d6a1fe42c AS pulumi
+FROM pulumi/pulumi-base:3.121.0@sha256:da8f48d80cd235c5235ef88749676d610db55d261eda35e5cb5f2a02deae0095 AS pulumi
 
 FROM scratch AS binaries
 COPY --from=pulumi /pulumi/bin/pulumi /pulumi/pulumi
