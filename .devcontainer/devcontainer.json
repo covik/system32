@@ -4,16 +4,8 @@
     "dockerfile": "Dockerfile",
     "target": "dev"
   },
-  "postCreateCommand": "yarn install --frozen-lockfile",
   "workspaceMount": "source=${localWorkspaceFolder},target=/fms-infrastructure,type=bind,consistency=cached",
   "workspaceFolder": "/fms-infrastructure",
-  "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"],
-  "initializeCommand": "mkdir -p ${localEnv:HOME}/fms-infrastructure/JetBrains",
-  "mounts": [
-    {
-      "source": "${localEnv:HOME}/fms-infrastructure/JetBrains",
-      "target": "/home/node/.cache/JetBrains",
-      "type": "bind"
-    }
-  ]
+  "postCreateCommand": "yarn install --frozen-lockfile",
+  "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"]
 }
