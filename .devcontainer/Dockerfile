@@ -13,7 +13,9 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
   ca-certificates \
   curl \
   git \
+  gnupg2 \
   openssh-client \
+  sudo \
   watch \
   wget \
   && rm -rf /var/lib/apt/lists/* \
@@ -24,5 +26,16 @@ WORKDIR /fms-infrastructure
 ENV YARN_CACHE_FOLDER=/fms-infrastructure/tmp/Yarn \
     PULUMI_HOME=/fms-infrastructure/tmp/Pulumi
 COPY --from=binaries /pulumi /usr/local/bin
-USER node
+RUN deluser --remove-home node
+
+ARG USERNAME=developer
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID --create-home $USERNAME --shell /bin/bash \
+    && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
+USER $USERNAME
 RUN mkdir ~/.cache
