@@ -18,7 +18,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint --max-warnings 0 ./",
-    "prepare": "husky install",
+    "prepare": "husky",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
