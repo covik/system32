@@ -2,7 +2,7 @@ import * as digitalocean from '@pulumi/digitalocean';
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 
-export interface ClusterArguments {
+export interface DigitalOceanClusterArguments {
   name: pulumi.Input<string>;
   nodePoolName: pulumi.Input<string>;
   nodePoolTags: pulumi.Input<string[]>;
@@ -20,37 +20,45 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
 
   public constructor(
     name: string,
-    args: ClusterArguments,
+    args: DigitalOceanClusterArguments,
     opts?: pulumi.ComponentResourceOptions,
   ) {
     super('fms:kubernetes:DigitalOcean', name, args, opts);
 
-    const cluster = new digitalocean.KubernetesCluster('k8s-cluster', {
-      name: args.name,
-      region: args.region,
-      nodePool: {
-        name: args.nodePoolName,
-        size: args.vmSize,
-        nodeCount: 1,
-        autoScale: false,
-        tags: args.nodePoolTags,
+    const cluster = new digitalocean.KubernetesCluster(
+      'k8s-cluster',
+      {
+        name: args.name,
+        region: args.region,
+        nodePool: {
+          name: args.nodePoolName,
+          size: args.vmSize,
+          nodeCount: 1,
+          autoScale: false,
+          tags: args.nodePoolTags,
+        },
+        vpcUuid: args.vpc.id,
+        version: args.version,
+        autoUpgrade: false,
+        ha: false,
+        surgeUpgrade: true,
+        maintenancePolicy: {
+          day: 'sunday',
+          startTime: '03:00',
+        },
       },
-      vpcUuid: args.vpc.id,
-      version: args.version,
-      autoUpgrade: false,
-      ha: false,
-      surgeUpgrade: true,
-      maintenancePolicy: {
-        day: 'sunday',
-        startTime: '03:00',
-      },
-    });
+      { parent: this },
+    );
 
-    const kubeconfig = generateKubeconfig(cluster, 'admin', args.token);
-    const provider = new k8s.Provider('do-k8s-provider', {
-      kubeconfig,
-      enableServerSideApply: true,
-    });
+    const kubeconfig = this.generateKubeconfig(cluster, 'admin', args.token);
+    const provider = new k8s.Provider(
+      'do-k8s-provider',
+      {
+        kubeconfig,
+        enableServerSideApply: true,
+      },
+      { parent: this },
+    );
 
     this.cluster = cluster;
     this.kubeconfig = kubeconfig;
@@ -62,18 +70,17 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
       provider,
     });
   }
-}
 
-function generateKubeconfig(
-  cluster: digitalocean.KubernetesCluster,
-  user: pulumi.Input<string>,
-  apiToken: pulumi.Input<string>,
-): pulumi.Output<string> {
-  const clusterName = pulumi.interpolate`do-${cluster.region}-${cluster.name}`;
+  private generateKubeconfig(
+    cluster: digitalocean.KubernetesCluster,
+    user: pulumi.Input<string>,
+    apiToken: pulumi.Input<string>,
+  ): pulumi.Output<string> {
+    const clusterName = pulumi.interpolate`do-${cluster.region}-${cluster.name}`;
 
-  const certificate = cluster.kubeConfigs[0].clusterCaCertificate;
+    const certificate = cluster.kubeConfigs[0].clusterCaCertificate;
 
-  return pulumi.interpolate`apiVersion: v1
+    return pulumi.interpolate`apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: ${certificate}
@@ -91,4 +98,5 @@ users:
   user:
     token: ${apiToken}
 `;
+  }
 }
