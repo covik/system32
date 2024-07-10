@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 FROM pulumi/pulumi-base:3.122.0@sha256:41c4c809d1543c957c1d1a785e6b13626dbaff71acce67b638afb7dcbc4c3dd6 AS pulumi
+FROM bitnami/kubectl:1.30.2@sha256:dc190b7c6b87ba74eabff4e1e78758eed95ebb97b5a186bbdaf2b43625f9a62a AS kubectl
 
 FROM scratch AS binaries
+COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /kubectl
 COPY --from=pulumi /pulumi/bin/pulumi /pulumi/pulumi
 COPY --from=pulumi /pulumi/bin/pulumi-language-nodejs /pulumi/pulumi-language-nodejs
 
@@ -24,7 +26,9 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
 FROM base AS dev
 WORKDIR /fms-infrastructure
 ENV YARN_CACHE_FOLDER=/fms-infrastructure/tmp/Yarn \
-    PULUMI_HOME=/fms-infrastructure/tmp/Pulumi
+    PULUMI_HOME=/fms-infrastructure/tmp/Pulumi \
+    KUBECONFIG=/fms-infrastructure/tmp/kubeconfig.yml
+COPY --from=binaries /kubectl /usr/local/bin/kubectl
 COPY --from=binaries /pulumi /usr/local/bin
 RUN deluser --remove-home node
 
