@@ -103,7 +103,7 @@ export function resources(): void {
     'primary-kubernetes-cluster',
     {
       name: 'fms',
-      version: '1.27.2-do.0',
+      version: '1.30.2-do.0',
       vmSize: 's-1vcpu-2gb',
       nodePoolName: 'production-worker',
       nodePoolTags: [clusterNodeTag],
