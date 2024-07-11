@@ -54,7 +54,7 @@ export class IngressController extends pulumi.ComponentResource {
           },
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     this.registerOutputs();

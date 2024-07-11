@@ -112,7 +112,7 @@ Kontakt je uključen na vozilu $device.name
 </html>`,
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     const labels = { app: 'traccar' };
@@ -189,7 +189,7 @@ Kontakt je uključen na vozilu $device.name
           },
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     new k8s.core.v1.Service(
@@ -217,7 +217,7 @@ Kontakt je uključen na vozilu $device.name
         },
       },
       {
-        parent: namespace,
+        parent: this,
         deleteBeforeReplace: true, // otherwise nodePort is already allocated and cannot be used
       },
     );
@@ -241,7 +241,7 @@ Kontakt je uključen na vozilu $device.name
           ],
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     new k8s.networking.v1.Ingress(
@@ -281,7 +281,7 @@ Kontakt je uključen na vozilu $device.name
           }),
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     this.registerOutputs();

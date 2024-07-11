@@ -50,7 +50,7 @@ export class Application extends pulumi.ComponentResource {
           ),
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     const labels = { app: 'frontend' };
@@ -96,7 +96,7 @@ export class Application extends pulumi.ComponentResource {
           },
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     const service = new k8s.core.v1.Service(
@@ -118,7 +118,7 @@ export class Application extends pulumi.ComponentResource {
           ],
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     const limitToHostIfNeeded =
@@ -157,7 +157,7 @@ export class Application extends pulumi.ComponentResource {
           ],
         },
       },
-      { parent: namespace },
+      { parent: this },
     );
 
     this.registerOutputs();
