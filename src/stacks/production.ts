@@ -56,7 +56,6 @@ export function resources(): void {
     vpcUuid: vpc.id,
     dropletTag: clusterNodeTag,
     redirectHttpToHttps: true,
-    algorithm: 'round_robin',
     forwardingRules: [
       {
         entryProtocol: 'http',
