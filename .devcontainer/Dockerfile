@@ -40,6 +40,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID --create-home $USERNAME --shell /bin/bash \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && mkdir /home/$USERNAME/.docker \
     && echo "{}" > /home/$USERNAME/.docker/config.json
 
 USER $USERNAME
