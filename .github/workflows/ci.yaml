@@ -8,6 +8,7 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    concurrency: 'main-job'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
