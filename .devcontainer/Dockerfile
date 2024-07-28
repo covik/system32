@@ -45,3 +45,4 @@ RUN groupadd --gid $USER_GID $USERNAME \
 
 USER $USERNAME
 RUN mkdir ~/.cache
+RUN git config --global commit.gpgsign true
