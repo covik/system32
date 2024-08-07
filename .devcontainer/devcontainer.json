@@ -7,5 +7,6 @@
   "workspaceMount": "source=${localWorkspaceFolder},target=/fms-infrastructure,type=bind,consistency=cached",
   "workspaceFolder": "/fms-infrastructure",
   "postCreateCommand": "yarn install --frozen-lockfile",
+  "postAttachCommand": "echo '{}' > ~/.docker/config.json",
   "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"]
 }

@@ -39,10 +39,9 @@ ARG USER_GID=$USER_UID
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID --create-home $USERNAME --shell /bin/bash \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
-    && mkdir /home/$USERNAME/.docker \
-    && echo "{}" > /home/$USERNAME/.docker/config.json
+    && chmod 0440 /etc/sudoers.d/$USERNAME
 
 USER $USERNAME
-RUN mkdir ~/.cache
-RUN git config --global commit.gpgsign true
+RUN mkdir ~/.cache && \
+    mkdir ~/.docker && \
+    git config --global commit.gpgsign true
