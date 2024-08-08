@@ -17,21 +17,27 @@ export class EnvoyGateway extends pulumi.ComponentResource {
       `${name}-ns`,
       {
         metadata: {
-          name: 'envoy-gateway',
+          name: 'envoy-system',
         },
       },
-      { parent: this },
+      { parent: this, deleteBeforeReplace: true },
     );
 
     const chart = new k8s.helm.v3.Release(
       `${name}-release`,
       {
-        name: 'envoy-gateway',
-        chart: 'oci://registry-1.docker.io/envoyproxy/gateway-helm',
-        version: 'v1.0.2',
+        name,
+        chart: 'oci://docker.io/envoyproxy/gateway-helm',
+        version: 'v0.0.0-latest',
         namespace: namespace.metadata.name,
       },
-      { parent: this },
+      {
+        parent: this,
+        deleteBeforeReplace: true,
+        customTimeouts: {
+          create: '8m',
+        },
+      },
     );
 
     const gatewayClass = new k8s.apiextensions.CustomResource(
@@ -40,7 +46,7 @@ export class EnvoyGateway extends pulumi.ComponentResource {
         apiVersion: 'gateway.networking.k8s.io/v1',
         kind: 'GatewayClass',
         metadata: {
-          name: 'eg',
+          name,
           namespace: namespace.metadata.name,
         },
         spec: {
@@ -50,6 +56,7 @@ export class EnvoyGateway extends pulumi.ComponentResource {
       {
         parent: this,
         dependsOn: chart,
+        deleteBeforeReplace: true,
       },
     );
 
