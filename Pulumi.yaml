@@ -24,3 +24,4 @@ config:
     type: string
     description: Region where DigitalOcean resources live
     default: fra1
+  civo:region: fra1
