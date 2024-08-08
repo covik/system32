@@ -37,7 +37,11 @@ export class CivoCluster extends pulumi.ComponentResource {
         name: clusterName,
         networkId: network.id,
       },
-      { parent: this },
+      {
+        parent: this,
+        deleteBeforeReplace: true,
+        replaceOnChanges: ['kubernetesVersion'],
+      },
     );
 
     const provider = new k8s.Provider(
