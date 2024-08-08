@@ -24,7 +24,7 @@
   "dependencies": {
     "@pulumi/civo": "2.3.21",
     "@pulumi/digitalocean": "4.31.0",
-    "@pulumi/kubernetes": "4.15.0",
+    "@pulumi/kubernetes": "4.16.0",
     "@pulumi/pulumi": "3.128.0"
   },
   "devDependencies": {
