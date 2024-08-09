@@ -309,56 +309,17 @@ export function resources(): unknown {
   );
 
   new k8s.apiextensions.CustomResource(
-    'node-metrics-collector',
+    'node-metrics',
     {
       apiVersion: 'opentelemetry.io/v1alpha1',
       kind: 'OpenTelemetryCollector',
-      metadata: {
-        namespace: 'default',
-      },
       spec: {
         mode: 'daemonset',
-        config: pulumi.interpolate`
-          receivers:
-            hostmetrics:
-              collection_interval: 60s
-              scrapers:
-                cpu:
-                memory:
-                disk:
-                filesystem:
-                load:
-                network:
-            prometheus:
-              config:
-                scrape_configs:
-                  - job_name: kube-state-metrics
-                    scrape_interval: 60s
-                    static_configs:
-                      - targets:
-                        - ${kubeStateMetrics.serviceName}.svc.cluster.local:${kubeStateMetrics.servicePort}
-
-          processors:
-            batch:
-            memory_limiter:
-              limit_mib: 4000
-              spike_limit_mib: 500
-              check_interval: 5s
-
-          exporters:
-            googlecloud:
-              project: cromanjonac
-              user_agent: opentelemetry-collector
-              metric:
-                prefix: custom.googleapis.com/opentelemetry/
-
-          service:
-            pipelines:
-              metrics:
-                receivers: [hostmetrics, prometheus]
-                processors: [batch, memory_limiter]
-                exporters: [googlecloud]
-        `,
+        config: pulumi
+          .all([kubeStateMetrics.serviceName, kubeStateMetrics.servicePort])
+          .apply(([name, port]) =>
+            nodeMetricsConfig(`${name}.svc.cluster.local:${port}`),
+          ),
         env: [
           {
             name: 'GOOGLE_APPLICATION_CREDENTIALS',
@@ -458,4 +419,48 @@ function installKubernetesGatewayAPI({ provider }: { provider: k8s.Provider }) {
     },
     { provider },
   );
+}
+
+function nodeMetricsConfig(kubeStateMetricsUrl: string) {
+  return `
+receivers:
+  hostmetrics:
+    collection_interval: 60s
+    scrapers:
+      cpu:
+      memory:
+      disk:
+      filesystem:
+      load:
+      network:
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: kube-state-metrics
+          scrape_interval: 60s
+          static_configs:
+            - targets:
+              - ${kubeStateMetricsUrl}
+
+processors:
+  batch:
+  memory_limiter:
+    limit_mib: 4000
+    spike_limit_mib: 500
+    check_interval: 5s
+
+exporters:
+  googlecloud:
+    project: cromanjonac
+    user_agent: opentelemetry-collector
+    metric:
+      prefix: custom.googleapis.com/opentelemetry/
+
+service:
+  pipelines:
+    metrics:
+      receivers: [hostmetrics, prometheus]
+      processors: [batch, memory_limiter]
+      exporters: [googlecloud]
+`.replace(/^\s+|\s+$/g, '');
 }
