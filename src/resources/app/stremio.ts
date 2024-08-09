@@ -40,6 +40,12 @@ export class StremioServer extends pulumi.ComponentResource {
                   image:
                     'stremio/server@sha256:68bf24548327897f9b63f24ccd9a653dfe9d5428f62aaedbc9ca43c0b253728f',
                   ports: [{ containerPort: 11470 }],
+                  env: [
+                    {
+                      name: 'NO_CORS',
+                      value: '1',
+                    },
+                  ],
                 },
               ],
             },
