@@ -1,7 +1,6 @@
 import { writeFile } from 'node:fs/promises';
 import * as civo from '@pulumi/civo';
 import * as k8s from '@pulumi/kubernetes';
-import * as pulumi from '@pulumi/pulumi';
 import * as app from '../resources/app';
 import * as cluster from '../resources/cluster';
 import * as gateway from '../resources/gateway';
@@ -11,8 +10,6 @@ import * as security from '../resources/security';
 const stremioUrl = '01911f8c-8698-7a3d-a960-5f15f55a668c.zth.dev';
 
 export function resources(): unknown {
-  const config = new pulumi.Config();
-
   const network = new civo.Network('primary-vpc', {
     label: 'hq',
   });
