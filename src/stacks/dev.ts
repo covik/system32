@@ -275,80 +275,6 @@ export function resources(): unknown {
     },
   );
 
-  const telemetryOperator = new monitoring.OpenTelemetryOperator(
-    'opentelemetry-operator',
-    {},
-    kubernetesComponentOptions,
-  );
-
-  const gcpServiceAccountSecret = config.requireSecret(
-    'gcp-otlp-service-account',
-  );
-
-  const gcpCredentials = new k8s.core.v1.Secret(
-    'gcp-credentials',
-    {
-      metadata: {
-        namespace: 'default',
-      },
-      data: {
-        'key.json': gcpServiceAccountSecret.apply((secret) =>
-          Buffer.from(secret).toString('base64'),
-        ),
-      },
-    },
-    {
-      provider: kubernetes.provider,
-    },
-  );
-
-  const kubeStateMetrics = new monitoring.KubeStateMetrics(
-    'ksm',
-    {},
-    kubernetesComponentOptions,
-  );
-
-  new k8s.apiextensions.CustomResource(
-    'node-metrics',
-    {
-      apiVersion: 'opentelemetry.io/v1alpha1',
-      kind: 'OpenTelemetryCollector',
-      spec: {
-        mode: 'daemonset',
-        config: pulumi
-          .all([kubeStateMetrics.serviceName, kubeStateMetrics.servicePort])
-          .apply(([name, port]) =>
-            nodeMetricsConfig(`${name}.svc.cluster.local:${port}`),
-          ),
-        env: [
-          {
-            name: 'GOOGLE_APPLICATION_CREDENTIALS',
-            value: '/etc/gcp/key.json',
-          },
-        ],
-        volumeMounts: [
-          {
-            name: 'gcp-credentials',
-            mountPath: '/etc/gcp',
-            readOnly: true,
-          },
-        ],
-        volumes: [
-          {
-            name: 'gcp-credentials',
-            secret: {
-              secretName: gcpCredentials.metadata.name,
-            },
-          },
-        ],
-      },
-    },
-    {
-      provider: kubernetes.provider,
-      dependsOn: [telemetryOperator, gcpCredentials, kubeStateMetrics],
-    },
-  );
-
   const stremio = new app.StremioServer(
     'stremio',
     {},
@@ -397,6 +323,8 @@ export function resources(): unknown {
     },
   );
 
+  new monitoring.GrafanaAlloy('monitoring', {}, kubernetesComponentOptions);
+
   /*new backend.TeltonikaServer(
     'teltonika',
     {
@@ -419,48 +347,4 @@ function installKubernetesGatewayAPI({ provider }: { provider: k8s.Provider }) {
     },
     { provider },
   );
-}
-
-function nodeMetricsConfig(kubeStateMetricsUrl: string) {
-  return `
-receivers:
-  hostmetrics:
-    collection_interval: 60s
-    scrapers:
-      cpu:
-      memory:
-      disk:
-      filesystem:
-      load:
-      network:
-  prometheus:
-    config:
-      scrape_configs:
-        - job_name: kube-state-metrics
-          scrape_interval: 60s
-          static_configs:
-            - targets:
-              - ${kubeStateMetricsUrl}
-
-processors:
-  batch:
-  memory_limiter:
-    limit_mib: 4000
-    spike_limit_mib: 500
-    check_interval: 5s
-
-exporters:
-  googlecloud:
-    project: cromanjonac
-    user_agent: opentelemetry-collector
-    metric:
-      prefix: custom.googleapis.com/opentelemetry/
-
-service:
-  pipelines:
-    metrics:
-      receivers: [hostmetrics, prometheus]
-      processors: [batch, memory_limiter]
-      exporters: [googlecloud]
-`.replace(/^\s+|\s+$/g, '');
 }
