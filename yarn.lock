@@ -663,10 +663,10 @@
     shell-quote "^1.6.1"
     tmp "^0.0.33"
 
-"@pulumi/pulumi@3.128.0", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0":
-  version "3.128.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.128.0.tgz#cb44cb904e9be1e36c7697215c2f91d4e58c0031"
-  integrity sha512-Xqe5uYp1RpDihK3VbdBFR4q1h+ICg/2Xgg1d7aYWmPqBCIUG4jWddLS0REQO60EsgKBNarXhLeQSmaWXLgiq9w==
+"@pulumi/pulumi@3.129.0", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0":
+  version "3.129.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.129.0.tgz#540b9b065e33c27a92eab86daef36a407621a518"
+  integrity sha512-kjdO81GzEBwFHTYBUg/nz63RLuJ2T4SwObTKBgrfLsyYiPxvTaWdS7Y/N5ww6d4GgnmRNr/dh5mb1LuhlL41fQ==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
