@@ -13,7 +13,7 @@ export class StremioServer extends pulumi.ComponentResource {
     args: StremioServerArgs,
     opts?: pulumi.ComponentResourceOptions,
   ) {
-    super('fms:app:StremioServer', name, {}, opts);
+    super('fms:app:StremioServer', name, args, opts);
 
     const namespace = new k8s.core.v1.Namespace(
       `${name}-ns`,
