@@ -45,6 +45,7 @@ export class MinecraftServer extends pulumi.ComponentResource {
             motd: 'Jebite si mater',
             onlineMode: true,
             overrideServerProperties: true,
+            ops: 'cromanjonac,Chollo65',
           },
           persistence: {
             dataDir: {
