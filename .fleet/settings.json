@@ -1,5 +1,4 @@
 {
   "excluded": ["node_modules", "tmp", "dist"],
-  "nodejs.editor.formatOnSave.prettier.glob": "{**/*,*}.{js,ts,cjs,yml,yaml,json}",
-  "nodejs.editor.formatOnSave.prettier.mode": "Enabled"
+  "editor.formatOnSave": true
 }
