@@ -42,7 +42,7 @@ export class MinecraftServer extends pulumi.ComponentResource {
             eula: true,
             difficulty: 'normal',
             levelSeed: '1234564332465377',
-            motd: 'Jebite si mater',
+            motd: 'Welcome, comrade',
             onlineMode: true,
             overrideServerProperties: true,
             ops: 'cromanjonac,Chollo65',
