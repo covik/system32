@@ -25,7 +25,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
         name,
         atomic: true,
         chart: 'k8s-monitoring',
-        version: '1.4.6',
+        version: '1.4.8',
         namespace: namespace.metadata.name,
         repositoryOpts: {
           repo: 'https://grafana.github.io/helm-charts',
