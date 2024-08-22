@@ -23,7 +23,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@pulumi/civo": "2.4.0",
+    "@pulumi/civo": "2.4.1",
     "@pulumi/digitalocean": "4.31.0",
     "@pulumi/kubernetes": "4.17.1",
     "@pulumi/pulumi": "3.129.0"
