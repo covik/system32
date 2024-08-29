@@ -633,10 +633,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pulumi/civo@2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/civo/-/civo-2.4.1.tgz#5d3dd1e2a959d399a0e8a3ef73f4ec54de50e839"
-  integrity sha512-jywa3h8SuXcucKJS8swCzGdlCSWnenQlTbSVtdMS8+5EeUDZz+VDK6eVAQvtOkFXxitfr1DCFvJYiH6Dm4bJcQ==
+"@pulumi/civo@2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@pulumi/civo/-/civo-2.4.2.tgz#79a2ca37fc2e2d36dabcace99d3baeb198abe4d6"
+  integrity sha512-qRk6tTtfiJankWY7/IUVNk2WcvWvCUd9c6iOHNmr5ZHf2SbKW+qx7s1PkZbvFWQI4NM9XFvMGbDSj6y81J1Eog==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
