@@ -36,6 +36,7 @@ export class CivoCluster extends pulumi.ComponentResource {
         },
         name: clusterName,
         networkId: network.id,
+        writeKubeconfig: true,
       },
       {
         parent: this,
