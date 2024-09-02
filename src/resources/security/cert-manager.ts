@@ -4,6 +4,8 @@ import * as pulumi from '@pulumi/pulumi';
 interface CertManagerArgs {}
 
 export class CertManager extends pulumi.ComponentResource {
+  public namespaceName: pulumi.Output<string>;
+
   constructor(
     name: string,
     args: CertManagerArgs,
@@ -41,6 +43,10 @@ export class CertManager extends pulumi.ComponentResource {
       { parent: this },
     );
 
-    this.registerOutputs({});
+    this.namespaceName = namespace.metadata.name;
+
+    this.registerOutputs({
+      namespaceName: this.namespaceName,
+    });
   }
 }

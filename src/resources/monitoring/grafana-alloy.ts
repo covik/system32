@@ -1,7 +1,9 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 
-export interface GrafanaAlloyArgs {}
+export interface GrafanaAlloyArgs {
+  clusterName: pulumi.Input<string>;
+}
 
 export class GrafanaAlloy extends pulumi.ComponentResource {
   constructor(
@@ -32,7 +34,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
         },
         values: {
           'cluster': {
-            name: 'zth-dev',
+            name: args.clusterName,
           },
           'externalServices': {
             prometheus: {

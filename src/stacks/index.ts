@@ -1,9 +1,9 @@
-import { resources as dev } from './dev';
 import { resources as production } from './production';
+import { resources as staging } from './staging';
 
 const all: Record<string, () => unknown> = {
   production,
-  dev,
+  staging,
 };
 
 export function findStackResources(stackName: string): () => unknown {

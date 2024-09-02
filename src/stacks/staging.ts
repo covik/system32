@@ -1,31 +1,139 @@
 import { writeFile } from 'node:fs/promises';
-import * as civo from '@pulumi/civo';
+import * as cloudflare from '@pulumi/cloudflare';
+import * as digitalocean from '@pulumi/digitalocean';
 import * as k8s from '@pulumi/kubernetes';
+import * as pulumi from '@pulumi/pulumi';
 import * as app from '../resources/app';
 import * as cluster from '../resources/cluster';
+import * as database from '../resources/database';
 import * as gateway from '../resources/gateway';
 import * as monitoring from '../resources/monitoring';
 import * as security from '../resources/security';
 
+const domain = 'zth.dev';
 const stremioUrl = '01911f8c-8698-7a3d-a960-5f15f55a668c.zth.dev';
 
 export function resources(): unknown {
-  const network = new civo.Network('primary-vpc', {
-    label: 'hq',
+  const config = new pulumi.Config();
+  const cloudflareConfig = new pulumi.Config('cloudflare');
+  const region = config.require('region');
+
+  const vpc = new digitalocean.Vpc('network', {
+    name: 'cromanjonac-hq',
+    region,
   });
 
-  const firewall = new civo.Firewall('primary-defense', {
-    name: 'abs',
-    networkId: network.id,
+  const kubernetes = new cluster.DigitalOceanCluster('kubernetes', {
+    name: 'cromanjonac',
+    version: '1.30.4-do.0',
+    vmSize: 's-2vcpu-4gb',
+    nodePoolName: 'engine',
+    nodePoolTags: [],
+    token: config.requireSecret('k8s-cluster-token'),
+    vpc,
+    region,
   });
 
-  const kubernetes = new cluster.CivoCluster('primary-cluster', {
-    firewall,
-    name: 'engine',
-    network,
-    version: '1.29.2-k3s1',
-    vmSize: 'g4s.kube.medium',
+  const db = new database.postgresql.DigitalOceanCluster('database', {
+    db: {
+      username: 'admin',
+      name: 'default',
+    },
+    name: 'datanjonac',
+    restrictTo: kubernetes.cluster,
+    region,
+    size: 'db-s-1vcpu-1gb',
+    version: '16',
+    vpc,
   });
+
+  new digitalocean.Project('project', {
+    name: 'Cromanjonac',
+    environment: 'Staging',
+    description: 'Single cluster to rule them all',
+    purpose: 'Web Application',
+    resources: [db.cluster.clusterUrn, kubernetes.cluster.clusterUrn],
+  });
+
+  const dnsZone = new cloudflare.Zone(
+    'zth-dev-zone',
+    {
+      zone: domain,
+      accountId: 'f6f07d41cae3f7e691aeaf018292e276',
+      plan: 'free',
+      type: 'full',
+    },
+    {
+      protect: true,
+    },
+  );
+
+  new cloudflare.ZoneSettingsOverride('zth-dev-security-settings', {
+    zoneId: dnsZone.id,
+    settings: {
+      ssl: 'strict',
+      alwaysUseHttps: 'on',
+      securityLevel: 'high',
+      browserCheck: 'on',
+      challengeTtl: 1800,
+      // waf: 'on', // needs Pro plan
+      opportunisticEncryption: 'on',
+      automaticHttpsRewrites: 'on',
+      minTlsVersion: '1.2',
+    },
+  });
+
+  const mxRecords = [
+    { name: 'zth.dev', priority: 10, value: 'alt3.aspmx.l.google.com.' },
+    { name: 'zth.dev', priority: 10, value: 'alt4.aspmx.l.google.com.' },
+    { name: 'zth.dev', priority: 1, value: 'aspmx.l.google.com.' },
+    { name: 'zth.dev', priority: 5, value: 'alt1.aspmx.l.google.com.' },
+    { name: 'zth.dev', priority: 5, value: 'alt2.aspmx.l.google.com.' },
+  ];
+
+  mxRecords.forEach((record, index) => {
+    new cloudflare.Record(`zth-dev-mx-${index}`, {
+      zoneId: dnsZone.id,
+      name: record.name,
+      type: 'MX',
+      content: record.value,
+      priority: record.priority,
+      ttl: 3600,
+    });
+  });
+
+  new cloudflare.Record('zth-dev-txt', {
+    zoneId: dnsZone.id,
+    name: domain,
+    type: 'TXT',
+    content:
+      'google-site-verification=NZG41fnGV15ayrcCJ6-tS1_Qk-BE6Ynhw25KOLnRV7o',
+    ttl: 3600,
+  });
+
+  const hostnames = [dnsZone.zone, pulumi.interpolate`*.${dnsZone.zone}`];
+  pulumi.all(hostnames).apply((hosts) => {
+    hosts.forEach((hostname, index) => {
+      new cloudflare.Record(`zth-dev-a-${index}`, {
+        zoneId: dnsZone.id,
+        name: hostname,
+        type: 'A',
+        content: '157.245.20.9',
+        ttl: 1800,
+      });
+    });
+  });
+
+  const cloudflareAccount = {
+    email: 'mate.nakic3@gmail.com',
+    token: cloudflareConfig.requireSecret('apiToken'),
+  };
+
+  setupKubernetesResources(
+    kubernetes.provider,
+    pulumi.interpolate`do-${region}-${kubernetes.cluster.name}`,
+    cloudflareAccount,
+  );
 
   const kubeconfigPath = process.env['KUBECONFIG'];
   if (kubeconfigPath)
@@ -33,23 +141,37 @@ export function resources(): unknown {
       writeFile(kubeconfigPath, kubeconfig),
     );
 
+  return {
+    nameservers: dnsZone.nameServers,
+  };
+}
+
+function setupKubernetesResources(
+  provider: k8s.Provider,
+  clusterName: pulumi.Input<string>,
+  cloudflareAccount: {
+    email: pulumi.Input<string>;
+    token: pulumi.Input<string>;
+  },
+) {
   const kubernetesComponentOptions = {
     providers: {
-      kubernetes: kubernetes.provider,
+      kubernetes: provider,
     },
   };
 
-  const gatewayAPI = installKubernetesGatewayAPI({
-    provider: kubernetes.provider,
-  });
-
-  const gatewayController = new gateway.EnvoyGateway(
-    'envoy-gateway',
-    {},
+  const gatewayAPI = new k8s.yaml.ConfigFile(
+    'gateway-api-crd',
     {
-      ...kubernetesComponentOptions,
-      dependsOn: [gatewayAPI],
+      file: 'https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/experimental-install.yaml',
     },
+    { provider },
+  );
+
+  new monitoring.GrafanaAlloy(
+    'monitoring',
+    { clusterName },
+    kubernetesComponentOptions,
   );
 
   const gatewayConfig = {
@@ -63,32 +185,50 @@ export function resources(): unknown {
     kubernetesComponentOptions,
   );
 
+  const gatewayController = new gateway.EnvoyGateway(
+    'envoy-gateway',
+    {},
+    {
+      ...kubernetesComponentOptions,
+      dependsOn: [gatewayAPI],
+    },
+  );
+
+  const cloudflareSecret = new k8s.core.v1.Secret(
+    'cloudflare-api-token',
+    {
+      metadata: {
+        namespace: certManager.namespaceName,
+      },
+      stringData: {
+        'api-token': cloudflareAccount.token,
+      },
+    },
+    { provider },
+  );
+
+  const certificateSecretName = 'letsencrypt-prod-private-key';
   const issuer = new k8s.apiextensions.CustomResource(
     'letsencrypt-issuer',
     {
       apiVersion: 'cert-manager.io/v1',
       kind: 'ClusterIssuer',
       metadata: {
-        name: 'letsencrypt-prod',
+        name: 'letsencrypt-production',
       },
       spec: {
         acme: {
           server: 'https://acme-v02.api.letsencrypt.org/directory',
-          email: 'mate.nakic@zth.dev',
-          privateKeySecretRef: {
-            name: 'default-acme-private-key',
-          },
+          email: cloudflareAccount.email,
+          privateKeySecretRef: { name: certificateSecretName },
           solvers: [
             {
-              http01: {
-                gatewayHTTPRoute: {
-                  parentRefs: [
-                    {
-                      name: gatewayConfig.name,
-                      namespace: gatewayConfig.namespace,
-                      kind: 'Gateway',
-                    },
-                  ],
+              dns01: {
+                cloudflare: {
+                  apiTokenSecretRef: {
+                    name: cloudflareSecret.metadata.name,
+                    key: 'api-token',
+                  },
                 },
               },
             },
@@ -97,13 +237,12 @@ export function resources(): unknown {
       },
     },
     {
-      provider: kubernetes.provider,
+      provider,
       dependsOn: [certManager],
       deleteBeforeReplace: true,
     },
   );
 
-  const certificateSecretName = 'zth-dev-tls';
   const certificate = new k8s.apiextensions.CustomResource(
     'zth-dev-certificate',
     {
@@ -111,7 +250,6 @@ export function resources(): unknown {
       kind: 'Certificate',
       metadata: {
         name: 'zth-dev',
-        namespace: gatewayConfig.namespace,
       },
       spec: {
         secretName: certificateSecretName,
@@ -119,13 +257,11 @@ export function resources(): unknown {
           name: issuer.metadata.name,
           kind: issuer.kind,
         },
-        dnsNames: ['zth.dev', stremioUrl],
+        commonName: domain,
+        dnsNames: [domain, `*.${domain}`],
       },
     },
-    {
-      provider: kubernetes.provider,
-      deleteBeforeReplace: true,
-    },
+    { provider },
   );
 
   const gatewayInstance = new k8s.apiextensions.CustomResource(
@@ -188,96 +324,9 @@ export function resources(): unknown {
       },
     },
     {
-      provider: kubernetes.provider,
+      provider,
       deleteBeforeReplace: true,
       dependsOn: [certificate],
-    },
-  );
-
-  const appLabels = { app: 'nginx' };
-
-  const deployment = new k8s.apps.v1.Deployment(
-    'nginx-deployment',
-    {
-      metadata: { name: 'nginx' },
-      spec: {
-        selector: { matchLabels: appLabels },
-        replicas: 1,
-        template: {
-          metadata: { labels: appLabels },
-          spec: {
-            containers: [
-              {
-                name: 'nginx',
-                image: 'nginx:latest',
-                ports: [{ containerPort: 80 }],
-              },
-            ],
-          },
-        },
-      },
-    },
-    {
-      provider: kubernetes.provider,
-    },
-  );
-
-  const service = new k8s.core.v1.Service(
-    'nginx-service',
-    {
-      metadata: { name: 'nginx' },
-      spec: {
-        ports: [
-          {
-            port: 80,
-            targetPort:
-              deployment.spec.template.spec.containers[0].ports[0]
-                .containerPort,
-          },
-        ],
-        selector: appLabels,
-      },
-    },
-    {
-      provider: kubernetes.provider,
-    },
-  );
-
-  new k8s.apiextensions.CustomResource(
-    'nginx-route',
-    {
-      apiVersion: 'gateway.networking.k8s.io/v1',
-      kind: 'HTTPRoute',
-      spec: {
-        parentRefs: [
-          {
-            name: gatewayInstance.metadata.name,
-            sectionName: 'https',
-          },
-        ],
-        hostnames: ['zth.dev'],
-        rules: [
-          {
-            matches: [
-              {
-                path: {
-                  type: 'Exact',
-                  value: '/',
-                },
-              },
-            ],
-            backendRefs: [
-              {
-                name: service.metadata.name,
-                port: service.spec.ports[0].port,
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      provider: kubernetes.provider,
     },
   );
 
@@ -325,7 +374,7 @@ export function resources(): unknown {
       },
     },
     {
-      provider: kubernetes.provider,
+      provider,
     },
   );
 
@@ -364,32 +413,7 @@ export function resources(): unknown {
       },
     },
     {
-      provider: kubernetes.provider,
+      provider,
     },
-  );
-
-  new monitoring.GrafanaAlloy('monitoring', {}, kubernetesComponentOptions);
-
-  /*new backend.TeltonikaServer(
-    'teltonika',
-    {
-      containerRegistryCredentials: createContainerRegistryCredentials(config),
-      image:
-        'ghcr.io/sudocovik/fms-backend:latest@sha256:c472e7ce6da6f2d335056271480c379d9d1603d89ca19b536a1fc1073c8e69c9',
-      gatewayClassName: gateway.gatewayClassName,
-    },
-    kubernetesComponentOptions,
-  );*/
-
-  return {};
-}
-
-function installKubernetesGatewayAPI({ provider }: { provider: k8s.Provider }) {
-  return new k8s.yaml.ConfigFile(
-    'gateway-api-crd',
-    {
-      file: 'https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/experimental-install.yaml',
-    },
-    { provider },
   );
 }
