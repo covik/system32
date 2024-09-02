@@ -5,7 +5,6 @@ import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 import * as app from '../resources/app';
 import * as cluster from '../resources/cluster';
-import * as database from '../resources/database';
 import * as gateway from '../resources/gateway';
 import * as monitoring from '../resources/monitoring';
 import * as security from '../resources/security';
@@ -34,25 +33,12 @@ export function resources(): unknown {
     region,
   });
 
-  const db = new database.postgresql.DigitalOceanCluster('database', {
-    db: {
-      username: 'admin',
-      name: 'default',
-    },
-    name: 'datanjonac',
-    restrictTo: kubernetes.cluster,
-    region,
-    size: 'db-s-1vcpu-1gb',
-    version: '16',
-    vpc,
-  });
-
   new digitalocean.Project('project', {
     name: 'Cromanjonac',
     environment: 'Staging',
     description: 'Single cluster to rule them all',
     purpose: 'Web Application',
-    resources: [db.cluster.clusterUrn, kubernetes.cluster.clusterUrn],
+    resources: [kubernetes.cluster.clusterUrn],
   });
 
   const dnsZone = new cloudflare.Zone(
