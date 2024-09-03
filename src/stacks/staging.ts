@@ -69,10 +69,6 @@ export function resources(): unknown {
     },
   });
 
-  new cloudflare.ZoneDnssec('zth-dev-dnssec', {
-    zoneId: dnsZone.id,
-  });
-
   const mxRecords = [
     { name: 'zth.dev', priority: 10, value: 'alt3.aspmx.l.google.com.' },
     { name: 'zth.dev', priority: 10, value: 'alt4.aspmx.l.google.com.' },
