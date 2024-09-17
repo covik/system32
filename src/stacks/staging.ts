@@ -131,7 +131,7 @@ export function resources(): unknown {
         zoneId: dnsZone.id,
         name: hostname,
         type: 'A',
-        content: '167.99.143.234',
+        content: '157.245.20.9',
         ttl: 1800,
       });
     });
