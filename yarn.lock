@@ -655,10 +655,10 @@
     read-package-tree "^5.2.1"
     resolve "^1.7.1"
 
-"@pulumi/kubernetes@4.17.1":
-  version "4.17.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.17.1.tgz#01b1c54429836d5c96e3e713ede0009e92b98dde"
-  integrity sha512-XmPhPG7vqXHo0/hs14JX25oNF7Aum0dmdqYTWIvbUUqi9GUD05eJTYh0PyNpOm4sFuRbFVvqHdc8NbVbc1R6Fg==
+"@pulumi/kubernetes@4.18.1":
+  version "4.18.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.18.1.tgz#d0eecabb122ee9405cbb28a9560c4e4c84caeb7e"
+  integrity sha512-jlAdKdXSy5AwgAYuqB0p0ce9cUydSJuEygC1jXNMqcJf/j38A3J6R7rbasLvZLYcSU3+6VmCAQAlc9Wh6iyCtA==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/node-fetch" "^2.1.4"
