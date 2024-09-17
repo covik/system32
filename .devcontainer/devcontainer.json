@@ -8,5 +8,8 @@
   "workspaceFolder": "/fms-infrastructure",
   "postCreateCommand": "yarn install --frozen-lockfile",
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
-  "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"]
+  "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"],
+  "mounts": [
+    "source=jetbrains,target=/home/developer/.cache/JetBrains,type=volume"
+  ]
 }

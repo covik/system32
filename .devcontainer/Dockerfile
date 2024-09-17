@@ -41,7 +41,9 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
+RUN mkdir -p /home/$USERNAME/.cache/JetBrains/ && \
+    chown -R $USERNAME:$USERNAME /home/$USERNAME/.cache/JetBrains
+
 USER $USERNAME
-RUN mkdir ~/.cache && \
-    mkdir ~/.docker && \
+RUN mkdir -p ~/.docker && \
     git config --global commit.gpgsign true
