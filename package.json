@@ -26,7 +26,7 @@
     "@pulumi/cloudflare": "5.37.1",
     "@pulumi/digitalocean": "4.32.0",
     "@pulumi/kubernetes": "4.17.1",
-    "@pulumi/pulumi": "3.130.0"
+    "@pulumi/pulumi": "3.133.0"
   },
   "devDependencies": {
     "@commitlint/cli": "19.4.1",
