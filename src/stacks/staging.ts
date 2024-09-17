@@ -25,7 +25,7 @@ export function resources(): unknown {
   const kubernetes = new cluster.DigitalOceanCluster('kubernetes', {
     name: 'cromanjonac',
     version: '1.30.4-do.0',
-    vmSize: 's-2vcpu-4gb',
+    vmSize: 's-4vcpu-8gb',
     nodePoolName: 'engine',
     nodePoolTags: [],
     token: config.requireSecret('k8s-cluster-token'),
@@ -131,7 +131,7 @@ export function resources(): unknown {
         zoneId: dnsZone.id,
         name: hostname,
         type: 'A',
-        content: '157.245.20.9',
+        content: '167.99.143.234',
         ttl: 1800,
       });
     });

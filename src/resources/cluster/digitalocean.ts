@@ -47,7 +47,10 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
           startTime: '03:00',
         },
       },
-      { parent: this },
+      {
+        parent: this,
+        ignoreChanges: ['nodePool.size'], // this has to be done manually in DO UI
+      },
     );
 
     const kubeconfig = this.generateKubeconfig(cluster, 'admin', args.token);
