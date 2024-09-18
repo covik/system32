@@ -3,6 +3,8 @@ import * as cloudflare from '@pulumi/cloudflare';
 import * as digitalocean from '@pulumi/digitalocean';
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
+import * as grafana from '@pulumiverse/grafana';
+import memoryAllocationDashboardJSON from '../memory-allocation-dashboard.json';
 import * as app from '../resources/app';
 import * as cluster from '../resources/cluster';
 import * as gateway from '../resources/gateway';
@@ -154,8 +156,17 @@ export function resources(): unknown {
       writeFile(kubeconfigPath, kubeconfig),
     );
 
+  const dashboard = new grafana.Dashboard(
+    'cluster-resource-allocation-overview',
+    {
+      configJson: JSON.stringify(memoryAllocationDashboardJSON),
+      overwrite: true,
+    },
+  );
+
   return {
     nameservers: dnsZone.nameServers,
+    resourceAllocationDashboard: dashboard.url,
   };
 }
 
