@@ -393,7 +393,9 @@ function setupKubernetesResources(
 
   const minecraft = new app.MinecraftServer(
     'minecraft',
-    {},
+    {
+      memory: '1.4Gi',
+    },
     kubernetesComponentOptions,
   );
 

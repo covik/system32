@@ -1,7 +1,10 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 
-export interface MinecraftArgs {}
+export interface MinecraftArgs {
+  cpu?: pulumi.Input<string>;
+  memory?: pulumi.Input<string>;
+}
 
 // Define a custom component for Minecraft deployment
 export class MinecraftServer extends pulumi.ComponentResource {
@@ -47,6 +50,16 @@ export class MinecraftServer extends pulumi.ComponentResource {
             overrideServerProperties: true,
             ops: 'cromanjonac,Chollo65',
           },
+          resources: {
+            requests: {
+              memory: args.memory ?? '512Mi',
+              cpu: args.cpu ?? '500m',
+            },
+            limits: {
+              memory: args.memory ?? '512Mi',
+            },
+          },
+
           persistence: {
             dataDir: {
               enabled: true,
