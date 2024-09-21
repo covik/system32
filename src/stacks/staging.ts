@@ -356,7 +356,10 @@ function setupKubernetesResources(
 
   const stremio = new app.StremioServer(
     'stremio',
-    {},
+    {
+      cpu: '0.02',
+      memory: '400Mi',
+    },
     kubernetesComponentOptions,
   );
 

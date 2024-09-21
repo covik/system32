@@ -1,7 +1,10 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 
-export interface StremioServerArgs {}
+export interface StremioServerArgs {
+  cpu: pulumi.Input<string>;
+  memory: pulumi.Input<string>;
+}
 
 export class StremioServer extends pulumi.ComponentResource {
   public namespaceName: pulumi.Output<string>;
@@ -46,6 +49,15 @@ export class StremioServer extends pulumi.ComponentResource {
                       value: '1',
                     },
                   ],
+                  resources: {
+                    requests: {
+                      cpu: args.cpu,
+                      memory: args.memory,
+                    },
+                    limits: {
+                      memory: args.memory,
+                    },
+                  },
                 },
               ],
             },
