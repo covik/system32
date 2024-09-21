@@ -25,7 +25,7 @@ jobs:
             yarn format:check
             yarn lint
             yarn build
-            pulumi stack select production
+            pulumi stack select cromanjonac
             pulumi refresh --skip-preview
             pulumi preview
 

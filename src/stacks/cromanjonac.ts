@@ -10,9 +10,29 @@ import * as cluster from '../resources/cluster';
 import * as gateway from '../resources/gateway';
 import * as monitoring from '../resources/monitoring';
 import * as security from '../resources/security';
+import { createMysqlConnectionString } from '../utils';
 
 const domain = 'zth.dev';
-const stremioUrl = '01911f8c-8698-7a3d-a960-5f15f55a668c.zth.dev';
+const zarafleetDomain = 'zarafleet.com';
+const fmsUrl = `old.${zarafleetDomain}`;
+const zarafleetUrl = `app.${zarafleetDomain}`;
+const stremioUrl = `01911f8c-8698-7a3d-a960-5f15f55a668c.${domain}`;
+const snapshooterIps = [
+  '174.138.101.117',
+  '143.198.240.52',
+  '138.68.117.142',
+] as const;
+const fmsMysqlFlags = {
+  'zeroDateTimeBehavior': 'round',
+  'serverTimezone': 'UTC',
+  'allowPublicKeyRetrieval': 'true',
+  'ssl-mode': 'REQUIRED',
+  'allowMultiQueries': 'true',
+  'autoReconnect': 'true',
+  'useUnicode': 'yes',
+  'characterEncoding': 'UTF-8',
+  'sessionVariables=sql_require_primary_key': '1',
+};
 
 export function resources(): unknown {
   const config = new pulumi.Config();
@@ -35,12 +55,95 @@ export function resources(): unknown {
     region,
   });
 
+  const fmsDatabaseCluster = new digitalocean.DatabaseCluster(
+    'fms-db-cluster',
+    {
+      name: 'fms-mysql',
+      engine: 'mysql',
+      version: '8',
+      size: digitalocean.DatabaseSlug.DB_1VPCU1GB,
+      nodeCount: 1,
+      region,
+      privateNetworkUuid: vpc.id,
+      maintenanceWindows: [
+        {
+          day: 'sunday',
+          hour: '03:00:00',
+        },
+      ],
+    },
+    { protect: true },
+  );
+
+  const fmsDatabaseUser = new digitalocean.DatabaseUser('fms-db-app-user', {
+    name: 'backend',
+    clusterId: fmsDatabaseCluster.id,
+  });
+
+  const fmsDatabase = new digitalocean.DatabaseDb(
+    'fms-db',
+    {
+      name: 'fleet-management',
+      clusterId: fmsDatabaseCluster.id,
+    },
+    {
+      protect: true,
+    },
+  );
+
+  new digitalocean.DatabaseUser(
+    'fms-db-backup-user',
+    {
+      name: 'snapshooter',
+      clusterId: fmsDatabaseCluster.id,
+    },
+    {
+      protect: true,
+    },
+  );
+
+  new digitalocean.DatabaseFirewall('fms-db-access-control', {
+    rules: [
+      { type: 'k8s', value: kubernetes.cluster.id },
+      ...snapshooterIps.map((ip) => ({
+        type: 'ip_addr',
+        value: ip,
+      })),
+    ],
+    clusterId: fmsDatabaseCluster.id,
+  });
+
+  const fmsDbConnection = {
+    url: createMysqlConnectionString({
+      host: fmsDatabaseCluster.privateHost,
+      port: fmsDatabaseCluster.port,
+      database: fmsDatabase.name,
+      flags: fmsMysqlFlags,
+    }),
+    user: fmsDatabaseUser.name,
+    password: fmsDatabaseUser.password,
+  } satisfies app.DatabaseConnection;
+
+  const backupStorage = new digitalocean.SpacesBucket(
+    'fms-backup',
+    {
+      name: 'fms-backup',
+      acl: 'private',
+      region,
+    },
+    { protect: true },
+  );
+
   new digitalocean.Project('project', {
     name: 'Cromanjonac',
-    environment: 'Staging',
+    environment: 'Production',
     description: 'Single cluster to rule them all',
     purpose: 'Web Application',
-    resources: [kubernetes.cluster.clusterUrn],
+    resources: [
+      kubernetes.cluster.clusterUrn,
+      fmsDatabaseCluster.clusterUrn,
+      backupStorage.bucketUrn,
+    ],
   });
 
   const dnsZone = new cloudflare.Zone(
@@ -148,6 +251,7 @@ export function resources(): unknown {
     kubernetes.provider,
     pulumi.interpolate`do-${region}-${kubernetes.cluster.name}`,
     cloudflareAccount,
+    fmsDbConnection,
   );
 
   const kubeconfigPath = process.env['KUBECONFIG'];
@@ -177,7 +281,10 @@ function setupKubernetesResources(
     email: pulumi.Input<string>;
     token: pulumi.Input<string>;
   },
+  databaseConnection: app.DatabaseConnection,
 ) {
+  const config = new pulumi.Config();
+
   const kubernetesComponentOptions = {
     providers: {
       kubernetes: provider,
@@ -282,7 +389,12 @@ function setupKubernetesResources(
           kind: issuer.kind,
         },
         commonName: domain,
-        dnsNames: [domain, `*.${domain}`],
+        dnsNames: [
+          domain,
+          `*.${domain}`,
+          zarafleetDomain,
+          `*.${zarafleetDomain}`,
+        ],
       },
     },
     { provider },
@@ -443,6 +555,189 @@ function setupKubernetesResources(
     },
     {
       provider,
+    },
+  );
+
+  const traccar = new app.TraccarServer(
+    'traccar',
+    {
+      databaseConnection: databaseConnection,
+      emailPassword: config.requireSecret('traccar-email-password'),
+    },
+    kubernetesComponentOptions,
+  );
+
+  new k8s.apiextensions.CustomResource(
+    'traccar-teltonika-route',
+    {
+      apiVersion: 'gateway.networking.k8s.io/v1alpha2',
+      kind: 'TCPRoute',
+      metadata: {
+        namespace: traccar.namespace.metadata.name,
+      },
+      spec: {
+        parentRefs: [
+          {
+            name: gatewayInstance.metadata.name,
+            namespace: gatewayInstance.metadata.namespace,
+            sectionName: 'teltonika',
+          },
+        ],
+        rules: [
+          {
+            backendRefs: [
+              {
+                name: traccar.service.metadata.name,
+                port: traccar.service.spec.ports[1].port,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      provider,
+    },
+  );
+
+  new k8s.apiextensions.CustomResource(
+    'traccar-web-route',
+    {
+      apiVersion: 'gateway.networking.k8s.io/v1',
+      kind: 'HTTPRoute',
+      metadata: {
+        namespace: traccar.namespace.metadata.name,
+      },
+      spec: {
+        parentRefs: [
+          {
+            name: gatewayInstance.metadata.name,
+            namespace: gatewayInstance.metadata.namespace,
+            sectionName: 'https',
+          },
+        ],
+        hostnames: [fmsUrl],
+        rules: [
+          {
+            matches: [
+              {
+                path: {
+                  type: 'PathPrefix',
+                  value: '/',
+                },
+              },
+            ],
+            backendRefs: [
+              {
+                name: traccar.service.metadata.name,
+                port: traccar.service.spec.ports[0].port,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      provider,
+    },
+  );
+
+  const zarafleet = new app.ZaraFleet(
+    'zarafleet',
+    {
+      image: security.resolveRegistryImage(
+        config.require('frontend-stable-image'),
+      ),
+    },
+    kubernetesComponentOptions,
+  );
+
+  const allowFrontendToBackendCommunication =
+    new k8s.apiextensions.CustomResource(
+      'traccar-grant-frontend',
+      {
+        apiVersion: 'gateway.networking.k8s.io/v1beta1',
+        kind: 'ReferenceGrant',
+        metadata: {
+          namespace: traccar.namespace.metadata.name,
+        },
+        spec: {
+          from: [
+            {
+              group: 'gateway.networking.k8s.io',
+              kind: 'HTTPRoute',
+              namespace: zarafleet.namespace.metadata.name,
+            },
+          ],
+          to: [
+            {
+              group: '',
+              kind: 'Service',
+              name: traccar.service.metadata.name,
+            },
+          ],
+        },
+      },
+      { provider },
+    );
+
+  new k8s.apiextensions.CustomResource(
+    'zarafleet-web-route',
+    {
+      apiVersion: 'gateway.networking.k8s.io/v1',
+      kind: 'HTTPRoute',
+      metadata: {
+        namespace: zarafleet.namespace.metadata.name,
+      },
+      spec: {
+        parentRefs: [
+          {
+            name: gatewayInstance.metadata.name,
+            namespace: gatewayInstance.metadata.namespace,
+            sectionName: 'https',
+          },
+        ],
+        hostnames: [zarafleetUrl],
+        rules: [
+          {
+            matches: [
+              {
+                path: {
+                  type: 'PathPrefix',
+                  value: '/api',
+                },
+              },
+            ],
+            backendRefs: [
+              {
+                name: traccar.service.metadata.name,
+                namespace: traccar.service.metadata.namespace,
+                port: traccar.service.spec.ports[0].port,
+              },
+            ],
+          },
+          {
+            matches: [
+              {
+                path: {
+                  type: 'PathPrefix',
+                  value: '/',
+                },
+              },
+            ],
+            backendRefs: [
+              {
+                name: zarafleet.service.metadata.name,
+                port: zarafleet.service.spec.ports[0].port,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      provider,
+      dependsOn: [allowFrontendToBackendCommunication],
     },
   );
 }

@@ -1,43 +1,35 @@
-/* eslint-disable no-new */
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
 
-export interface DatabaseConnectionSettings {
+export interface DatabaseConnection {
   url: pulumi.Input<string>;
   user: pulumi.Input<string>;
   password: pulumi.Input<string>;
 }
 
-export interface ApplicationArguments {
-  databaseConnection: DatabaseConnectionSettings;
+export interface TraccarServerArguments {
+  databaseConnection: DatabaseConnection;
   emailPassword?: pulumi.Input<string>;
-  routes: string[];
-  teltonikaNodePort: pulumi.Input<number>;
 }
 
-export class Application extends pulumi.ComponentResource {
+export class TraccarServer extends pulumi.ComponentResource {
+  public namespace: k8s.core.v1.Namespace;
+  public service: k8s.core.v1.Service;
+
   public constructor(
     name: string,
-    args: ApplicationArguments,
+    args: TraccarServerArguments,
     opts?: pulumi.ComponentResourceOptions,
   ) {
-    super('fms:backend:Application', name, args, opts);
+    super('fms:app:Traccar', name, args, opts);
 
-    const {
-      databaseConnection,
-      routes,
-      teltonikaNodePort,
-      emailPassword = '',
-    } = args;
-
-    if (routes.length < 1)
-      throw new Error('There should be at least one route (usually /api)');
+    const { databaseConnection, emailPassword = '' } = args;
 
     const namespace = new k8s.core.v1.Namespace(
-      'backend',
+      `${name}-ns`,
       {
         metadata: {
-          name: 'backend',
+          name: 'traccar-system',
         },
       },
       {
@@ -47,7 +39,7 @@ export class Application extends pulumi.ComponentResource {
     );
 
     const configuration = new k8s.core.v1.ConfigMap(
-      'traccar-configuration',
+      `${name}-configuration`,
       {
         metadata: {
           namespace: namespace.metadata.name,
@@ -105,7 +97,7 @@ ${
 </properties>`,
           'ignitionOn.vm': `#set($subject = "$device.name: kontakt uključen")
 <!DOCTYPE html>
-<html>
+<html lang="hr">
 <body>
 Kontakt je uključen na vozilu $device.name
 </body>
@@ -119,7 +111,7 @@ Kontakt je uključen na vozilu $device.name
     const configurationVolumeName = 'configuration';
 
     const deployment = new k8s.apps.v1.Deployment(
-      'traccar',
+      `${name}-app`,
       {
         metadata: {
           namespace: namespace.metadata.name,
@@ -145,7 +137,7 @@ Kontakt je uključen na vozilu $device.name
               restartPolicy: 'Always',
               containers: [
                 {
-                  name: 'backend',
+                  name: 'server',
                   image: 'traccar/traccar:5.12-alpine',
                   imagePullPolicy: 'IfNotPresent',
                   ports: [
@@ -192,23 +184,26 @@ Kontakt je uključen na vozilu $device.name
       { parent: this },
     );
 
-    new k8s.core.v1.Service(
-      'traccar-teltonika-service',
+    const service = new k8s.core.v1.Service(
+      `${name}-svc`,
       {
         metadata: {
           namespace: namespace.metadata.name,
-          annotations: {
-            'kubernetes.digitalocean.com/firewall-managed': 'false',
-          },
         },
         spec: {
-          type: 'NodePort',
+          type: 'ClusterIP',
           selector: labels,
           ports: [
             {
+              name: 'http',
+              port: 80,
+              targetPort:
+                deployment.spec.template.spec.containers[0].ports[0].name,
+              protocol: 'TCP',
+            },
+            {
               name: 'teltonika',
               port: 5027,
-              nodePort: teltonikaNodePort,
               targetPort:
                 deployment.spec.template.spec.containers[0].ports[1].name,
               protocol: 'TCP',
@@ -216,74 +211,14 @@ Kontakt je uključen na vozilu $device.name
           ],
         },
       },
-      {
-        parent: this,
-        deleteBeforeReplace: true, // otherwise nodePort is already allocated and cannot be used
-      },
-    );
-
-    const service = new k8s.core.v1.Service(
-      'traccar-http-service',
-      {
-        metadata: {
-          namespace: namespace.metadata.name,
-        },
-        spec: {
-          selector: labels,
-          ports: [
-            {
-              name: 'api',
-              port: 80,
-              targetPort:
-                deployment.spec.template.spec.containers[0].ports[0].name,
-              protocol: 'TCP',
-            },
-          ],
-        },
-      },
       { parent: this },
     );
 
-    new k8s.networking.v1.Ingress(
-      'traccar-ingress',
-      {
-        metadata: {
-          namespace: namespace.metadata.name,
-          annotations: {
-            'pulumi.com/skipAwait': 'true',
-          },
-        },
-        spec: {
-          rules: routes.map((route) => {
-            const host = route.substring(0, route.indexOf('/'));
-            const path = route.substring(route.indexOf('/'));
-            const hostIfNeeded = host !== '' ? { host } : {};
-
-            return {
-              ...hostIfNeeded,
-              http: {
-                paths: [
-                  {
-                    path,
-                    pathType: 'Prefix',
-                    backend: {
-                      service: {
-                        name: service.metadata.name,
-                        port: {
-                          name: service.spec.ports[0].name,
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            };
-          }),
-        },
-      },
-      { parent: this },
-    );
-
-    this.registerOutputs();
+    this.namespace = namespace;
+    this.service = service;
+    this.registerOutputs({
+      namespace,
+      service,
+    });
   }
 }
