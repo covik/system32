@@ -1,14 +1,14 @@
 {
-  "name": "fms-infrastructure",
+  "name": "system32",
   "private": true,
-  "description": "Zara Fleet infrastructure",
-  "homepage": "https://app.zarafleet.com",
+  "description": "Hello world",
+  "homepage": "https://zth.dev",
   "bugs": {
-    "url": "https://github.com/Covik/fms-infrastructure/issues"
+    "url": "https://github.com/sudocovik/system32/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Covik/fms-infrastructure"
+    "url": "https://github.com/sudocovik/system32"
   },
   "license": "UNLICENSED",
   "author": "Mate Nakic",
