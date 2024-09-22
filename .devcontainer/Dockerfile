@@ -7,7 +7,7 @@ COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /kubectl
 COPY --from=pulumi /pulumi/bin/pulumi /pulumi/pulumi
 COPY --from=pulumi /pulumi/bin/pulumi-language-nodejs /pulumi/pulumi-language-nodejs
 
-FROM node:21.7.3-bullseye-slim@sha256:50adaf5a166e4e3dc01e77e9bdb4c35e34ef32a1e9e26200019cddb2b154fb34 AS base
+FROM node:22.9.0-bookworm-slim@sha256:903eaf1ae555002624d07066b7ce506dc2fb67b6da3121255b40ff4dc8e7e1b8 AS base
 # avoid warnings like "tput: No value for $TERM and no -T specified"
 ENV TERM="xterm"
 RUN unlink /usr/local/bin/npm
@@ -24,23 +24,22 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
   && apt-get clean
 
 FROM base AS dev
-WORKDIR /fms-infrastructure
-ENV YARN_CACHE_FOLDER=/fms-infrastructure/tmp/Yarn \
-    PULUMI_HOME=/fms-infrastructure/tmp/Pulumi \
-    KUBECONFIG=/fms-infrastructure/tmp/kubeconfig.yml
-COPY --from=binaries /kubectl /usr/local/bin/kubectl
-COPY --from=binaries /pulumi /usr/local/bin
-RUN deluser --remove-home node
-
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-
-RUN groupadd --gid $USER_GID $USERNAME \
+COPY --from=binaries /kubectl /usr/local/bin/kubectl
+COPY --from=binaries /pulumi /usr/local/bin
+RUN deluser --remove-home node \
+    && groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID --create-home $USERNAME --shell /bin/bash \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
-
+ENV YARN_CACHE_FOLDER=/var/cache/yarn \
+    PULUMI_HOME=/home/$USERNAME/.pulumi
+RUN mkdir -p $YARN_CACHE_FOLDER \
+    && mkdir -p $PULUMI_HOME \
+    && chown -R $USERNAME:$USERNAME $YARN_CACHE_FOLDER \
+    && chown -R $USERNAME:$USERNAME $PULUMI_HOME
 USER $USERNAME
 RUN mkdir ~/.cache && \
     mkdir ~/.docker && \

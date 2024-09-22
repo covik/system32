@@ -1,15 +1,17 @@
 {
-  "name": "fms-infrastructure",
   "build": {
     "dockerfile": "Dockerfile",
     "target": "dev"
   },
-  "workspaceMount": "source=${localWorkspaceFolder},target=/fms-infrastructure,type=bind,consistency=cached",
-  "workspaceFolder": "/fms-infrastructure",
-  "postCreateCommand": "yarn install --frozen-lockfile",
+  "postCreateCommand": "yarn install --frozen-lockfile && cp -n .env.example .env",
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
   "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"],
   "mounts": [
-    "source=jetbrains,target=/home/developer/.cache/JetBrains,type=volume"
-  ]
+    "source=jetbrains,target=/home/developer/.cache/JetBrains,type=volume",
+    "source=pulumi,target=/home/developer/.pulumi,type=volume",
+    "source=yarn,target=/var/cache/yarn,type=volume"
+  ],
+  "containerEnv": {
+    "KUBECONFIG": "${containerWorkspaceFolder}/tmp/kubeconfig.yml"
+  }
 }
