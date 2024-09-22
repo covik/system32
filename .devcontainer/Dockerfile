@@ -34,14 +34,12 @@ RUN deluser --remove-home node \
     && useradd --uid $USER_UID --gid $USER_GID --create-home $USERNAME --shell /bin/bash \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
-ENV YARN_CACHE_FOLDER=/var/cache/yarn \
-    PULUMI_HOME=/home/$USERNAME/.pulumi
-RUN mkdir -p $YARN_CACHE_FOLDER \
-    && mkdir -p $PULUMI_HOME \
-    && chown -R $USERNAME:$USERNAME $YARN_CACHE_FOLDER \
-    && chown -R $USERNAME:$USERNAME $PULUMI_HOME
+
 USER $USERNAME
-RUN mkdir ~/.cache && \
-    mkdir ~/.docker && \
-    mkdir -p ~/.cache/JetBrains && \
-    git config --global commit.gpgsign true
+ENV YARN_CACHE_FOLDER=/home/$USERNAME/.cache/.yarn \
+    PULUMI_HOME=/home/$USERNAME/.pulumi
+RUN mkdir /home/$USERNAME/.docker \
+    && mkdir -p /home/$USERNAME/.cache/JetBrains  \
+    && mkdir -p $YARN_CACHE_FOLDER \
+    && mkdir -p $PULUMI_HOME \
+    && git config --global commit.gpgsign true

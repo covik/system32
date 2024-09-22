@@ -9,7 +9,7 @@
   "mounts": [
     "source=jetbrains,target=/home/developer/.cache/JetBrains,type=volume",
     "source=pulumi,target=/home/developer/.pulumi,type=volume",
-    "source=yarn,target=/var/cache/yarn,type=volume"
+    "source=yarn,target=/home/developer/.cache/.yarn,type=volume"
   ],
   "containerEnv": {
     "KUBECONFIG": "${containerWorkspaceFolder}/tmp/kubeconfig.yml"
