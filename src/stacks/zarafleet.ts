@@ -1,9 +1,11 @@
 import * as cloudflare from '@pulumi/cloudflare';
 import * as pulumi from '@pulumi/pulumi';
 
+const domainSlug = 'zarafleet-com';
+
 export function resources(): unknown {
   const dnsZone = new cloudflare.Zone(
-    'zarafleet-com-zone',
+    `${domainSlug}-zone`,
     {
       zone: 'zarafleet.com',
       accountId: 'f6f07d41cae3f7e691aeaf018292e276',
@@ -15,6 +17,21 @@ export function resources(): unknown {
     },
   );
 
+  new cloudflare.ZoneSettingsOverride(`${domainSlug}-security`, {
+    zoneId: dnsZone.id,
+    settings: {
+      ssl: 'strict',
+      alwaysUseHttps: 'on',
+      securityLevel: 'high',
+      browserCheck: 'on',
+      challengeTtl: 1800,
+      // waf: 'on', // needs Pro plan
+      opportunisticEncryption: 'on',
+      automaticHttpsRewrites: 'on',
+      minTlsVersion: '1.3',
+    },
+  });
+
   const mxRecords = [
     { name: dnsZone.zone, priority: 10, value: 'mx.zoho.eu.' },
     { name: dnsZone.zone, priority: 20, value: 'mx2.zoho.eu.' },
@@ -22,7 +39,7 @@ export function resources(): unknown {
   ];
 
   mxRecords.forEach((record, index) => {
-    new cloudflare.Record(`zarafleet-com-mx-${index}`, {
+    new cloudflare.Record(`${domainSlug}-mx-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'MX',
@@ -49,7 +66,7 @@ export function resources(): unknown {
   ];
 
   txtRecords.forEach((record, index) => {
-    new cloudflare.Record(`zarafleet-com-txt-${index}`, {
+    new cloudflare.Record(`${domainSlug}-txt-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'TXT',
@@ -64,7 +81,7 @@ export function resources(): unknown {
   ];
   pulumi.all(hostnames).apply((hosts) => {
     hosts.forEach((hostname, index) => {
-      new cloudflare.Record(`zarafleet-com-cname-${index}`, {
+      new cloudflare.Record(`${domainSlug}-cname-${index}`, {
         zoneId: dnsZone.id,
         name: hostname,
         type: 'CNAME',
