@@ -138,7 +138,8 @@ Kontakt je uključen na vozilu $device.name
               containers: [
                 {
                   name: 'server',
-                  image: 'traccar/traccar:5.12-alpine',
+                  image:
+                    'traccar/traccar:6.5-alpine@sha256:e569632fe9d6dfef3152e8602992508cfe5bc3ea2f24ae4220e8445af3679a60',
                   imagePullPolicy: 'IfNotPresent',
                   ports: [
                     {
