@@ -37,6 +37,11 @@
     {
       "matchDepTypes": ["engines"],
       "rangeStrategy": "widen"
+    },
+    {
+      "packageNames": ["bitnami/kubectl"],
+      "updateTypes": ["patch", "digest"],
+      "enabled": false
     }
   ]
 }
