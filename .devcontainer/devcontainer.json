@@ -12,6 +12,6 @@
     "source=yarn,target=/home/developer/.cache/.yarn,type=volume"
   ],
   "containerEnv": {
-    "KUBECONFIG": "${containerWorkspaceFolder}/tmp/kubeconfig.yml"
+    "KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml"
   }
 }

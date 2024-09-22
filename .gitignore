@@ -1,6 +1,6 @@
 node_modules
-tmp
 .idea
 *.log
 dist
 .env
+kubeconfig.yml

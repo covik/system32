@@ -1,6 +1,5 @@
 # large directories
 node_modules
-tmp
 
 # files and directories having no effect on the final application
 # these are mostly build-releated files, markdown files, IDE files, etc.
@@ -14,3 +13,4 @@ Makefile
 *.log
 .prettierrc
 .prettierignore
+kubeconfig.yml
