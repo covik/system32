@@ -27,7 +27,7 @@
     "@pulumi/digitalocean": "4.32.0",
     "@pulumi/kubernetes": "4.18.1",
     "@pulumi/pulumi": "3.133.0",
-    "@pulumiverse/grafana": "^0.5.1"
+    "@pulumiverse/grafana": "0.5.1"
   },
   "devDependencies": {
     "@commitlint/cli": "19.5.0",
