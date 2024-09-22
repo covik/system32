@@ -7,15 +7,8 @@ module.exports = {
       [
         'workspace', // anything applied to whole repo
         'deps',
-        'tooling',
-        'utils',
-        'production',
-        'dev',
-        'backend',
-        'frontend',
-        'traefik',
-        'mysql',
-        'cluster',
+        'cromanjonac',
+        'zarafleet',
       ],
     ],
   },
