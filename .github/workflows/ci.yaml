@@ -64,6 +64,7 @@ jobs:
   preview:
     name: 'Preview'
     needs: build
+    concurrency: preview
     runs-on: ubuntu-latest
     permissions:
       packages: read
@@ -89,6 +90,7 @@ jobs:
   deploy:
     name: 'Deploy'
     needs: [build, lint, preview]
+    concurrency: 'deploy'
     runs-on: ubuntu-latest
     permissions:
       packages: read
