@@ -10,7 +10,7 @@ jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
     outputs:
-      image_tag: ${{ steps.build.outputs.image_tag }}
+      image_tag: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -26,7 +26,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push Docker Image
-        id: build
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -36,8 +35,6 @@ jobs:
           tags: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}
         env:
           DOCKER_BUILDKIT: 1
-        outputs:
-          image_tag: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}
 
   ci:
     needs: build-and-push-image
@@ -49,6 +46,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     env:
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+      # Add any other environment variables here
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -65,33 +63,21 @@ jobs:
       - name: Build Project
         run: yarn build
 
-      - name: Pulumi Refresh
-        uses: pulumi/actions@v3
-        with:
-          command: refresh
-          stack-name: cromanjonac
-          work-dir: .
-          args: --yes
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-
       - name: Pulumi Preview
-        uses: pulumi/actions@v3
+        uses: pulumi/actions@v6
         with:
           command: preview
           stack-name: cromanjonac
           work-dir: .
+          refresh: true
           comment-on-pr: true
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
       - name: Pulumi Up (Deploy to Production)
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        uses: pulumi/actions@v3
+        uses: pulumi/actions@v6
         with:
           command: up
           stack-name: cromanjonac
           work-dir: .
-          args: --yes --refresh
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          refresh: true
+          args: --yes
