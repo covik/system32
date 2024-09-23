@@ -20,7 +20,14 @@ jobs:
       - name: Run CI commands
         uses: './.devcontainer'
         with:
-          entrypoint: 'set -e && yarn format:check && yarn lint && yarn build && pulumi stack select cromanjonac && pulumi refresh --skip-preview && pulumi preview'
+          entrypoint: |
+            set -e
+            yarn format:check
+            yarn lint
+            yarn build
+            pulumi stack select cromanjonac
+            pulumi refresh --skip-preview
+            pulumi preview
 
       - name: Update production
         if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
