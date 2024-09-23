@@ -51,6 +51,9 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: /home/developer/app
     steps:
       - name: Format
         run: yarn format:check --log-level=silent
@@ -69,6 +72,9 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: /home/developer/app
     steps:
       - name: Pulumi Preview
         uses: pulumi/actions@v5
@@ -90,6 +96,9 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: /home/developer/app
     steps:
       - name: Pulumi Up (Deploy to Production)
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
