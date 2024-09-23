@@ -1,0 +1,11 @@
+# THIS IS NOT AN ACTUAL HELM CHART!
+# It's just a mechanism to have a RenovateBot update chart versions
+# and let Pulumi parse dependencies and use version and repository url
+
+apiVersion: v2
+name: placholder-chart
+version: 0.0.0
+dependencies:
+  - name: minecraft
+    version: 4.20.0
+    repository: 'https://itzg.github.io/minecraft-server-charts/'

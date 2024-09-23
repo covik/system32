@@ -1,5 +1,6 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
+import { findHelmDependency } from '../../utils/helm';
 
 export interface MinecraftArgs {
   cpu?: pulumi.Input<string>;
@@ -29,15 +30,16 @@ export class MinecraftServer extends pulumi.ComponentResource {
       { parent: this },
     );
 
+    const chartSettings = findHelmDependency('minecraft');
     const release = new k8s.helm.v3.Release(
       `${name}-release`,
       {
         name,
-        chart: 'minecraft',
-        version: '4.20.0',
+        chart: chartSettings.name,
+        version: chartSettings.version,
         namespace: namespace.metadata.name,
         repositoryOpts: {
-          repo: 'https://itzg.github.io/minecraft-server-charts/',
+          repo: chartSettings.repository,
         },
         values: {
           minecraftServer: {

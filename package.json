@@ -14,7 +14,7 @@
   "author": "Mate Nakic",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/Chart.yaml dist/src/.",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint --max-warnings 0 ./",
@@ -27,7 +27,9 @@
     "@pulumi/digitalocean": "4.32.0",
     "@pulumi/kubernetes": "4.18.1",
     "@pulumi/pulumi": "3.133.0",
-    "@pulumiverse/grafana": "0.5.1"
+    "@pulumiverse/grafana": "0.5.1",
+    "superstruct": "2.0.2",
+    "yaml": "2.5.1"
   },
   "devDependencies": {
     "@commitlint/cli": "19.5.0",
