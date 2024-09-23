@@ -85,7 +85,6 @@ jobs:
           command: preview
           refresh: true
           comment-on-pr: true
-          comment-on-summary: true
 
   deploy:
     name: 'Deploy'
@@ -111,5 +110,4 @@ jobs:
           stack-name: cromanjonac
           command: up
           refresh: true
-          comment-on-pr: true
           comment-on-summary: true
