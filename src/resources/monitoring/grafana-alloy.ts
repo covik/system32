@@ -1,5 +1,6 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
+import { findHelmDependency } from '../../utils';
 
 export interface GrafanaAlloyArgs {
   clusterName: pulumi.Input<string>;
@@ -21,16 +22,17 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
       { parent: this },
     );
 
+    const chartSettings = findHelmDependency('k8s-monitoring');
     new k8s.helm.v3.Release(
       `${name}-release`,
       {
         name,
         atomic: true,
-        chart: 'k8s-monitoring',
-        version: '1.4.8',
+        chart: chartSettings.name,
+        version: chartSettings.version,
         namespace: namespace.metadata.name,
         repositoryOpts: {
-          repo: 'https://grafana.github.io/helm-charts',
+          repo: chartSettings.repository,
         },
         values: {
           'cluster': {
