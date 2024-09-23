@@ -7,6 +7,7 @@ module.exports = {
       [
         'workspace', // anything applied to whole repo
         'deps',
+        'util',
         'cromanjonac',
         'zarafleet',
       ],
