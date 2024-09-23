@@ -7,5 +7,5 @@ name: placholder-chart
 version: 0.0.0
 dependencies:
   - name: minecraft
-    version: 4.20.0
+    version: 4.23.2
     repository: 'https://itzg.github.io/minecraft-server-charts/'
