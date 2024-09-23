@@ -54,7 +54,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     defaults:
       run:
-        working-directory: /home/developer/app
+        working-directory: /app
     steps:
       - name: Format
         run: yarn format:check --log-level=silent
@@ -70,7 +70,6 @@ jobs:
       packages: read
     container:
       image: ${{ needs.build.outputs.image_tag }}
-      options: --user developer
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -80,7 +79,7 @@ jobs:
       - name: Pulumi Preview
         uses: pulumi/actions@v5
         with:
-          work-dir: /home/developer/app
+          work-dir: /app
           stack-name: cromanjonac
           command: preview
           refresh: true
@@ -95,7 +94,6 @@ jobs:
       packages: read
     container:
       image: ${{ needs.build.outputs.image_tag }}
-      options: --user developer
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -106,7 +104,7 @@ jobs:
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         uses: pulumi/actions@v5
         with:
-          work-dir: /home/developer/app
+          work-dir: /app
           stack-name: cromanjonac
           command: up
           refresh: true

@@ -51,9 +51,13 @@ COPY yarn.lock .
 COPY package.json .
 RUN yarn install --frozen-lockfile --ignore-scripts
 
-FROM dev AS ci
+FROM base AS ci
 USER root
-WORKDIR /home/$USERNAME/app
+ENV YARN_CACHE_FOLDER=/root/.cache/.yarn \
+    PULUMI_HOME=/root/.pulumi
+COPY --from=binaries /kubectl /usr/local/bin/kubectl
+COPY --from=binaries /pulumi /usr/local/bin
+WORKDIR /app
 COPY --from=deps /deps/node_modules ./node_modules
 COPY Pulumi.yaml .
 RUN pulumi plugin install \
