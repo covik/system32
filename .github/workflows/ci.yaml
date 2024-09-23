@@ -18,9 +18,10 @@ jobs:
           echo "PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}" > .env
 
       - name: Run CI commands
-        uses: './.devcontainer'
+        uses: devcontainers/ci@v0.3
         with:
-          entrypoint: |
+          inheritEnv: true
+          runCmd: |
             set -e
             yarn format:check
             yarn lint
