@@ -84,7 +84,6 @@ jobs:
           stack-name: cromanjonac
           command: preview
           refresh: true
-          comment-on-pr: true
 
   deploy:
     name: 'Deploy'
