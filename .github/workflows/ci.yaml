@@ -52,6 +52,9 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: /home/developer/${{ github.event.repository.name }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
