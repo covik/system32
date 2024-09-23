@@ -66,7 +66,7 @@ jobs:
         run: yarn build
 
       - name: Pulumi Preview
-        uses: pulumi/actions@v6
+        uses: pulumi/actions@v5
         with:
           command: preview
           stack-name: cromanjonac
@@ -76,7 +76,7 @@ jobs:
 
       - name: Pulumi Up (Deploy to Production)
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        uses: pulumi/actions@v6
+        uses: pulumi/actions@v5
         with:
           command: up
           stack-name: cromanjonac
