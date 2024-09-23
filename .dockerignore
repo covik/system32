@@ -6,11 +6,10 @@ node_modules
 .git
 .idea
 dist
-.gitignore
-docker-bake.hcl
-Makefile
 .env*
 *.log
-.prettierrc
-.prettierignore
 kubeconfig.yml
+.devcontainer
+.fleet
+.github
+renovate.json

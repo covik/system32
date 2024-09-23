@@ -43,3 +43,21 @@ RUN mkdir /home/$USERNAME/.docker \
     && mkdir -p $YARN_CACHE_FOLDER \
     && mkdir -p $PULUMI_HOME \
     && git config --global commit.gpgsign true
+
+
+FROM base AS deps
+WORKDIR /deps
+COPY yarn.lock .
+COPY package.json .
+RUN yarn install --frozen-lockfile --ignore-scripts
+
+FROM dev AS ci
+USER root
+WORKDIR /home/$USERNAME/app
+COPY --from=deps /deps/node_modules ./node_modules
+COPY Pulumi.yaml .
+RUN pulumi plugin install \
+    && sudo chown -R $USERNAME:$USERNAME $PULUMI_HOME
+COPY . .
+RUN yarn build
+USER $USERNAME
