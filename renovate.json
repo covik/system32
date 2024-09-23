@@ -43,15 +43,5 @@
       "updateTypes": ["patch", "digest"],
       "enabled": false
     }
-  ],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["^Pulumi\\..*\\.yaml$"],
-      "matchStrings": ["chart@(?<depName>[^:]+): (?<currentValue>.+)"],
-      "datasourceTemplate": "helm",
-      "depNameTemplate": "{{depName}}",
-      "versioningTemplate": "semver"
-    }
   ]
 }
