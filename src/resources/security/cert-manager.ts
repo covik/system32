@@ -1,5 +1,6 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
+import { findHelmDependency } from '../../utils';
 
 interface CertManagerArgs {}
 
@@ -23,14 +24,15 @@ export class CertManager extends pulumi.ComponentResource {
       { parent: this, deleteBeforeReplace: true },
     );
 
+    const chartSettings = findHelmDependency('cert-manager');
     new k8s.helm.v3.Release(
       `${name}-release`,
       {
         name,
-        chart: 'cert-manager',
-        version: 'v1.15.1',
+        chart: chartSettings.name,
+        version: chartSettings.version,
         repositoryOpts: {
-          repo: 'https://charts.jetstack.io',
+          repo: chartSettings.repository,
         },
         namespace: namespace.metadata.name,
         values: {
