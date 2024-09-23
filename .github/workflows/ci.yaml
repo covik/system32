@@ -72,15 +72,13 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: /home/developer/app
     env:
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
       - name: Pulumi Preview
         uses: pulumi/actions@v5
         with:
+          work-dir: /home/developer/app
           stack-name: cromanjonac
           command: preview
           refresh: true
@@ -98,9 +96,6 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: /home/developer/app
     env:
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
@@ -108,6 +103,7 @@ jobs:
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         uses: pulumi/actions@v5
         with:
+          work-dir: /home/developer/app
           stack-name: cromanjonac
           command: up
           refresh: true
