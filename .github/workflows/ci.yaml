@@ -48,6 +48,7 @@ jobs:
       packages: read
     container:
       image: ${{ needs.build.outputs.image_tag }}
+      options: --user developer
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -69,6 +70,7 @@ jobs:
       packages: read
     container:
       image: ${{ needs.build.outputs.image_tag }}
+      options: --user developer
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -93,6 +95,7 @@ jobs:
       packages: read
     container:
       image: ${{ needs.build.outputs.image_tag }}
+      options: --user developer
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
