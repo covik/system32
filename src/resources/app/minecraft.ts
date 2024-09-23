@@ -1,6 +1,6 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
-import { findHelmDependency } from '../../utils/helm';
+import { findHelmDependency } from '../../utils';
 
 export interface MinecraftArgs {
   cpu?: pulumi.Input<string>;
