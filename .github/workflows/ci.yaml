@@ -19,6 +19,7 @@ jobs:
 
       - name: Run CI commands
         uses: devcontainers/ci@v0.3
+        inheritEnv: true
         with:
           runCmd: |
             set -e
@@ -32,6 +33,7 @@ jobs:
       - name: Update production
         if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
         uses: devcontainers/ci@v0.3
+        inheritEnv: true
         with:
           runCmd: |
             set -e
