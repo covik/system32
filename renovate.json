@@ -53,8 +53,5 @@
       "depNameTemplate": "{{depName}}",
       "versioningTemplate": "semver"
     }
-  ],
-  "registryAliases": {
-    "itzg": "https://itzg.github.io/minecraft-server-charts/"
-  }
+  ]
 }
