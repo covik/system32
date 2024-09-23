@@ -1,5 +1,6 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
+import { findHelmDependency } from '../../utils';
 
 export interface EnvoyGatewayArguments {}
 
@@ -23,12 +24,13 @@ export class EnvoyGateway extends pulumi.ComponentResource {
       { parent: this, deleteBeforeReplace: true },
     );
 
+    const chartSettings = findHelmDependency('gateway-helm');
     const chart = new k8s.helm.v3.Release(
       `${name}-release`,
       {
         name,
-        chart: 'oci://docker.io/envoyproxy/gateway-helm',
-        version: 'v0.0.0-latest',
+        chart: `${chartSettings.repository}/${chartSettings.name}`,
+        version: chartSettings.version,
         namespace: namespace.metadata.name,
       },
       {
