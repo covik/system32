@@ -19,6 +19,8 @@ export class MinecraftServer extends pulumi.ComponentResource {
   ) {
     super('fms:app:Minecraft', name, args, opts);
 
+    const config = new pulumi.Config();
+
     const namespace = new k8s.core.v1.Namespace(
       `${name}-ns`,
       {
@@ -34,7 +36,9 @@ export class MinecraftServer extends pulumi.ComponentResource {
       {
         name,
         chart: 'minecraft',
-        version: '4.20.0',
+        version: config.require('chart@minecraft', {
+          pattern: /^([0-9]+)\.([0-9]+)\.([0-9]+)$/,
+        }),
         namespace: namespace.metadata.name,
         repositoryOpts: {
           repo: 'https://itzg.github.io/minecraft-server-charts/',

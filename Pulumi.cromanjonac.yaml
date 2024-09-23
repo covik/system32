@@ -6,6 +6,7 @@ config:
     secure: AAABAMq+OHzfUMYc0TzlfLX2kc7e6nZEZz4PVVyhU9/iefqkSRodEG3BapCkC0KOcpH+SCp6DHR9Q8WeGuzzEb7tNA4ao0BzGjGW
   digitalocean:token:
     secure: AAABAGxAz/wN7P5bTTDmImR/fuF4W66eny8D5Qssrbm/WBYWFiHSF79xhSljb6ojADF785fS8kVajDaMYpABwP7WUje4k9x8rpabzWPqVlfeOqrDXlwdxeB/T8SzinwI1xG46ukoKQ==
+  fms:chart@minecraft: 4.20.0
   fms:container-registry-token:
     secure: AAABAGyiKqNfugqlLFJV4qsJl+5UcGLxkXCcJzsl+g3y/6EoUHrYiWrXpB6m1ETDR5k2CK3sCzAD5ktvSii6NmsWfOLTGN4o
   fms:k8s-cluster-token:
