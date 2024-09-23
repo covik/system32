@@ -64,4 +64,3 @@ RUN pulumi plugin install \
     && sudo chown -R $USERNAME:$USERNAME $PULUMI_HOME
 COPY . .
 RUN yarn build
-USER $USERNAME
