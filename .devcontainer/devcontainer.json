@@ -3,7 +3,8 @@
     "dockerfile": "Dockerfile",
     "target": "dev"
   },
-  "postCreateCommand": "yarn install --frozen-lockfile && cp -n .env.example .env",
+  "initializeCommand": "cp -n .env.example .env",
+  "postCreateCommand": "yarn install --frozen-lockfile",
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
   "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"],
   "mounts": [
