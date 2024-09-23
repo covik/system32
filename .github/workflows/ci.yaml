@@ -75,6 +75,8 @@ jobs:
     defaults:
       run:
         working-directory: /home/developer/app
+    env:
+      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
       - name: Pulumi Preview
         uses: pulumi/actions@v5
@@ -99,6 +101,8 @@ jobs:
     defaults:
       run:
         working-directory: /home/developer/app
+    env:
+      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
       - name: Pulumi Up (Deploy to Production)
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
