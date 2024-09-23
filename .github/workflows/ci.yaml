@@ -39,14 +39,14 @@ jobs:
   ci:
     needs: build-and-push-image
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     container:
       image: ${{ needs.build-and-push-image.outputs.image_tag }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-      # Add any other environment variables here
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
