@@ -67,6 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: read
+      pull-requests: write
     container:
       image: ${{ needs.build.outputs.image_tag }}
       credentials:
@@ -91,6 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: read
+      pull-requests: write
     container:
       image: ${{ needs.build.outputs.image_tag }}
       credentials:
