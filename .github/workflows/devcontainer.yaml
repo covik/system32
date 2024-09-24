@@ -18,7 +18,7 @@ jobs:
       contents: read
       packages: write
     outputs:
-      image_tag: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/devcontainer:${{ github.sha }}
+      image_tag: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/devcontainer:latest@sha256:${{ steps.push.outputs.digest }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -35,12 +35,13 @@ jobs:
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
+        id: push
         with:
           context: .
           file: .devcontainer/Dockerfile
           target: dev
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/devcontainer:${{ github.sha }}
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/devcontainer:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -123,4 +124,3 @@ jobs:
           commit_prefix: 'chore(workspace)'
           commit_message: 'update image in devcontainer.json'
           force: false
-          target_branch: ${{ github.ref_name }}
