@@ -92,6 +92,7 @@ jobs:
   deploy:
     name: 'Deploy'
     needs: [build, lint, preview]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     concurrency: 'deploy'
     runs-on: ubuntu-latest
     permissions:
@@ -106,7 +107,6 @@ jobs:
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
       - name: Pulumi Up (Deploy to Production)
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         uses: pulumi/actions@v5
         with:
           work-dir: /app

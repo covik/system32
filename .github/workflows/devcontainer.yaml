@@ -1,7 +1,14 @@
 name: 'Devcontainer'
 
 on:
-  workflow_dispatch:
+  pull_request:
+    paths-ignore:
+      - .github/workflows/ci.yaml
+  push:
+    paths-ignore:
+      - .github/workflows/ci.yaml
+    branches:
+      - main
 
 jobs:
   build:
@@ -92,6 +99,7 @@ jobs:
   commit:
     name: 'Commit & push'
     needs: [validate]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
