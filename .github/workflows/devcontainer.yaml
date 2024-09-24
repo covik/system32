@@ -59,7 +59,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Alter image of the devcontainer.json
-        working-directory: ./devcontainer
+        working-directory: .devcontainer
         run: |
           jq --arg image "$IMAGE_REFERENCE" '.image = $image' devcontainer.json > devcontainer.json
 
