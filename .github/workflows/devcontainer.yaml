@@ -123,4 +123,4 @@ jobs:
           commit_prefix: 'chore(workspace)'
           commit_message: 'update image in devcontainer.json'
           force: false
-          target_branch: ${{ github.ref }}
+          target_branch: ${{ github.ref_name }}
