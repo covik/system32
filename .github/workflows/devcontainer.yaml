@@ -69,7 +69,7 @@ jobs:
             set -e
             node --version
             yarn --version
-            pulumi --version
+            pulumi version
             whoami
             pwd
             ls -lah
