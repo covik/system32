@@ -105,16 +105,23 @@ jobs:
       - name: Generate diff
         id: comparison
         run: |
-          git diff --no-prefix .devcontainer/devcontainer.json > /tmp/diff.txt
-          echo "changes_exist=$( [ -s "$FILE" ] && echo true || echo false )" >> $GITHUB_OUTPUT
-          if [ -z "/tmp/diff.txt" ]; then
+          set -euo pipefail  # Enable strict error handling
+
+          FILE=".devcontainer/devcontainer.json"
+          DIFF=$(git diff --no-prefix "$FILE")
+
+          if [ -n "$DIFF" ]; then
+            RICH_DIFF=$(printf "\`\`\`%s\n\`\`\`\n" "$DIFF")
+            echo "Differences found in $FILE:"
+            echo "$RICH_DIFF"
+            echo "diff_summary=$RICH_DIFF" >> $GITHUB_OUTPUT
+            echo -e "$RICH_DIFF" >> $GITHUB_STEP_SUMMARY
+          else
             MSG="No changes were made to devcontainer.json"
             echo "$MSG"
             echo -e "$MSG" >> $GITHUB_STEP_SUMMARY
             echo "diff_summary=MSG" >> $GITHUB_OUTPUT
-          else
-            echo "diff_summary=$(cat /tmp/diff.txt)" >> $GITHUB_OUTPUT
-            echo -e "$RICH_DIFF" >> $GITHUB_STEP_SUMMARY
+          fi
 
   pr:
     name: 'Manage PR'
