@@ -66,8 +66,12 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
+            set -e
+            node --version
+            yarn --version
+            pulumi --version
             whoami
             pwd
-            ls- lah
+            ls -lah
             yarn format:check
             pulumi plugin ls
