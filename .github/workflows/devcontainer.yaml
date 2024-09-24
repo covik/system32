@@ -105,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changes_exist: ${{ steps.compare.outputs.changes_exist }}
-      rich_diff: ${{ steps.generate_diff.outputs.rich_diff }}
+      diff_summary: ${{ steps.generate_diff.outputs.diff_summary }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -124,38 +124,18 @@ jobs:
           # Generate the diff
           DIFF=$(git diff --no-prefix .devcontainer/devcontainer.json ./modified_devcontainer/devcontainer.json)
           if [ -z "$DIFF" ]; then
-            echo "No changes detected in devcontainer.json."
+            MSG="No changes were made to devcontainer.json"
+            echo "$MSG"
             echo "changes_exist=false" >> $GITHUB_OUTPUT
-            echo "No changes were made to devcontainer.json." > devcontainer_diff.txt
+            echo "diff_summary=${MSG}" >> $GITHUB_OUTPUT
+            echo -e "$MSG" >> $GITHUB_STEP_SUMMARY
           else
             echo "Changes detected in devcontainer.json."
             echo "changes_exist=true" >> $GITHUB_OUTPUT
-            echo "$DIFF" > devcontainer_diff.txt
+            diff_summary=$(printf "```diff\n%s\n```" "$DIFF")
+            echo "diff_summary=${diff_summary}" >> $GITHUB_OUTPUT
+            echo -e "$diff_summary" >> $GITHUB_STEP_SUMMARY
           fi
-
-      - name: Generate Rich Diff Summary
-        id: generate_diff
-        run: |
-          if [ -s devcontainer_diff.txt ]; then
-            RICH_DIFF=$(printf "```diff\n%s\n```" "$(cat devcontainer_diff.txt)")
-            echo "rich_diff=${RICH_DIFF}" >> $GITHUB_OUTPUT
-          else
-            echo "rich_diff=No changes were made to devcontainer.json." >> $GITHUB_OUTPUT
-          fi
-
-      - name: Add Git Diff to Job Summary
-        run: |
-          echo "### Changes in devcontainer.json" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ steps.compare.outputs.changes_exist }}" == "true" ]; then
-            echo -e "${{ steps.generate_diff.outputs.rich_diff }}" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "${{ steps.generate_diff.outputs.rich_diff }}" >> $GITHUB_STEP_SUMMARY
-          fi
-
-      - name: Output changes_exist and rich_diff
-        run: |
-          echo "Changes exist: ${{ steps.compare.outputs.changes_exist }}"
-          echo "Rich Diff: ${{ steps.generate_diff.outputs.rich_diff }}"
 
   pr:
     name: 'Manage PR'
@@ -166,7 +146,7 @@ jobs:
         id: set_outputs
         run: |
           echo "changes_exist=${{ needs.check_changes.outputs.changes_exist }}" >> $GITHUB_OUTPUT
-          echo "rich_diff=${{ needs.check_changes.outputs.rich_diff }}" >> $GITHUB_OUTPUT
+          echo "diff_summary=${{ needs.check_changes.outputs.diff_summary }}" >> $GITHUB_OUTPUT
 
       - name: Upsert PR for main branch
         if: needs.check_changes.outputs.changes_exist == 'true' && github.ref == 'refs/heads/main'
@@ -180,7 +160,7 @@ jobs:
             Automated update of **devcontainer.json**.
 
             ### Changes:
-            ${{ needs.check_changes.outputs.rich_diff }}
+            ${{ needs.check_changes.outputs.diff_summary }}
           base: main
           branch: github-actions/update-devcontainer-json
           labels: automation
@@ -195,7 +175,7 @@ jobs:
           body: |
             ### Automated Update: devcontainer.json
 
-            ${{ needs.check_changes.outputs.rich_diff }}
+            ${{ needs.check_changes.outputs.diff_summary }}
 
       - name: Skip commit push if no changes
         if: needs.check_changes.outputs.changes_exist == 'false'
