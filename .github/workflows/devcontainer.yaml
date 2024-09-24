@@ -58,14 +58,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - run: ls -lah ./.devcontainer
+
       - name: Alter image of the devcontainer.json
         working-directory: .devcontainer
         run: |
           jq --arg image "$IMAGE_REFERENCE" '.image = $image' devcontainer.json > devcontainer.json
 
+      - run: |
+          ls -lah
+          ls -lah ./.devcontainer
+
       - name: Sanity check
         uses: devcontainers/ci@v0.3
         with:
+          config: .devcontainer/devcontainer.json
           runCmd: |
             set -e
             node --version
