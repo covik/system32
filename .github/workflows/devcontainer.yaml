@@ -129,6 +129,8 @@ jobs:
     needs: [validate]
     if: needs.validate.outputs.changes_exist == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
