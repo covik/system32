@@ -127,14 +127,14 @@ jobs:
             MSG="No changes were made to devcontainer.json"
             echo "$MSG"
             echo "changes_exist=false" >> $GITHUB_OUTPUT
-            echo "diff_summary=${MSG}" >> $GITHUB_OUTPUT
+            echo "diff_summary=$MSG" >> $GITHUB_OUTPUT
             echo -e "$MSG" >> $GITHUB_STEP_SUMMARY
           else
             echo "Changes detected in devcontainer.json."
             echo "changes_exist=true" >> $GITHUB_OUTPUT
-            diff_summary=$(printf "```diff\n%s\n```" "$DIFF")
-            echo "diff_summary=${diff_summary}" >> $GITHUB_OUTPUT
-            echo -e "$diff_summary" >> $GITHUB_STEP_SUMMARY
+            RICH_DIFF=$(printf "```diff\n%s\n```" "$DIFF")
+            echo "diff_summary=$RICH_DIFF" >> $GITHUB_OUTPUT
+            echo -e "$RICH_DIFF" >> $GITHUB_STEP_SUMMARY
           fi
 
   pr:
@@ -176,8 +176,3 @@ jobs:
             ### Automated Update: devcontainer.json
 
             ${{ needs.check_changes.outputs.diff_summary }}
-
-      - name: Skip commit push if no changes
-        if: needs.check_changes.outputs.changes_exist == 'false'
-        run: |
-          echo "No changes detected. Skipping commit and push."
