@@ -106,16 +106,14 @@ jobs:
         id: comparison
         run: |
           git diff --no-prefix .devcontainer/devcontainer.json > /tmp/diff.txt
-          DIFF=$(cat /tmp/diff.txt)
-          RICH_DIFF=$(printf "```diff\n%s\n```" "$DIFF")
-          echo $RICH_DIFF
-          echo "diff_summary=$RICH_DIFF" >> $GITHUB_OUTPUT
           echo "changes_exist=$( [ -s "$FILE" ] && echo true || echo false )" >> $GITHUB_OUTPUT
-          if [ -z "$DIFF" ]; then
+          if [ -z "/tmp/diff.txt" ]; then
             MSG="No changes were made to devcontainer.json"
             echo "$MSG"
             echo -e "$MSG" >> $GITHUB_STEP_SUMMARY
+            echo "diff_summary=MSG" >> $GITHUB_OUTPUT
           else
+            echo "diff_summary=$(cat /tmp/diff.txt)" >> $GITHUB_OUTPUT
             echo -e "$RICH_DIFF" >> $GITHUB_STEP_SUMMARY
 
   pr:
