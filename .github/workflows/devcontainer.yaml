@@ -4,13 +4,15 @@ on:
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - .github/workflows/ci.yaml
+    paths:
+      - .devcontainer
+      - .github/workflows/devcontainer.yaml
   push:
-    paths-ignore:
-      - .github/workflows/ci.yaml
     branches:
       - main
+    paths:
+      - .devcontainer
+      - .github/workflows/devcontainer.yaml
 
 jobs:
   build:
