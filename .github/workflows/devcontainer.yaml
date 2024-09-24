@@ -94,6 +94,7 @@ jobs:
             pulumi plugin ls
             echo "permission test" > $PULUMI_HOME/test.txt
             ls -lah $PULUMI_HOME
+            ls -lah $HOME
 
       - name: Upload modified devcontainer.json
         uses: actions/upload-artifact@v4
