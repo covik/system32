@@ -75,3 +75,41 @@ jobs:
             ls -lah
             yarn format:check
             pulumi plugin ls
+
+      - name: Upload modified devcontainer.json
+        uses: actions/upload-artifact@v4
+        with:
+          name: devcontainer
+          path: .devcontainer/devcontainer.json
+          if-no-files-found: error
+          compression-level: 0
+          overwrite: true
+
+  commit:
+    name: 'Commit & push'
+    needs: [validate]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Download modified devcontainer.json
+        uses: actions/download-artifact@v4
+        with:
+          name: devcontainer
+          path: .devcontainer/devcontainer.json
+
+      - name: Commit and push changes
+        uses: devops-infra/action-commit-push@master
+        with:
+          github_token: '${{ secrets.GITHUB_TOKEN }}'
+          add_timestamp: true
+          commit_prefix: 'chore(workspace)'
+          commit_message: 'update image in devcontainer.json'
+          force: false
+          target_branch: ${{ github.ref }}
