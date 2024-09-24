@@ -111,16 +111,17 @@ jobs:
           DIFF=$(git diff --no-prefix "$FILE")
 
           if [ -n "$DIFF" ]; then
-            RICH_DIFF=$(printf "\`\`\`%s\n\`\`\`\n" "$DIFF")
+            RICH_DIFF=$(printf '```diff\n%s\n```' "$DIFF")
             echo "Differences found in $FILE:"
-            echo "$RICH_DIFF"
-            echo "diff_summary=$RICH_DIFF" >> $GITHUB_OUTPUT
+            echo "diff_summary<<EOF" >> $GITHUB_OUTPUT
+            echo "$RICH_DIFF" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
             echo -e "$RICH_DIFF" >> $GITHUB_STEP_SUMMARY
           else
             MSG="No changes were made to devcontainer.json"
             echo "$MSG"
             echo -e "$MSG" >> $GITHUB_STEP_SUMMARY
-            echo "diff_summary=MSG" >> $GITHUB_OUTPUT
+            echo "diff_summary=$MSG" >> $GITHUB_OUTPUT
           fi
 
   pr:
