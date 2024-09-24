@@ -59,6 +59,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Alter image of the devcontainer.json
+        working-directory: ./devcontainer
         run: |
           jq --arg image "$IMAGE_REFERENCE" '.image = $image' devcontainer.json > devcontainer.json
 
@@ -102,13 +103,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: devcontainer
-          path: .devcontainer/devcontainer.json
+          path: .devcontainer
 
       - name: Commit and push changes
         uses: devops-infra/action-commit-push@master
         with:
           github_token: '${{ secrets.GITHUB_TOKEN }}'
-          add_timestamp: true
           commit_prefix: 'chore(workspace)'
           commit_message: 'update image in devcontainer.json'
           force: false
