@@ -31,7 +31,7 @@ jobs:
           version: 'v0.17.1' # Specify a stable Buildx version
           driver: docker-container
           driver-opts: image=moby/buildkit:buildx-stable-1@sha256:bc1fe18224dbcb92599139db0c745696c48ba9fd4ac24038d1fa81fdd7dcac27
-          buildkitd-flags: --name custom-builder --allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host
+          buildkitd-flags: --allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host
           install: false # Avoid setting up Buildx as an alias to `docker build`
           use: true # Switch to this builder instance
           cache-binary: true # Cache the Buildx binary to speed up future builds
