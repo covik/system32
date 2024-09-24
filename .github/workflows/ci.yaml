@@ -112,5 +112,5 @@ jobs:
           work-dir: /app
           stack-name: cromanjonac
           command: up
-          refresh: true
+          refresh: false # state refresh is at preview
           comment-on-summary: true
