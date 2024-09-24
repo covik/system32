@@ -58,21 +58,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: ls -lah ./.devcontainer
-
       - name: Alter image of the devcontainer.json
         working-directory: .devcontainer
         run: |
-          jq --arg image "$IMAGE_REFERENCE" '.image = $image' devcontainer.json > devcontainer.json
+          set -e
+          echo $IMAGE_REFERENCE
+          jq --version
+          jq --arg image "$IMAGE_REFERENCE" '.image = $image' devcontainer.json > devcontainer.tmp.json && mv devcontainer.tmp.json devcontainer.json
 
       - run: |
-          ls -lah
           ls -lah ./.devcontainer
 
       - name: Sanity check
         uses: devcontainers/ci@v0.3
         with:
-          config: .devcontainer/devcontainer.json
           runCmd: |
             set -e
             node --version
@@ -81,7 +80,7 @@ jobs:
             whoami
             pwd
             ls -lah
-            yarn format:check
+            yarn format # jq alters the format
             pulumi plugin ls
 
       - name: Upload modified devcontainer.json
