@@ -29,21 +29,19 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 COPY --from=binaries /kubectl /usr/local/bin/kubectl
 COPY --from=binaries /pulumi /usr/local/bin
+ENV YARN_CACHE_FOLDER=/home/$USERNAME/.cache/.yarn \
+    PULUMI_HOME=/home/$USERNAME/.pulumi
 RUN deluser --remove-home node \
     && groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID --create-home $USERNAME --shell /bin/bash \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
-
-USER $USERNAME
-ENV YARN_CACHE_FOLDER=/home/$USERNAME/.cache/.yarn \
-    PULUMI_HOME=/home/$USERNAME/.pulumi
-RUN mkdir /home/$USERNAME/.docker \
-    && mkdir -p /home/$USERNAME/.cache/JetBrains  \
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && mkdir -p /home/$USERNAME/.docker \
+    && mkdir -p /home/$USERNAME/.cache/JetBrains \
     && mkdir -p $YARN_CACHE_FOLDER \
-    && mkdir -p $PULUMI_HOME \
-    && git config --global commit.gpgsign true
-
+    && mkdir -p $PULUMI_HOME
+USER $USERNAME
+RUN git config --global commit.gpgsign true
 
 FROM base AS deps
 WORKDIR /deps
