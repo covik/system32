@@ -57,6 +57,9 @@ jobs:
     env:
       IMAGE_REFERENCE: ${{ needs.build.outputs.image_tag }}
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+    outputs:
+      diff_summary: ${{ steps.comparison.outputs.diff_summary }}
+      changes_exist: ${{ steps.comparison.outputs.changes_exist }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -99,57 +102,29 @@ jobs:
           compression-level: 0
           overwrite: true
 
-  check_changes:
-    name: 'Check changes'
-    needs: [validate]
-    runs-on: ubuntu-latest
-    outputs:
-      changes_exist: ${{ steps.compare.outputs.changes_exist }}
-      diff_summary: ${{ steps.generate_diff.outputs.diff_summary }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Download modified devcontainer.json
-        uses: actions/download-artifact@v4
-        with:
-          name: devcontainer
-          path: ./modified_devcontainer
-
-      - name: Compare devcontainer.json
-        id: compare
+      - name: Generate diff
+        id: comparison
         run: |
-          # Generate the diff
-          DIFF=$(git diff --no-prefix .devcontainer/devcontainer.json ./modified_devcontainer/devcontainer.json)
+          git diff --no-prefix .devcontainer/devcontainer.json > /tmp/diff.txt
+          DIFF=$(cat /tmp/diff.txt)
+          RICH_DIFF=printf "```diff\n%s\n```" "$DIFF"
+          echo $RICH_DIFF
+          echo "diff_summary=$RICH_DIFF" >> $GITHUB_OUTPUT
+          echo "changes_exist=$( [ -s "$FILE" ] && echo true || echo false )" >> $GITHUB_OUTPUT
           if [ -z "$DIFF" ]; then
             MSG="No changes were made to devcontainer.json"
             echo "$MSG"
-            echo "changes_exist=false" >> $GITHUB_OUTPUT
-            echo "diff_summary=$MSG" >> $GITHUB_OUTPUT
             echo -e "$MSG" >> $GITHUB_STEP_SUMMARY
           else
-            echo "Changes detected in devcontainer.json."
-            echo "changes_exist=true" >> $GITHUB_OUTPUT
-            RICH_DIFF=$(printf "```diff\n%s\n```" "$DIFF")
-            echo "diff_summary=$RICH_DIFF" >> $GITHUB_OUTPUT
             echo -e "$RICH_DIFF" >> $GITHUB_STEP_SUMMARY
-          fi
 
   pr:
     name: 'Manage PR'
-    needs: [check_changes]
+    needs: [validate]
     runs-on: ubuntu-latest
     steps:
-      - name: Set Output Variables
-        id: set_outputs
-        run: |
-          echo "changes_exist=${{ needs.check_changes.outputs.changes_exist }}" >> $GITHUB_OUTPUT
-          echo "diff_summary=${{ needs.check_changes.outputs.diff_summary }}" >> $GITHUB_OUTPUT
-
       - name: Upsert PR for main branch
-        if: needs.check_changes.outputs.changes_exist == 'true' && github.ref == 'refs/heads/main'
+        if: needs.validate.outputs.changes_exist == 'true' && github.ref == 'refs/heads/main'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -160,14 +135,14 @@ jobs:
             Automated update of **devcontainer.json**.
 
             ### Changes:
-            ${{ needs.check_changes.outputs.diff_summary }}
+            ${{ needs.validate.outputs.diff_summary }}
           base: main
           branch: github-actions/update-devcontainer-json
           labels: automation
           draft: false
 
       - name: Upsert Pull Request comment
-        if: needs.check_changes.outputs.changes_exist == 'true' && github.event_name == 'pull_request'
+        if: needs.validate.outputs.changes_exist == 'true' && github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -175,4 +150,4 @@ jobs:
           body: |
             ### Automated Update: devcontainer.json
 
-            ${{ needs.check_changes.outputs.diff_summary }}
+            ${{ needs.validate.outputs.diff_summary }}
