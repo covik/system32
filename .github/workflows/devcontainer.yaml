@@ -149,7 +149,7 @@ jobs:
 
   commit:
     name: 'Commit & push'
-    needs: [validate]
+    needs: [check_changes]
     if: needs.check_changes.outputs.changes_exist == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
