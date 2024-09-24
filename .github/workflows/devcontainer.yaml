@@ -107,7 +107,7 @@ jobs:
         run: |
           git diff --no-prefix .devcontainer/devcontainer.json > /tmp/diff.txt
           DIFF=$(cat /tmp/diff.txt)
-          RICH_DIFF=printf "```diff\n%s\n```" "$DIFF"
+          RICH_DIFF=$(printf "```diff\n%s\n```" "$DIFF")
           echo $RICH_DIFF
           echo "diff_summary=$RICH_DIFF" >> $GITHUB_OUTPUT
           echo "changes_exist=$( [ -s "$FILE" ] && echo true || echo false )" >> $GITHUB_OUTPUT
