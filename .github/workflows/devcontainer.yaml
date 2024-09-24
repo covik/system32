@@ -130,7 +130,7 @@ jobs:
     if: needs.validate.outputs.changes_exist == 'true'
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       pull-requests: write
     steps:
       - name: Checkout Repository
