@@ -97,10 +97,60 @@ jobs:
           compression-level: 0
           overwrite: true
 
+  check_changes:
+    name: 'Check for devcontainer.json changes'
+    needs: [validate]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      changes_exist: ${{ steps.compare.outputs.changes_exist }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download modified devcontainer.json
+        uses: actions/download-artifact@v4
+        with:
+          name: devcontainer
+          path: ./modified_devcontainer
+
+      - name: Compare devcontainer.json
+        id: compare
+        run: |
+          # Compare the original and modified devcontainer.json
+          if cmp -s .devcontainer/devcontainer.json ./modified_devcontainer/devcontainer.json; then
+            echo "No changes detected in devcontainer.json."
+            echo "changes_exist=false" >> $GITHUB_OUTPUT
+            echo "No changes were made to devcontainer.json." > devcontainer_diff.txt
+          else
+            echo "Changes detected in devcontainer.json."
+            echo "changes_exist=true" >> $GITHUB_OUTPUT
+            # Generate the diff
+            git diff --no-prefix .devcontainer/devcontainer.json ./modified_devcontainer/devcontainer.json > devcontainer_diff.txt
+          fi
+
+      - name: Add git diff to Job Summary
+        run: |
+          echo "### Changes in devcontainer.json" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.compare.outputs.changes_exist }}" == "true" ]; then
+            echo '```diff' >> $GITHUB_STEP_SUMMARY
+            cat devcontainer_diff.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No changes were made to devcontainer.json." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Output changes_exist
+        run: |
+          echo "Changes exist: ${{ steps.compare.outputs.changes_exist }}"
+
   commit:
     name: 'Commit & push'
     needs: [validate]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: needs.check_changes.outputs.changes_exist == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -118,9 +168,15 @@ jobs:
           path: .devcontainer
 
       - name: Commit and push changes
-        uses: devops-infra/action-commit-push@master
-        with:
-          github_token: '${{ secrets.GITHUB_TOKEN }}'
-          commit_prefix: 'chore(workspace)'
-          commit_message: 'update image in devcontainer.json'
-          force: false
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git config commit.gpgsign true
+          git add .devcontainer/devcontainer.json
+          git commit -m "chore(workspace): update image in devcontainer.json"
+          git push origin HEAD:${{ github.ref_name }}
+
+      - name: Add confirmation to job summary
+        run: |
+          echo "### Commit Status" >> $GITHUB_STEP_SUMMARY
+          echo "Changes to devcontainer.json have been committed and pushed." >> $GITHUB_STEP_SUMMARY
