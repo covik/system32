@@ -92,6 +92,7 @@ jobs:
             ls -lah
             yarn format # jq alters the format
             pulumi plugin ls
+            echo "permission test" > $PULUMI_HOME/test.txt
 
       - name: Upload modified devcontainer.json
         uses: actions/upload-artifact@v4
