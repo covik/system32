@@ -137,8 +137,8 @@ jobs:
         id: generate_diff
         run: |
           if [ -s devcontainer_diff.txt ]; then
-            RICH_DIFF="```diff\n$(cat devcontainer_diff.txt)\n```"
-            echo "rich_diff=$RICH_DIFF" >> $GITHUB_OUTPUT
+            RICH_DIFF=$(printf "```diff\n%s\n```" "$(cat devcontainer_diff.txt)")
+            echo "rich_diff=${RICH_DIFF}" >> $GITHUB_OUTPUT
           else
             echo "rich_diff=No changes were made to devcontainer.json." >> $GITHUB_OUTPUT
           fi
