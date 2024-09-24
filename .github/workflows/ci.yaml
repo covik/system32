@@ -60,7 +60,7 @@ jobs:
         working-directory: /app
     steps:
       - name: Format
-        run: yarn format:check --log-level=silent
+        run: yarn format:check
 
       - name: Lint
         run: yarn lint

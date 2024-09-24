@@ -15,8 +15,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && cp src/Chart.yaml dist/src/.",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "prettier --log-level=silent --write .",
+    "format:check": "prettier --log-level=silent --check .",
     "lint": "eslint --max-warnings 0 ./",
     "prepare": "husky",
     "reqlim": "./scripts/reqlim.sh",
