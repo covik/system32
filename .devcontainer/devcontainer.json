@@ -1,5 +1,5 @@
 {
-  "image": "ghcr.io/sudocovik/system32/devcontainer:latest@sha256:2fcb978fd1cfc28e5af4df45f97c80e37de87e52743824f3811a28aa1a49e4f6",
+  "image": "ghcr.io/sudocovik/system32/devcontainer:latest@sha256:131fba338c5196fb5758eed5a308ba9b46f7d6f07775b6c76b03a31530888b63",
   "initializeCommand": "cp -n .env.example .env",
   "postCreateCommand": "yarn install --frozen-lockfile",
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
