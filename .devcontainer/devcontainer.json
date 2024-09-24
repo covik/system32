@@ -1,8 +1,5 @@
 {
-  "build": {
-    "dockerfile": "Dockerfile",
-    "target": "dev"
-  },
+  "image": "ghcr.io/sudocovik/system32/devcontainer:4bc04f43f86dd91434e84111c8b8db6b4e0620a4",
   "initializeCommand": "cp -n .env.example .env",
   "postCreateCommand": "yarn install --frozen-lockfile",
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
