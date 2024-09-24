@@ -106,9 +106,9 @@ jobs:
         id: comparison
         run: |
           set -euo pipefail  # Enable strict error handling
-
           FILE=".devcontainer/devcontainer.json"
           DIFF=$(git diff --no-prefix "$FILE")
+          echo "changes_exist=$( [ -n "$DIFF" ] && echo true || echo false )" >> $GITHUB_OUTPUT
 
           if [ -n "$DIFF" ]; then
             RICH_DIFF=$(printf '```diff\n%s\n```' "$DIFF")
@@ -127,10 +127,22 @@ jobs:
   pr:
     name: 'Manage PR'
     needs: [validate]
+    if: needs.validate.outputs.changes_exist == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download modified devcontainer.json
+        uses: actions/download-artifact@v4
+        with:
+          name: devcontainer
+          path: .devcontainer
+
       - name: Upsert PR for main branch
-        if: needs.validate.outputs.changes_exist == 'true' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -148,7 +160,7 @@ jobs:
           draft: false
 
       - name: Upsert Pull Request comment
-        if: needs.validate.outputs.changes_exist == 'true' && github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
