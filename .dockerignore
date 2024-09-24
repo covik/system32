@@ -3,13 +3,15 @@ node_modules
 
 # files and directories having no effect on the final application
 # these are mostly build-releated files, markdown files, IDE files, etc.
+.git
 .idea
 dist
+.devcontainer
+.fleet
+.github
 .env*
 *.log
 kubeconfig.yml
-.devcontainer
-!.devcontainer/Dockerfile
-.fleet
-.github
 renovate.json
+Dockerfile*
+.dockerignore
