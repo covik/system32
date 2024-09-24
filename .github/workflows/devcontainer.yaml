@@ -66,9 +66,6 @@ jobs:
           jq --version
           jq --arg image "$IMAGE_REFERENCE" '.image = $image' devcontainer.json > devcontainer.tmp.json && mv devcontainer.tmp.json devcontainer.json
 
-      - run: |
-          ls -lah ./.devcontainer
-
       - name: Sanity check
         uses: devcontainers/ci@v0.3
         with:
