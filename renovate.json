@@ -44,7 +44,7 @@
       "enabled": false
     },
     {
-      "matchFiles": ["devcontainer.json"],
+      "matchFileNames": ["**/devcontainer.json"],
       "matchPackagePatterns": ["^.+/.+:.+$"],
       "enabled": false
     }
