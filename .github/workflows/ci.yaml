@@ -79,6 +79,7 @@ jobs:
     concurrency: preview
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       packages: read
       pull-requests: write
     container:
@@ -89,6 +90,9 @@ jobs:
     env:
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Pulumi Preview
         uses: pulumi/actions@v5
         with:
@@ -104,6 +108,7 @@ jobs:
     concurrency: 'deploy'
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       packages: read
       pull-requests: write
     container:
@@ -114,6 +119,9 @@ jobs:
     env:
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Pulumi Up (Deploy to Production)
         uses: pulumi/actions@v5
         with:
