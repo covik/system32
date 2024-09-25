@@ -129,7 +129,7 @@ jobs:
       - name: Enrich Pulumi Console data with repository information
         run: |
           cp -R .git /app/.git
-          cd /app && git reset --hard --force # files from .dockerignore appear as [deleted] in git status
+          cd /app && git reset --hard # files from .dockerignore appear as [deleted] in git status
           cd /app && git status
 
       - name: Pulumi Up (Deploy to Production)
