@@ -128,7 +128,7 @@ jobs:
 
       - name: Enrich Pulumi Console data with repository information
         run: |
-          ln -s /app/.git $GITHUB_WORKSPACE/.git
+          mkdir /app/.git && ln -s /app/.git $GITHUB_WORKSPACE/.git
           ls -lah /app/.git
 
       - name: Pulumi Up (Deploy to Production)
