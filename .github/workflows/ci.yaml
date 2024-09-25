@@ -73,6 +73,7 @@ jobs:
   preview:
     name: 'Preview'
     needs: build
+    if: github.event_name == 'pull_request'
     concurrency: preview
     runs-on: ubuntu-latest
     permissions:
@@ -96,8 +97,8 @@ jobs:
 
   deploy:
     name: 'Deploy'
-    needs: [build, lint, preview]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: [build, lint]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     concurrency: 'deploy'
     runs-on: ubuntu-latest
     permissions:
@@ -117,5 +118,5 @@ jobs:
           work-dir: /app
           stack-name: cromanjonac
           command: up
-          refresh: false # state refresh is at preview
+          refresh: true
           comment-on-summary: true
