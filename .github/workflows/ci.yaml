@@ -92,6 +92,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          path: /app
 
       - name: Pulumi Preview
         uses: pulumi/actions@v5
@@ -121,6 +123,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          path: /app
 
       - name: Pulumi Up (Deploy to Production)
         uses: pulumi/actions@v5
