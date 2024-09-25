@@ -42,6 +42,11 @@
       "packageNames": ["bitnami/kubectl"],
       "updateTypes": ["patch", "digest"],
       "enabled": false
+    },
+    {
+      "matchFiles": ["devcontainer.json"],
+      "matchPackagePatterns": ["^.+/.+:.+$"],
+      "enabled": false
     }
   ]
 }
