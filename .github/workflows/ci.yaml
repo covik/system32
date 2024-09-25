@@ -129,7 +129,7 @@ jobs:
       - name: Enrich Pulumi Console data with repository information
         run: |
           ls -lah .git
-          mkdir /app/.git && ln -s .git /app/.git
+          mkdir /app/.git && cp -R .git /app/.git
           ls -lah /app/.git
 
       - name: Pulumi Up (Deploy to Production)
