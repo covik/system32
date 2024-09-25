@@ -89,6 +89,9 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     env:
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+    defaults:
+      run:
+        working-directory: /app
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -120,6 +123,9 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     env:
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+    defaults:
+      run:
+        working-directory: /app
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
