@@ -5,10 +5,12 @@ on:
     paths-ignore:
       - .github/workflows/devcontainer.yaml
       - .devcontainer/devcontainer.json
+      - renovate.json
   push:
     paths-ignore:
       - .github/workflows/devcontainer.yaml
       - .devcontainer/devcontainer.json
+      - renovate.json
     branches:
       - main
 
