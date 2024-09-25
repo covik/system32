@@ -95,6 +95,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Enrich Pulumi Console data with repository information
+        run: cp -R .git /app/.git && cd /app && git reset --hard --force # files from .dockerignore appear as [deleted] in git status
+
       - name: Pulumi Preview
         uses: pulumi/actions@v5
         with:
@@ -127,10 +130,7 @@ jobs:
           fetch-depth: 0
 
       - name: Enrich Pulumi Console data with repository information
-        run: |
-          cp -R .git /app/.git
-          cd /app && git reset --hard # files from .dockerignore appear as [deleted] in git status
-          cd /app && git status
+        run: cp -R .git /app/.git && cd /app && git reset --hard --force # files from .dockerignore appear as [deleted] in git status
 
       - name: Pulumi Up (Deploy to Production)
         uses: pulumi/actions@v5
