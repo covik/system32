@@ -5,13 +5,13 @@ on:
     branches:
       - main
     paths:
-      - .devcontainer
+      - .devcontainer/**
       - .github/workflows/devcontainer.yaml
   push:
     branches:
       - main
     paths:
-      - .devcontainer
+      - .devcontainer/**
       - .github/workflows/devcontainer.yaml
 
 jobs:
