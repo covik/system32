@@ -16,7 +16,7 @@ config:
     secure: AAABAG5/kOdbodROwwmanbObuC8/3pVaIfFm6aX6+7iaOnmwFy4QJ/mpUEd5VG3PeQioTc8FhG3+9OGIJV/TOyAXSoS1iJ86cd3zOSlC7sahEYY=
   fms:zaragps-google-maps-key:
     secure: AAABAJRevZMo4gbbH1OeFcjU243eNial3LnBp6KVbobM0KnxQFwqqiLBNczF4dBezKsp9WEF34kZf6LC3Zk+w2Txzy9L1yk=
-  fms:zaragps-image: gps.zarapromet.hr:latest@sha256:3cf1fdaca0fa95fbe7518505911d17202cefb3449f6b946c7d20f48702304cde
+  fms:zaragps-image: gps.zarapromet.hr:latest@sha256:5b0aae3ad1b239fbc89505dd4d6c64abee8afe8c44e04812294b1596e70df7c6
   grafana:auth:
     secure: AAABAJ1jfpnD1VWtrWE1PwcCS7ikgMYSYn6RuhqKPoKaUiVei8I2XD7XBen9WYuoj9AFULzss3DJGnfhrn0ippLbNNRtsT74l68fR4En
   grafana:url: https://cromanjonac.grafana.net
