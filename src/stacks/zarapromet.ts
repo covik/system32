@@ -17,6 +17,10 @@ export function resources(): unknown {
     },
   );
 
+  const dnssec = new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
+    zoneId: dnsZone.id,
+  });
+
   new cloudflare.ZoneSettingsOverride(`${domainSlug}-security`, {
     zoneId: dnsZone.id,
     settings: {
@@ -88,5 +92,11 @@ export function resources(): unknown {
 
   return {
     nameservers: dnsZone.nameServers,
+    ds: {
+      keyTag: dnssec.keyTag,
+      algorithm: dnssec.algorithm,
+      digestType: dnssec.digestType,
+      digest: dnssec.digest,
+    },
   };
 }
