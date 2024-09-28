@@ -17,6 +17,12 @@ export function resources(): unknown {
     },
   );
 
+  // Because this domain is registered at CloudFlare,
+  // we don't have to manually update DNS records
+  new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
+    zoneId: dnsZone.id,
+  });
+
   new cloudflare.ZoneSettingsOverride(`${domainSlug}-security`, {
     zoneId: dnsZone.id,
     settings: {
