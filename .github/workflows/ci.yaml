@@ -143,11 +143,6 @@ jobs:
 
       - name: Cancel update on failure
         if: failure() || cancelled()
-        uses: pulumi/actions@v5
-        with:
-          work-dir: /app
-          stack-name: cromanjonac
-          command: cancel
-          comment-on-summary: true
+        run: pulumi cancel --yes
 
       - run: cd /app && git status
