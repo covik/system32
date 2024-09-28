@@ -790,6 +790,16 @@ function setupKubernetesResources(
                 port: zaragps.service.spec.ports[0].port,
               },
             ],
+            filters: [
+              {
+                type: 'RequestHeaderModifier',
+                requestHeaderModifier: {
+                  add: {
+                    'X-Forwarded-Proto': 'https',
+                  },
+                },
+              },
+            ],
           },
         ],
       },
