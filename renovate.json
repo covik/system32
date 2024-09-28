@@ -47,6 +47,10 @@
       "matchFileNames": ["**/devcontainer.json"],
       "matchPackagePatterns": ["^.+/.+:.+$"],
       "enabled": false
+    },
+    {
+      "matchDatasources": ["github-actions"],
+      "dependencyDashboardApproval": false
     }
   ]
 }
