@@ -12,7 +12,7 @@ config:
   container-registry-user:
     type: string
     default: sudocovik
-  frontend-stable-image:
+  zarafleet-image:
     type: string
     description: frontend general availability container image tag + sha256 hash
     default: fms-frontend:latest@sha256:3cf1fdaca0fa95fbe7518505911d17202cefb3449f6b946c7d20f48702304cde

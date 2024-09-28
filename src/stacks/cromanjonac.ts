@@ -648,9 +648,7 @@ function setupKubernetesResources(
   const zarafleet = new app.ZaraFleet(
     'zarafleet',
     {
-      image: security.resolveRegistryImage(
-        config.require('frontend-stable-image'),
-      ),
+      image: security.resolveRegistryImage(config.require('zarafleet-image')),
     },
     kubernetesComponentOptions,
   );
