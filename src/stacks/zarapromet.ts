@@ -65,6 +65,11 @@ export function resources(): unknown {
       name: dnsZone.zone,
       value: 'v=spf1 include:_spf.google.com ~all',
     },
+    {
+      name: '_dmarc',
+      value:
+        'v=DMARC1;  p=none; rua=mailto:569b711e6caa41cb812bbf7bf81f54c3@dmarc-reports.cloudflare.net;',
+    },
   ];
 
   txtRecords.forEach((record, index) => {
