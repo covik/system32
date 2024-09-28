@@ -49,7 +49,7 @@
       "enabled": false
     },
     {
-      "matchDatasources": ["github-actions"],
+      "matchDatasources": ["github-releases"],
       "dependencyDashboardApproval": false
     }
   ]
