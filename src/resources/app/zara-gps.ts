@@ -191,6 +191,74 @@ export class ZaraGPS extends pulumi.ComponentResource {
                   ],
                 },
               ],
+              initContainers: [
+                {
+                  name: 'database-migration',
+                  image: args.image,
+                  command: ['php'],
+                  args: ['artisan', 'migrate'],
+                  env: [
+                    {
+                      name: 'APP_KEY',
+                      valueFrom: {
+                        secretKeyRef: {
+                          name: sensitiveData.metadata.name,
+                          key: 'app-key',
+                        },
+                      },
+                    },
+                    {
+                      name: 'DB_CONNECTION',
+                      value: 'mysql',
+                    },
+                    {
+                      name: 'DB_HOST',
+                      valueFrom: {
+                        secretKeyRef: {
+                          name: sensitiveData.metadata.name,
+                          key: 'db-host',
+                        },
+                      },
+                    },
+                    {
+                      name: 'DB_PORT',
+                      valueFrom: {
+                        secretKeyRef: {
+                          name: sensitiveData.metadata.name,
+                          key: 'db-port',
+                        },
+                      },
+                    },
+                    {
+                      name: 'DB_DATABASE',
+                      valueFrom: {
+                        secretKeyRef: {
+                          name: sensitiveData.metadata.name,
+                          key: 'db-database',
+                        },
+                      },
+                    },
+                    {
+                      name: 'DB_USERNAME',
+                      valueFrom: {
+                        secretKeyRef: {
+                          name: sensitiveData.metadata.name,
+                          key: 'db-user',
+                        },
+                      },
+                    },
+                    {
+                      name: 'DB_PASSWORD',
+                      valueFrom: {
+                        secretKeyRef: {
+                          name: sensitiveData.metadata.name,
+                          key: 'db-password',
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
             },
           },
         },
