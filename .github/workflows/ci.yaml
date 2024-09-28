@@ -142,7 +142,7 @@ jobs:
           comment-on-summary: true
 
       - name: Cancel update on failure
-        if: failure()
+        if: failure() || cancelled()
         uses: pulumi/actions@v5
         with:
           work-dir: /app
