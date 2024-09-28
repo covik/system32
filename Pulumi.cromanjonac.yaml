@@ -12,6 +12,10 @@ config:
     secure: AAABAIQGCP/KLSyFgZTNCjgieA9Sg8nNrHnN87Bcgn1cd30BYx6uLdNXEj9BtdcJVGpydNTBe7IW1yVGwG+UxHlItZLMGp2nLkFtGKUjFkunSiabTt7N20w9R1fz6HhJNg7H4NmFGg==
   fms:traccar-email-password:
     secure: AAABAI3smIUKh5HMqgmQw0whgXB7jndZ4SZ7tYygcnuAtJiRdlPvSiBw1W0HFT8/
+  fms:zaragps-app-key:
+    secure: AAABAG5/kOdbodROwwmanbObuC8/3pVaIfFm6aX6+7iaOnmwFy4QJ/mpUEd5VG3PeQioTc8FhG3+9OGIJV/TOyAXSoS1iJ86cd3zOSlC7sahEYY=
+  fms:zaragps-google-maps-key:
+    secure: AAABAJRevZMo4gbbH1OeFcjU243eNial3LnBp6KVbobM0KnxQFwqqiLBNczF4dBezKsp9WEF34kZf6LC3Zk+w2Txzy9L1yk=
   grafana:auth:
     secure: AAABAJ1jfpnD1VWtrWE1PwcCS7ikgMYSYn6RuhqKPoKaUiVei8I2XD7XBen9WYuoj9AFULzss3DJGnfhrn0ippLbNNRtsT74l68fR4En
   grafana:url: https://cromanjonac.grafana.net

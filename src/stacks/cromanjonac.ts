@@ -120,9 +120,12 @@ export function resources(): unknown {
       database: fmsDatabase.name,
       flags: fmsMysqlFlags,
     }),
+    host: fmsDatabaseCluster.privateHost,
+    port: fmsDatabaseCluster.port,
+    database: fmsDatabase.name,
     user: fmsDatabaseUser.name,
     password: fmsDatabaseUser.password,
-  } satisfies app.DatabaseConnection;
+  } satisfies app.DatabaseConnection & app.ZaraGPSArguments['db'];
 
   const backupStorage = new digitalocean.SpacesBucket(
     'fms-backup',
@@ -281,7 +284,7 @@ function setupKubernetesResources(
     email: pulumi.Input<string>;
     token: pulumi.Input<string>;
   },
-  databaseConnection: app.DatabaseConnection,
+  databaseConnection: app.DatabaseConnection & app.ZaraGPSArguments['db'],
 ) {
   const config = new pulumi.Config();
 
@@ -738,6 +741,61 @@ function setupKubernetesResources(
     {
       provider,
       dependsOn: [allowFrontendToBackendCommunication],
+    },
+  );
+
+  const zaragpsHostname = 'zgps.zth.dev';
+  const zaragps = new app.ZaraGPS(
+    'zaragps',
+    {
+      image: security.resolveRegistryImage(
+        'ghcr.io/sudocovik/gps.zarapromet.hr:latest@sha256:8646fd0c07de5efb34e40289dd92c3329d34a71c52b2081eed2f07bea4ba6d16',
+      ),
+      hostname: zaragpsHostname,
+      db: databaseConnection,
+    },
+    kubernetesComponentOptions,
+  );
+
+  new k8s.apiextensions.CustomResource(
+    'zaragps-route',
+    {
+      apiVersion: 'gateway.networking.k8s.io/v1',
+      kind: 'HTTPRoute',
+      metadata: {
+        namespace: zaragps.namespace.metadata.name,
+      },
+      spec: {
+        parentRefs: [
+          {
+            name: gatewayInstance.metadata.name,
+            namespace: gatewayInstance.metadata.namespace,
+            sectionName: 'https',
+          },
+        ],
+        hostnames: [zaragpsHostname],
+        rules: [
+          {
+            matches: [
+              {
+                path: {
+                  type: 'PathPrefix',
+                  value: '/',
+                },
+              },
+            ],
+            backendRefs: [
+              {
+                name: zaragps.service.metadata.name,
+                port: zaragps.service.spec.ports[0].port,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      provider,
     },
   );
 }
