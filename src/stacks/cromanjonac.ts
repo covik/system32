@@ -749,7 +749,7 @@ function setupKubernetesResources(
     'zaragps',
     {
       image: security.resolveRegistryImage(
-        'ghcr.io/sudocovik/gps.zarapromet.hr:latest@sha256:8646fd0c07de5efb34e40289dd92c3329d34a71c52b2081eed2f07bea4ba6d16',
+        'ghcr.io/sudocovik/gps.zarapromet.hr:latest@sha256:a3b989bb51d6936e911337ef08c52d840ee309924d930c33022b7b826273320b',
       ),
       hostname: zaragpsHostname,
       db: databaseConnection,
