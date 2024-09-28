@@ -63,6 +63,11 @@ export function resources(): unknown {
       name: dnsZone.zone,
       value: 'zoho-verification=zb24461793.zmverify.zoho.eu',
     },
+    {
+      name: '_dmarc',
+      value:
+        'v=DMARC1;  p=none; rua=mailto:01eeeb5c4062493a98e526872bb02a24@dmarc-reports.cloudflare.net;',
+    },
   ];
 
   txtRecords.forEach((record, index) => {
