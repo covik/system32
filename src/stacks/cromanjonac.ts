@@ -794,9 +794,12 @@ function setupKubernetesResources(
               {
                 type: 'RequestHeaderModifier',
                 requestHeaderModifier: {
-                  add: {
-                    'X-Forwarded-Proto': 'https',
-                  },
+                  add: [
+                    {
+                      name: 'X-Forwarded-Proto',
+                      value: 'https',
+                    },
+                  ],
                 },
               },
             ],
