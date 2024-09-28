@@ -141,4 +141,13 @@ jobs:
           refresh: true
           comment-on-summary: true
 
+      - name: Cancel update on failure
+        if: failure()
+        uses: pulumi/actions@v5
+        with:
+          work-dir: /app
+          stack-name: cromanjonac
+          command: cancel
+          comment-on-summary: true
+
       - run: cd /app && git status
