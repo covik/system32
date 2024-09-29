@@ -49,6 +49,7 @@
       "enabled": false
     },
     {
+      "matchFileNames": [".github/**"],
       "matchDatasources": ["github-releases"],
       "dependencyDashboardApproval": false
     }
