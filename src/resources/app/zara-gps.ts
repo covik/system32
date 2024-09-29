@@ -196,7 +196,7 @@ export class ZaraGPS extends pulumi.ComponentResource {
                   name: 'database-migration',
                   image: args.image,
                   command: ['php'],
-                  args: ['artisan', 'migrate'],
+                  args: ['artisan', 'migrate', '--force'],
                   env: [
                     {
                       name: 'APP_KEY',
