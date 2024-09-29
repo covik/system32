@@ -120,12 +120,9 @@ export function resources(): unknown {
       database: fmsDatabase.name,
       flags: fmsMysqlFlags,
     }),
-    host: fmsDatabaseCluster.privateHost,
-    port: fmsDatabaseCluster.port,
-    database: fmsDatabase.name,
     user: fmsDatabaseUser.name,
     password: fmsDatabaseUser.password,
-  } satisfies app.DatabaseConnection & app.ZaraGPSArguments['db'];
+  } satisfies app.DatabaseConnection;
 
   const backupStorage = new digitalocean.SpacesBucket(
     'fms-backup',
@@ -284,7 +281,7 @@ function setupKubernetesResources(
     email: pulumi.Input<string>;
     token: pulumi.Input<string>;
   },
-  databaseConnection: app.DatabaseConnection & app.ZaraGPSArguments['db'],
+  databaseConnection: app.DatabaseConnection,
 ) {
   const config = new pulumi.Config();
 
@@ -739,72 +736,6 @@ function setupKubernetesResources(
     {
       provider,
       dependsOn: [allowFrontendToBackendCommunication],
-    },
-  );
-
-  const zaragpsHostname = 'zgps.zth.dev';
-  const zaragps = new app.ZaraGPS(
-    'zaragps',
-    {
-      image: security.resolveRegistryImage(config.require('zaragps-image')),
-      hostname: zaragpsHostname,
-      db: databaseConnection,
-    },
-    kubernetesComponentOptions,
-  );
-
-  new k8s.apiextensions.CustomResource(
-    'zaragps-route',
-    {
-      apiVersion: 'gateway.networking.k8s.io/v1',
-      kind: 'HTTPRoute',
-      metadata: {
-        namespace: zaragps.namespace.metadata.name,
-      },
-      spec: {
-        parentRefs: [
-          {
-            name: gatewayInstance.metadata.name,
-            namespace: gatewayInstance.metadata.namespace,
-            sectionName: 'https',
-          },
-        ],
-        hostnames: [zaragpsHostname],
-        rules: [
-          {
-            matches: [
-              {
-                path: {
-                  type: 'PathPrefix',
-                  value: '/',
-                },
-              },
-            ],
-            backendRefs: [
-              {
-                name: zaragps.service.metadata.name,
-                port: zaragps.service.spec.ports[0].port,
-              },
-            ],
-            filters: [
-              {
-                type: 'RequestHeaderModifier',
-                requestHeaderModifier: {
-                  add: [
-                    {
-                      name: 'X-Forwarded-Proto',
-                      value: 'https',
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      provider,
     },
   );
 }
