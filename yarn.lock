@@ -637,10 +637,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pulumi/cloudflare@5.39.1":
-  version "5.39.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/cloudflare/-/cloudflare-5.39.1.tgz#2b1206edbd7e2bb83425b69c436d253a2dfcdc97"
-  integrity sha512-TQRFI+IWGVbccazWwHl0rocjIi94bCkkf/7Vc5OV1DRUTmzXSjBT7NC5Jb7vWMJtBGv85ogiTB3pz8WFbp+xLA==
+"@pulumi/cloudflare@5.40.0":
+  version "5.40.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/cloudflare/-/cloudflare-5.40.0.tgz#b69a8cc987afffb4231d60e36c552f667ee788b5"
+  integrity sha512-+n9YdldBysIsodQnMQCX2IVa90c9x1Uxj5n2LyA1q3eIM3LJlMUrDg3xPUcg9uS4DfLXLjohIgAQhG/Cz0eclA==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
