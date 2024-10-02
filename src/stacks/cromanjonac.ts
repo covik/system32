@@ -19,8 +19,8 @@ const zarafleetUrl = `app.${zarafleetDomain}`;
 const stremioUrl = `01911f8c-8698-7a3d-a960-5f15f55a668c.${domain}`;
 const snapshooterIps = [
   '174.138.101.117',
-  '143.198.240.52',
-  '138.68.117.142',
+  '209.38.181.248',
+  '209.38.181.204',
 ] as const;
 const fmsMysqlFlags = {
   'zeroDateTimeBehavior': 'round',
