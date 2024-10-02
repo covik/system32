@@ -4,11 +4,11 @@
   "description": "Hello world",
   "homepage": "https://zth.dev",
   "bugs": {
-    "url": "https://github.com/sudocovik/system32/issues"
+    "url": "https://github.com/covik/system32/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sudocovik/system32"
+    "url": "https://github.com/covik/system32"
   },
   "license": "UNLICENSED",
   "author": "Mate Nakic",
