@@ -4,7 +4,6 @@ import { object, string, array, assert, type } from 'superstruct';
 import * as yaml from 'yaml';
 const chartFilePath = path.join(__dirname, '../Chart.yaml');
 const chartFileContent = fs.readFileSync(chartFilePath, 'utf8');
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const chartConfig = yaml.parse(chartFileContent);
 
 const ChartSchema = type({
