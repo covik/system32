@@ -40,17 +40,15 @@
     },
     {
       "packageNames": ["bitnami/kubectl"],
-      "updateTypes": ["patch", "digest"],
+      "matchUpdateTypes": ["patch", "digest"],
       "enabled": false
     },
     {
-      "matchFileNames": ["**/devcontainer.json"],
-      "matchPackagePatterns": ["^.+/.+:.+$"],
+      "matchFileNames": [".devcontainer/devcontainer.json"],
       "enabled": false
     },
     {
       "matchFileNames": [".github/**"],
-      "matchDatasources": ["github-releases"],
       "dependencyDashboardApproval": false
     }
   ]
