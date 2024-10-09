@@ -99,7 +99,7 @@ jobs:
         run: cp -R .git /app/.git && cd /app && git reset --hard # files from .dockerignore appear as [deleted] in git status
 
       - name: Pulumi Preview
-        uses: pulumi/actions@v5
+        uses: pulumi/actions@v6
         with:
           work-dir: /app
           stack-name: cromanjonac
@@ -133,7 +133,7 @@ jobs:
         run: cp -R .git /app/.git && cd /app && git reset --hard # files from .dockerignore appear as [deleted] in git status
 
       - name: Pulumi Up (Deploy to Production)
-        uses: pulumi/actions@v5
+        uses: pulumi/actions@v6
         with:
           work-dir: /app
           stack-name: cromanjonac
