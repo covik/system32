@@ -1,3 +1,4 @@
+import js from '@eslint/js';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import prettierConfig from 'eslint-config-prettier';
@@ -20,6 +21,7 @@ export default [
       'import': importPlugin,
     },
     rules: {
+      ...js.configs.recommended.rules,
       // Common rules (non-TypeScript specific)
       'import/no-unresolved': 'error',
       'import/no-default-export': 'error',
@@ -71,8 +73,8 @@ export default [
         'error',
         { assertionStyle: 'as', objectLiteralTypeAssertions: 'never' },
       ],
-      '@typescript-eslint/consistent-type-definitions': 'off', // not sure what's wrong with both 'type' and 'interface'
-      '@typescript-eslint/no-extraneous-class': 'off', // it's all bells and whistles until you want to spy or mock in tests
+      '@typescript-eslint/consistent-type-definitions': 'off', // Not sure what's wrong with both 'type' and 'interface'
+      '@typescript-eslint/no-extraneous-class': 'off', // It's all bells and whistles until you want to spy or mock in tests
       '@typescript-eslint/no-invalid-void-type': [
         'error',
         { allowInGenericTypeArguments: true, allowAsThisParameter: true },
@@ -82,7 +84,7 @@ export default [
   {
     files: ['*.d.ts'],
     rules: {
-      '@typescript-eslint/method-signature-style': 'off', // if you augment native libs you must use the same style
+      '@typescript-eslint/method-signature-style': 'off', // If you augment native libs you must use the same style
       'import/no-default-export': 'off',
     },
   },
@@ -98,7 +100,7 @@ export default [
       'import/resolver': {
         node: true,
         typescript: {
-          alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+          alwaysTryTypes: true, // Always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
           project: './tsconfig.json',
         },
       },
