@@ -5,7 +5,6 @@ import prettierConfig from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import globals from 'globals';
 
-// eslint-disable-next-line import/no-default-export
 export default [
   {
     ignores: ['**/node_modules/**', '**/dist/**', '**/kubeconfig.yml'],
@@ -15,6 +14,10 @@ export default [
       globals: {
         ...globals.node,
       },
+    },
+    linterOptions: {
+      noInlineConfig: false,
+      reportUnusedDisableDirectives: 'error',
     },
     plugins: {
       '@typescript-eslint': typescriptPlugin,
@@ -85,6 +88,12 @@ export default [
     files: ['*.d.ts'],
     rules: {
       '@typescript-eslint/method-signature-style': 'off', // If you augment native libs you must use the same style
+      'import/no-default-export': 'off',
+    },
+  },
+  {
+    files: ['eslint.config*'],
+    rules: {
       'import/no-default-export': 'off',
     },
   },
