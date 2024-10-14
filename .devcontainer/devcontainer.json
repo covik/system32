@@ -5,7 +5,7 @@
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
   "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"],
   "mounts": [
-    "source=jetbrains,target=/home/developer/.cache/JetBrains,type=volume",
+    "source=jetbrains,target=/home/developer/.cache/JetBrains/RemoteDev/dist,type=volume",
     "source=pulumi,target=/home/developer/.pulumi,type=volume",
     "source=yarn,target=/home/developer/.cache/.yarn,type=volume"
   ],
