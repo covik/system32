@@ -684,12 +684,12 @@
     read-package-tree "^5.2.1"
     resolve "^1.7.1"
 
-"@pulumi/kubernetes@4.18.1":
-  version "4.18.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.18.1.tgz#d0eecabb122ee9405cbb28a9560c4e4c84caeb7e"
-  integrity sha512-jlAdKdXSy5AwgAYuqB0p0ce9cUydSJuEygC1jXNMqcJf/j38A3J6R7rbasLvZLYcSU3+6VmCAQAlc9Wh6iyCtA==
+"@pulumi/kubernetes@4.18.2":
+  version "4.18.2"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.18.2.tgz#a64947eb61e00b219c7b5c45cbd2dfd52445df47"
+  integrity sha512-OwgVeqyGMtdHzeJa4/4ONXF6RACuRyUvKC6dRjFwJPeGnh0Zr5TbqEkD2+i4+ywwrkIlYiLRkXUa1tvqQzzZUg==
   dependencies:
-    "@pulumi/pulumi" "^3.25.0"
+    "@pulumi/pulumi" "^3.136.0"
     "@types/node-fetch" "^2.1.4"
     "@types/tmp" "^0.0.33"
     glob "^10.3.10"
@@ -697,7 +697,7 @@
     shell-quote "^1.6.1"
     tmp "^0.0.33"
 
-"@pulumi/pulumi@3.136.1", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0", "@pulumi/pulumi@^3.42.0":
+"@pulumi/pulumi@3.136.1", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.136.0", "@pulumi/pulumi@^3.42.0":
   version "3.136.1"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.136.1.tgz#1ef187cdb3f3b4abf119ae6088e76edb20947ed4"
   integrity sha512-bO+AVYKyf4dFDVSbBRoCiwAVE0JhugwAEv5FmWit+VHE3f9eoy1qrw7t5DmGmAiL2cGCwTpvVEIf4y1N7360ZA==
