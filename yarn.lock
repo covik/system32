@@ -674,12 +674,12 @@
   dependencies:
     "@pulumi/pulumi" "^3.42.0"
 
-"@pulumi/digitalocean@4.33.0":
-  version "4.33.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.33.0.tgz#a0d98e4112522506c6f8ccde871e736bd4cec719"
-  integrity sha512-189xW5WH4jVp4xc7KBUwOfUvPEEQgT55tjUDuO6oPfeu8kLFdePLFFu9m/MuCpyI1Z+L4NiQEzhtDPMGtRwCHw==
+"@pulumi/digitalocean@4.33.1":
+  version "4.33.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.33.1.tgz#7deaf02b021b8d6c5b0f6870dab5a4e7a194ac84"
+  integrity sha512-6p1BO+Yj2X3c0QeR94ILIcUghXlKA371yBmRbgWKlsKWgFbTK2Ka58SvdUhM218RfBLiOR35vPEhEhgzHNytuw==
   dependencies:
-    "@pulumi/pulumi" "^3.0.0"
+    "@pulumi/pulumi" "^3.136.0"
     builtin-modules "3.0.0"
     read-package-tree "^5.2.1"
     resolve "^1.7.1"
