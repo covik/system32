@@ -3,7 +3,7 @@ import * as cloudflare from '@pulumi/cloudflare';
 import * as digitalocean from '@pulumi/digitalocean';
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
-import * as grafana from '@pulumiverse/grafana';
+import { oss as grafana } from '@pulumiverse/grafana';
 import memoryAllocationDashboardJSON from '../memory-allocation-dashboard.json';
 import * as app from '../resources/app';
 import * as cluster from '../resources/cluster';
