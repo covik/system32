@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "workarounds:typesNodeVersioning"],
+  "extends": ["config:recommended", "workarounds:typesNodeVersioning"],
   "ignorePaths": ["mysql.Dockerfile"],
   "postUpdateOptions": ["yarnDedupeHighest"],
   "timezone": "Europe/Zagreb",
@@ -14,8 +14,8 @@
       "rangeStrategy": "pin"
     },
     {
-      "matchPackagePatterns": ["^eslint", "^@eslint", "^@typescript-eslint"],
-      "groupName": "eslint packages"
+      "groupName": "eslint packages",
+      "matchPackageNames": ["/^eslint/", "/^@eslint/", "/^@typescript-eslint/"]
     },
     {
       "matchPackageNames": ["node", "@types/node"],
@@ -39,7 +39,7 @@
       "rangeStrategy": "widen"
     },
     {
-      "packageNames": ["bitnami/kubectl"],
+      "matchPackageNames": ["bitnami/kubectl"],
       "matchUpdateTypes": ["patch", "digest"],
       "enabled": false
     },
