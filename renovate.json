@@ -14,7 +14,7 @@
       "rangeStrategy": "pin"
     },
     {
-      "matchPackagePatterns": ["^eslint", "^@typescript-eslint"],
+      "matchPackagePatterns": ["^eslint", "^@eslint", "^@typescript-eslint"],
       "groupName": "eslint packages"
     },
     {
