@@ -9,7 +9,7 @@ config:
   fms:container-registry-token:
     secure: AAABAKuaxAjTgqX2mZf+8HmDaA/Ie+tKCmqiTO/PY3d0Ry9oDllbXCkmZiPELvBQmXEAPLa3C7qi4ja2U0t6ZUda5bJjJc/e
   fms:k8s-cluster-token:
-    secure: AAABAIQGCP/KLSyFgZTNCjgieA9Sg8nNrHnN87Bcgn1cd30BYx6uLdNXEj9BtdcJVGpydNTBe7IW1yVGwG+UxHlItZLMGp2nLkFtGKUjFkunSiabTt7N20w9R1fz6HhJNg7H4NmFGg==
+    secure: AAABAJJglqgZIVkdoZ//QzVqH5Zknbvy0gH/X1MTLIkvJsMFtABq42gYNEpJB+l/Jxat3C1E2vNBxPcCCiuG40hoqvpj4maPdz6R/B/YDvyWPy71DA2ixaL0/5gE/jGWOngsaQwQkg==
   fms:traccar-email-password:
     secure: AAABAI3smIUKh5HMqgmQw0whgXB7jndZ4SZ7tYygcnuAtJiRdlPvSiBw1W0HFT8/
   grafana:auth:
