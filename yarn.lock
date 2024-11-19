@@ -679,10 +679,10 @@
   dependencies:
     "@pulumi/pulumi" "^3.136.0"
 
-"@pulumi/digitalocean@4.34.1":
-  version "4.34.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.34.1.tgz#6125c78ff8b61d22feab6d46b7aae5695043b9b8"
-  integrity sha512-pZEXPUYjZIW8+7/TGsFPBcoG+UBrIfZ3JshjfJhKlcF60hmEU5w8+ZO9uN2mLbfgNEEGcRgA7NjbcOS6RBKL3A==
+"@pulumi/digitalocean@4.35.0":
+  version "4.35.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.35.0.tgz#93111b43a150ed5b2db5b2a7a2e468d2e5adbbd2"
+  integrity sha512-Y2cgSF3yQIrAUMSKRBEibrQQ4mi4wnA24HIRBNftSXu8R1wyTPiSLjQh5jL9Vtiyf0uxOlCJ68zjfv2MwfjMMQ==
   dependencies:
     "@pulumi/pulumi" "^3.136.0"
     builtin-modules "3.0.0"
