@@ -26,7 +26,7 @@
     "@pulumi/cloudflare": "5.43.0",
     "@pulumi/digitalocean": "4.35.0",
     "@pulumi/kubernetes": "4.18.3",
-    "@pulumi/pulumi": "3.140.0",
+    "@pulumi/pulumi": "3.141.0",
     "@pulumiverse/grafana": "0.7.0",
     "superstruct": "2.0.2",
     "yaml": "2.6.1"
