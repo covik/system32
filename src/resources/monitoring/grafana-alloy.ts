@@ -4,6 +4,7 @@ import { findHelmDependency } from '../../utils';
 
 export interface GrafanaAlloyArgs {
   clusterName: pulumi.Input<string>;
+  cloudAccessPolicyToken: pulumi.Input<string>;
 }
 
 export class GrafanaAlloy extends pulumi.ComponentResource {
@@ -43,24 +44,21 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
               host: 'https://prometheus-prod-24-prod-eu-west-2.grafana.net',
               basicAuth: {
                 username: '1732483',
-                password:
-                  'glc_eyJvIjoiMTE5MzUzMCIsIm4iOiJwdWx1bWktYWxsb3ktaW50ZWdyYXRpb24iLCJrIjoiOTVnNTRjb1V4Nk01U2h0cnV3OW82RjEzIiwibSI6eyJyIjoicHJvZC1ldS13ZXN0LTIifX0=',
+                password: args.cloudAccessPolicyToken,
               },
             },
             loki: {
               host: 'https://logs-prod-012.grafana.net',
               basicAuth: {
                 username: '965971',
-                password:
-                  'glc_eyJvIjoiMTE5MzUzMCIsIm4iOiJwdWx1bWktYWxsb3ktaW50ZWdyYXRpb24iLCJrIjoiOTVnNTRjb1V4Nk01U2h0cnV3OW82RjEzIiwibSI6eyJyIjoicHJvZC1ldS13ZXN0LTIifX0=',
+                password: args.cloudAccessPolicyToken,
               },
             },
             tempo: {
               host: 'https://tempo-prod-10-prod-eu-west-2.grafana.net:443',
               basicAuth: {
                 username: '960286',
-                password:
-                  'glc_eyJvIjoiMTE5MzUzMCIsIm4iOiJwdWx1bWktYWxsb3ktaW50ZWdyYXRpb24iLCJrIjoiOTVnNTRjb1V4Nk01U2h0cnV3OW82RjEzIiwibSI6eyJyIjoicHJvZC1ldS13ZXN0LTIifX0=',
+                password: args.cloudAccessPolicyToken,
               },
             },
           },

@@ -301,7 +301,12 @@ function setupKubernetesResources(
 
   new monitoring.GrafanaAlloy(
     'monitoring',
-    { clusterName },
+    {
+      clusterName,
+      cloudAccessPolicyToken: config.requireSecret(
+        'grafana-kubernetes-integration-token',
+      ),
+    },
     kubernetesComponentOptions,
   );
 

@@ -15,3 +15,5 @@ config:
   grafana:auth:
     secure: AAABAJ1jfpnD1VWtrWE1PwcCS7ikgMYSYn6RuhqKPoKaUiVei8I2XD7XBen9WYuoj9AFULzss3DJGnfhrn0ippLbNNRtsT74l68fR4En
   grafana:url: https://cromanjonac.grafana.net
+  fms:grafana-kubernetes-integration-token:
+    secure: AAABAHmdONXXEwNlbiz3aTpKsbwebURsFBiRuI/IUHl7tvG1dmn4XQKy1YemqGK+gvwtKjGEHYO9xbHR6xVHb7ElXkBMIvz+69fWfX7gziRa9w/axwJx9i4DNVmU/x1Tv46yWOdia1euGMx93VLchlJb8qQh6rv5dFmHI1Ib5C9rD3oCBWxIiRzL1WjRNTlmrJSZzlMgwfCpbYbvE64G3619izRHGlCp+dbSwGKR/3I=
