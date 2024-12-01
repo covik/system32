@@ -43,7 +43,7 @@ export class MinecraftServer extends pulumi.ComponentResource {
         },
         values: {
           minecraftServer: {
-            version: '1.21',
+            version: '1.21.3',
             eula: true,
             difficulty: 'normal',
             levelSeed: '1234564332465377',
