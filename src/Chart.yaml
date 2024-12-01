@@ -7,7 +7,7 @@ name: placholder-chart
 version: 0.0.0
 dependencies:
   - name: gateway-helm
-    version: 1.2.1
+    version: 1.2.2
     repository: 'oci://docker.io/envoyproxy'
   - name: minecraft
     version: 4.23.2
