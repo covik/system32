@@ -743,10 +743,10 @@
   resolved "https://registry.yarnpkg.com/@pulumi/query/-/query-0.3.0.tgz#f496608e86a18c3dd31b6c533408e2441c29071d"
   integrity sha512-xfo+yLRM2zVjVEA4p23IjQWzyWl1ZhWOGobsBqRpIarzLvwNH/RAGaoehdxlhx4X92302DrpdIFgTICMN4P38w==
 
-"@pulumiverse/grafana@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@pulumiverse/grafana/-/grafana-0.7.0.tgz#0b835f21be9d75153fefb75be73edf49bfb06a40"
-  integrity sha512-hDSt4OriqSlWURsp4TAjtIYobsBGXI1L0lQ3q373MIQD3htPoV1dYBgPmkf3kFy1QwT8lveaM7TKMfoVxwPomg==
+"@pulumiverse/grafana@0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@pulumiverse/grafana/-/grafana-0.7.1.tgz#c1a3aac352685526f0387e602bc7d522e345e839"
+  integrity sha512-0Od75DiZgM8pGyuRrdKwthe2TQSrQEezWdOCNcPCSlcOUMPb4jcOri8H9pVXcV3Iw6MpKjZU/cp7yrZVqZmTVw==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
