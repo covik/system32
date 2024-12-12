@@ -11,10 +11,5 @@
   ],
   "containerEnv": {
     "KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml"
-  },
-  "features": {
-    "ghcr.io/devcontainers/features/sshd:1": {
-      "version": "latest"
-    }
   }
 }
