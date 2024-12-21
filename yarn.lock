@@ -703,7 +703,7 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.144.1", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.136.0":
+"@pulumi/pulumi@3.144.1", "@pulumi/pulumi@^3.136.0", "@pulumi/pulumi@^3.142.0":
   version "3.144.1"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.144.1.tgz#96b3c54879f7bc5857ba38ac389e2b7262e44f9e"
   integrity sha512-C3kdP/uYnZygxfK18pFzs0P6IYng/rgf/NW5LXUjHMKcCSwyHbsk6l2wpuuYQiWaJFWyqLdNwDFRVf07ZcIEsA==
@@ -744,12 +744,12 @@
   resolved "https://registry.yarnpkg.com/@pulumi/query/-/query-0.3.0.tgz#f496608e86a18c3dd31b6c533408e2441c29071d"
   integrity sha512-xfo+yLRM2zVjVEA4p23IjQWzyWl1ZhWOGobsBqRpIarzLvwNH/RAGaoehdxlhx4X92302DrpdIFgTICMN4P38w==
 
-"@pulumiverse/grafana@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@pulumiverse/grafana/-/grafana-0.9.0.tgz#64d4384f26a34397a318f93f6a460e688d74acfe"
-  integrity sha512-HOU5y97STK9qsL3GV+Toi2nJYqWBreMOSJBz0YqS9XXZnalTZay3cdGFIg1ojnFJRTo9gJKmhr91V7nAeZuldw==
+"@pulumiverse/grafana@0.9.3":
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/@pulumiverse/grafana/-/grafana-0.9.3.tgz#0a3621e4efcb471bfa711955c48844f53068ed7e"
+  integrity sha512-SWFPrEppQgYaTGPCUm0sLX8WSd6a7v42aG57pQccSOe+um5L4OipBgK8Q7LoFJKa1M9OQCOyV1tn3nXRcLuL9w==
   dependencies:
-    "@pulumi/pulumi" "^3.0.0"
+    "@pulumi/pulumi" "^3.142.0"
 
 "@rtsao/scc@^1.1.0":
   version "1.1.0"
