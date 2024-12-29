@@ -8,7 +8,7 @@ COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /kubectl
 COPY --from=pulumi /pulumi/bin/pulumi /pulumi/pulumi
 COPY --from=pulumi /pulumi/bin/pulumi-language-nodejs /pulumi/pulumi-language-nodejs
 
-FROM node:22.12.0-bookworm-slim@sha256:a4b757cd491c7f0b57f57951f35f4e85b7e1ad54dbffca4cf9af0725e1650cd8 AS base
+FROM node:22.12.0-bookworm-slim@sha256:35531c52ce27b6575d69755c73e65d4468dba93a25644eed56dc12879cae9213 AS base
 ENV TERM="xterm"
 RUN unlink /usr/local/bin/npm \
     && apt-get update \
