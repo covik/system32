@@ -706,10 +706,46 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.144.1", "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.136.0":
+"@pulumi/pulumi@3.144.1":
   version "3.144.1"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.144.1.tgz#96b3c54879f7bc5857ba38ac389e2b7262e44f9e"
   integrity sha512-C3kdP/uYnZygxfK18pFzs0P6IYng/rgf/NW5LXUjHMKcCSwyHbsk6l2wpuuYQiWaJFWyqLdNwDFRVf07ZcIEsA==
+  dependencies:
+    "@grpc/grpc-js" "^1.10.1"
+    "@logdna/tail-file" "^2.0.6"
+    "@npmcli/arborist" "^7.3.1"
+    "@opentelemetry/api" "^1.9"
+    "@opentelemetry/exporter-zipkin" "^1.28"
+    "@opentelemetry/instrumentation" "^0.55"
+    "@opentelemetry/instrumentation-grpc" "^0.55"
+    "@opentelemetry/resources" "^1.28"
+    "@opentelemetry/sdk-trace-base" "^1.28"
+    "@opentelemetry/sdk-trace-node" "^1.28"
+    "@opentelemetry/semantic-conventions" "^1.28"
+    "@pulumi/query" "^0.3.0"
+    "@types/google-protobuf" "^3.15.5"
+    "@types/semver" "^7.5.6"
+    "@types/tmp" "^0.2.6"
+    execa "^5.1.0"
+    fdir "^6.1.1"
+    google-protobuf "^3.5.0"
+    got "^11.8.6"
+    ini "^2.0.0"
+    js-yaml "^3.14.0"
+    minimist "^1.2.6"
+    normalize-package-data "^6.0.0"
+    picomatch "^3.0.1"
+    pkg-dir "^7.0.0"
+    require-from-string "^2.0.1"
+    semver "^7.5.2"
+    source-map-support "^0.5.6"
+    tmp "^0.2.1"
+    upath "^1.1.0"
+
+"@pulumi/pulumi@^3.136.0", "@pulumi/pulumi@^3.142.0":
+  version "3.145.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.145.0.tgz#7b0045848e4583630e2f019869785bdceeb0f9c6"
+  integrity sha512-oIKrxQ4Idlg6BNC5IKSCCr/dG5zHvAjbxJXFHcL97aUMvrWRaRU4Dc2k0AMXTxr/olMtm3b+dBF+2SpekvqR9Q==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
@@ -747,12 +783,12 @@
   resolved "https://registry.yarnpkg.com/@pulumi/query/-/query-0.3.0.tgz#f496608e86a18c3dd31b6c533408e2441c29071d"
   integrity sha512-xfo+yLRM2zVjVEA4p23IjQWzyWl1ZhWOGobsBqRpIarzLvwNH/RAGaoehdxlhx4X92302DrpdIFgTICMN4P38w==
 
-"@pulumiverse/grafana@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@pulumiverse/grafana/-/grafana-0.9.0.tgz#64d4384f26a34397a318f93f6a460e688d74acfe"
-  integrity sha512-HOU5y97STK9qsL3GV+Toi2nJYqWBreMOSJBz0YqS9XXZnalTZay3cdGFIg1ojnFJRTo9gJKmhr91V7nAeZuldw==
+"@pulumiverse/grafana@0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@pulumiverse/grafana/-/grafana-0.10.0.tgz#73fd595b0abc24fbd36d5b88f319434fe1c66fcd"
+  integrity sha512-l2RzXv8E1BOE+WKJOx2U0YlKcJKiWUgEug8p9OfyDdyErer9QiYc65r0BDnQBMUL3Y9ElgaNiV0dZ9oKvwcAmg==
   dependencies:
-    "@pulumi/pulumi" "^3.0.0"
+    "@pulumi/pulumi" "^3.142.0"
 
 "@rtsao/scc@^1.1.0":
   version "1.1.0"
