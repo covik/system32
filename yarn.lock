@@ -694,10 +694,10 @@
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
-"@pulumi/kubernetes@4.21.0":
-  version "4.21.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.21.0.tgz#3ceff2d89280c356411e1173ab4537b94c715ac3"
-  integrity sha512-cjRPcVfvTWQwX2osQhpHpe2Y6Fd2GbbW8Bg42FTSFocy2SRbzH5/9W3M64jLT3+nR2c04xNt+0sLGHAOQXan4A==
+"@pulumi/kubernetes@4.21.1":
+  version "4.21.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.21.1.tgz#4fa4fcec6912b7f629b35dca91745055ac250715"
+  integrity sha512-+mhO7xM4+Sy7Bqu9DKsmJEpqn34qb3ZQxPqGgrphYqiYnUiS8SWL6pDvecZWYFWBlr85KcGdaCoHRLg2paa8Ng==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
     glob "^10.3.10"
