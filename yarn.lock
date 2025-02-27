@@ -694,10 +694,10 @@
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
-"@pulumi/digitalocean@4.38.0":
-  version "4.38.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.38.0.tgz#620849c04c39d09b81cd4bb817e2b3c684824c57"
-  integrity sha512-yw2nVvdBs2FGdXMm401/NOebkmVJob13y6UafqSBLG3UJ9w2G2xEAfRNX6I8rVQmQsO4sERpe4VTEvL+DETCJg==
+"@pulumi/digitalocean@4.40.1":
+  version "4.40.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.40.1.tgz#80ec6665d183ba162368993be5a2c4377ee1399b"
+  integrity sha512-gtdWcp+THneJx42ixyM/OpF08Aogi3iRe0LUWTDGf1tSWIxA4B6xaXsyShqDrx/6o5U9BR1RG+tLSch5mNohYw==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
