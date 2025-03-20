@@ -16,7 +16,6 @@ const domain = 'zth.dev';
 const zarafleetDomain = 'zarafleet.com';
 const fmsUrl = `old.${zarafleetDomain}`;
 const zarafleetUrl = `app.${zarafleetDomain}`;
-const stremioUrl = `01911f8c-8698-7a3d-a960-5f15f55a668c.${domain}`;
 const snapshooterIps = [
   '174.138.101.117',
   '209.38.181.248',
@@ -247,11 +246,14 @@ export function resources(): unknown {
     token: cloudflareConfig.requireSecret('apiToken'),
   };
 
+  const stremioUrl = pulumi.interpolate`${config.requireSecret('stremioSubdomain')}.${domain}`;
+
   setupKubernetesResources(
     kubernetes.provider,
     pulumi.interpolate`do-${region}-${kubernetes.cluster.name}`,
     cloudflareAccount,
     fmsDbConnection,
+    stremioUrl,
   );
 
   const kubeconfigPath = process.env['KUBECONFIG'];
@@ -282,6 +284,7 @@ function setupKubernetesResources(
     token: pulumi.Input<string>;
   },
   databaseConnection: app.DatabaseConnection,
+  stremioUrl: pulumi.Input<string>,
 ) {
   const config = new pulumi.Config();
 
