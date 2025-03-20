@@ -1,0 +1,5 @@
+config:
+  grafana:auth:
+    secure: AAABAHeiPithaFTLLe5ddgbrxbmJjHuagPz97HDnGW0Ph9IklVilX1lTVAzuRY+uyEuJF4Niqgp9N1JXMQ7GPO4d3No4DguTfPvExGwQ
+  grafana:url:
+    secure: AAABAFj1p8GQp7QMT+zI+unT09WlrjDw7NuF5xtab10r10gAT7Qh8RzeYfnBi52lKaMWWdhU9UMnndJGnc3v
