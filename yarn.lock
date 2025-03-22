@@ -723,10 +723,10 @@
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
-"@pulumi/digitalocean@4.38.0":
-  version "4.38.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.38.0.tgz#620849c04c39d09b81cd4bb817e2b3c684824c57"
-  integrity sha512-yw2nVvdBs2FGdXMm401/NOebkmVJob13y6UafqSBLG3UJ9w2G2xEAfRNX6I8rVQmQsO4sERpe4VTEvL+DETCJg==
+"@pulumi/digitalocean@4.40.2":
+  version "4.40.2"
+  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.40.2.tgz#3a669442eb122d2e770ff35a7cbc08866d078285"
+  integrity sha512-MGBlXE+QTDX9qSilkb328x51HVigXAoQlm9nwbQbdDzbpapwG+hic7avhSiRwAek9Xf901HOdZ4cz/AmIxdHUw==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
