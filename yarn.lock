@@ -653,7 +653,7 @@
   resolved "https://registry.yarnpkg.com/@opentelemetry/semantic-conventions/-/semantic-conventions-1.27.0.tgz#1a857dcc95a5ab30122e04417148211e6f945e6c"
   integrity sha512-sAay1RrB+ONOem0OZanAR1ZI/k7yDpnOQSQmTMuGImUQb2y8EbSaCJ94FQluM74xoU03vlb2d2U90hZluL6nQg==
 
-"@opentelemetry/semantic-conventions@1.28.0", "@opentelemetry/semantic-conventions@^1.28":
+"@opentelemetry/semantic-conventions@1.28.0":
   version "1.28.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/semantic-conventions/-/semantic-conventions-1.28.0.tgz#337fb2bca0453d0726696e745f50064411f646d6"
   integrity sha512-lp4qAiMTD4sNWW4DbKLBkfiMZ4jbAboJIGOQr5DvciMRI494OapieI9qiODpOt0XBr1LjIDy1xAGAnVs5supTA==
@@ -739,10 +739,10 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.147.0", "@pulumi/pulumi@^3.142.0":
-  version "3.147.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.147.0.tgz#b118b353fadfe9ee0705d81d38f772caa9bd1b2b"
-  integrity sha512-5tBGauFC6rAiB5I8Ug6kHBNB1YNmLANT1yy2pXwyMMWXmFc1++sYrZ2QDyVf0cJVtXdFhqw1kw/CxdV4YCHi0Q==
+"@pulumi/pulumi@3.162.0", "@pulumi/pulumi@^3.142.0":
+  version "3.162.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.162.0.tgz#49aebd3b16b31162260b4da55afddc7b5da6b734"
+  integrity sha512-ON76DuSgOCv1JRNX4pc9YiNyGF+hXY0QNx8/wwhKinYHkSgD3h61XJM6y7hsXX4gCbgCqRn/3l7XGk8ChFLNVQ==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
@@ -754,8 +754,6 @@
     "@opentelemetry/resources" "^1.28"
     "@opentelemetry/sdk-trace-base" "^1.28"
     "@opentelemetry/sdk-trace-node" "^1.28"
-    "@opentelemetry/semantic-conventions" "^1.28"
-    "@pulumi/query" "^0.3.0"
     "@types/google-protobuf" "^3.15.5"
     "@types/semver" "^7.5.6"
     "@types/tmp" "^0.2.6"
@@ -774,11 +772,6 @@
     source-map-support "^0.5.6"
     tmp "^0.2.1"
     upath "^1.1.0"
-
-"@pulumi/query@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/query/-/query-0.3.0.tgz#f496608e86a18c3dd31b6c533408e2441c29071d"
-  integrity sha512-xfo+yLRM2zVjVEA4p23IjQWzyWl1ZhWOGobsBqRpIarzLvwNH/RAGaoehdxlhx4X92302DrpdIFgTICMN4P38w==
 
 "@pulumiverse/grafana@0.12.0":
   version "0.12.0"
