@@ -74,7 +74,6 @@ jobs:
     name: 'Preview'
     needs: build
     if: github.event_name == 'pull_request'
-    concurrency: preview
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -102,7 +101,6 @@ jobs:
           work-dir: /app
           stack-name: cromanjonac
           command: preview
-          refresh: true
 
   deploy:
     name: 'Deploy'
