@@ -74,7 +74,7 @@ export class MinecraftServer extends pulumi.ComponentResource {
 
     const service = k8s.core.v1.Service.get(
       `${name}-service`,
-      pulumi.interpolate`${release.status.namespace}/${release.status.name}-minecraft`,
+      pulumi.interpolate`${release.status.namespace}/${release.status.name}`,
       {
         parent: this,
       },
