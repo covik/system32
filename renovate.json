@@ -15,7 +15,12 @@
     },
     {
       "groupName": "eslint packages",
-      "matchPackageNames": ["/^eslint/", "/^@eslint/", "/^@typescript-eslint/"]
+      "matchPackageNames": [
+        "/^eslint/",
+        "/^@eslint/",
+        "/^@typescript-eslint/",
+        "globals"
+      ]
     },
     {
       "matchPackageNames": ["node", "@types/node"],
