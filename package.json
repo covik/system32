@@ -19,7 +19,6 @@
     "format:check": "prettier --log-level=silent --check .",
     "lint": "eslint --max-warnings 0 ./",
     "prepare": "husky",
-    "reqlim": "./scripts/reqlim.sh",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
