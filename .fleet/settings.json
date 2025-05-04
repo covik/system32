@@ -1,4 +1,0 @@
-{
-  "excluded": ["node_modules", "tmp", "dist"],
-  "editor.formatOnSave": true
-}
