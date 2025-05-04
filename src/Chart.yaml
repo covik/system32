@@ -16,5 +16,5 @@ dependencies:
     version: 1.6.32
     repository: 'https://grafana.github.io/helm-charts'
   - name: cert-manager
-    version: v1.17.1
+    version: v1.17.2
     repository: 'https://charts.jetstack.io'
