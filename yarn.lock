@@ -750,10 +750,10 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.167.0", "@pulumi/pulumi@^3.142.0":
-  version "3.167.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.167.0.tgz#569b481194b731006173e9b605b3a09e07d87698"
-  integrity sha512-nqqG9ya86CO8eRpPSL34K0NWhQbH2hXAlVo+lCvi7I51nKFqaJITvfgfVEqwKU0g3KJspK8ZG0/1OZBRe0Dogg==
+"@pulumi/pulumi@3.169.0", "@pulumi/pulumi@^3.142.0":
+  version "3.169.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.169.0.tgz#ae0854fc2de508f484e0535f7630146c8d2a3081"
+  integrity sha512-l8x+gTySKWG2dRGvlScfl9EJaYgymkcUFaNAaz7lONYcvqllXXVw/mhbnsleNhC02gDiuP0p/9CfctHLqf75+Q==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
