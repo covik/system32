@@ -29,7 +29,7 @@
       "groupName": "node-js"
     },
     {
-      "matchPackageNames": ["pulumi/pulumi-base", "@pulumi/pulumi"],
+      "matchPackageNames": ["/pulumi/"],
       "groupName": "pulumi"
     },
     {
