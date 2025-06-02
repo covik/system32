@@ -260,8 +260,18 @@ export function resources(): unknown {
       writeFile(kubeconfigPath, kubeconfig),
     );
 
+  const mysqlClient = createMysqlClientPod({
+    namespace: 'default',
+    mysqlHost: fmsDatabaseCluster.privateHost,
+    mysqlUser: fmsDatabaseCluster.user,
+    mysqlPassword: fmsDatabaseCluster.password,
+    mysqlPort: fmsDatabaseCluster.port,
+    provider: kubernetes.provider,
+  });
+
   return {
     nameservers: dnsZone.nameServers,
+    mysqlAttachCommand: pulumi.interpolate`kubectl attach -n ${mysqlClient.metadata.namespace} ${mysqlClient.metadata.name} -c ${mysqlClient.spec.containers[0].name} --stdin --tty`,
   };
 }
 
@@ -734,5 +744,64 @@ function setupKubernetesResources(
       provider,
       dependsOn: [allowFrontendToBackendCommunication],
     },
+  );
+}
+
+export interface MysqlClientPodArgs {
+  namespace: pulumi.Input<string>;
+  mysqlHost: pulumi.Input<string>;
+  mysqlUser: pulumi.Input<string>;
+  mysqlPassword: pulumi.Input<string>;
+  mysqlPort?: pulumi.Input<number>;
+  provider: k8s.Provider;
+}
+
+export function createMysqlClientPod(
+  args: MysqlClientPodArgs,
+): k8s.core.v1.Pod {
+  const portEnv = args.mysqlPort
+    ? pulumi.interpolate`${args.mysqlPort}`
+    : '3306';
+
+  return new k8s.core.v1.Pod(
+    'mysql-client',
+    {
+      metadata: {
+        name: 'mysql-client',
+        namespace: args.namespace,
+      },
+      spec: {
+        containers: [
+          {
+            name: 'mysql-8',
+            image:
+              'mysql:8-debian@sha256:49f4fcb0087318aa1c222c7e8ceacbb541cdc457c6307d45e6ee4313f4902e33',
+            command: [
+              'sh',
+              '-c',
+              'mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER -p$MYSQL_PASSWORD',
+            ],
+            env: [
+              { name: 'MYSQL_HOST', value: args.mysqlHost },
+              { name: 'MYSQL_PORT', value: portEnv },
+              { name: 'MYSQL_USER', value: args.mysqlUser },
+              { name: 'MYSQL_PASSWORD', value: args.mysqlPassword },
+            ],
+            resources: {
+              requests: {
+                cpu: '0.001m',
+                memory: '30Mi',
+              },
+              limits: {
+                memory: '30Mi',
+              },
+            },
+            stdin: true,
+            tty: true,
+          },
+        ],
+      },
+    },
+    { deleteBeforeReplace: true, provider: args.provider },
   );
 }
