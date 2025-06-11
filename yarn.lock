@@ -718,10 +718,10 @@
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
-"@pulumi/digitalocean@4.45.0":
-  version "4.45.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.45.0.tgz#4f2a9e29005900adc2395063a01ac45f7f60080f"
-  integrity sha512-Qyz8KqE6b/1UnAfvsp2lggSKhp1+uCSSOdczB5XN0qHb2AzD2daJs6ePyNXwkcOaz6G4zgLeXq6vJsz3erd41Q==
+"@pulumi/digitalocean@4.47.0":
+  version "4.47.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.47.0.tgz#9da704bcaf6902ce823c8d7798a670d8bde8e3c5"
+  integrity sha512-AYhJJ4wF7c+t1BqNE29ttM77WuPlsb+cp4V7miNJ5iGL/1Wms6tf1ASKy7chZAhRyFkdtrbf07AtpgRhc23hIg==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
@@ -734,10 +734,10 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.173.0", "@pulumi/pulumi@^3.142.0":
-  version "3.173.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.173.0.tgz#02646dab7cd11bbfaa49490eee26e5c2f2f2dd5e"
-  integrity sha512-/qvSyYaNBV8RpB+B24H2CqF7DA+OHzUqMa/NUJWmCE41UNHPlscFgNMfR0EV7IKqH0woKtzA3DOloBZfPjINVg==
+"@pulumi/pulumi@3.175.0", "@pulumi/pulumi@^3.142.0":
+  version "3.175.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.175.0.tgz#ad965a2a6bd6090c3a8294ab4fea697915cb2366"
+  integrity sha512-15d34B01pkacNiMwX5pXKzo+jSls2UMQV9A754/Hudujml/zp1MDxEeTtgfRYX4r5WDppswoFvNK93RnbHCTWA==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
