@@ -22,7 +22,8 @@ RUN unlink /usr/local/bin/npm \
         watch \
         wget \
     && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
+    && apt-get clean \
+    && corepack enable
 
 FROM base AS dev
 ARG USERNAME=developer
