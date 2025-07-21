@@ -741,10 +741,10 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.182.0", "@pulumi/pulumi@^3.142.0":
-  version "3.182.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.182.0.tgz#4c2ea22fb095d5786a58d253580b23e637f6a5c3"
-  integrity sha512-QVt3aIHSfFk3UQXvtp82n6eyrxkYN69A1YSN2q0XcCn9zZBMo3AWI4IzR+yOU7D7BckdW47a5DgXtwUNK5DjUg==
+"@pulumi/pulumi@3.185.0", "@pulumi/pulumi@^3.142.0":
+  version "3.185.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.185.0.tgz#d0f78452ecf17101f21568b611f093892feeee31"
+  integrity sha512-J8Ha8EDxw503hMmVu1i+qd7atQRJkB6VD0En5ibUgm+B4453AfWclGTHoFcz/QLCneYRQhH+SUS2zy1+sqggdw==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
@@ -775,10 +775,10 @@
     tmp "^0.2.1"
     upath "^1.1.0"
 
-"@pulumiverse/grafana@0.19.0":
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/@pulumiverse/grafana/-/grafana-0.19.0.tgz#c525cfa9c399778d350ac133dd56a31f726e7ded"
-  integrity sha512-y6kJOhq+jFndwjWOGj7vp80IBaQQIpn0cmhGF1QtffUhme0m6zgi6II330xI5R5n0ABgzNtGB6sxm3/TFmZF2A==
+"@pulumiverse/grafana@0.19.2":
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/@pulumiverse/grafana/-/grafana-0.19.2.tgz#be2c6f10429e657796ab47a975dba594adf8c4c0"
+  integrity sha512-vNF/CQee7Q6t0SJFO/RrxiLzqQZdPhtGqNAhCp9naeTfKxPy1ohUOSMz+otSbAs61k7CYwtpRUUIf4zqTGYK8A==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
