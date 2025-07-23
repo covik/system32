@@ -1,4 +1,5 @@
 import * as cloudflare from '@pulumi/cloudflare';
+import * as pulumi from '@pulumi/pulumi';
 
 const domainSlug = 'luigitrans-hr';
 
@@ -81,6 +82,24 @@ export function resources(): unknown {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'A',
+      content: record.value,
+      ttl: record.ttl,
+    });
+  });
+
+  const cnameRecords = [
+    {
+      name: pulumi.interpolate`mail.${dnsZone.zone}`,
+      value: dnsZone.zone,
+      ttl: 14400,
+    },
+  ];
+
+  cnameRecords.forEach((record, index) => {
+    new cloudflare.Record(`${domainSlug}-cname-${index}`, {
+      zoneId: dnsZone.id,
+      name: record.name,
+      type: 'CNAME',
       content: record.value,
       ttl: record.ttl,
     });
