@@ -12,6 +12,7 @@ module.exports = {
         'grafana',
         'zarafleet',
         'zarapromet',
+        'luigitrans',
       ],
     ],
   },
