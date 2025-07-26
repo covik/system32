@@ -143,12 +143,14 @@ export function resources(): unknown {
     ],
   });
 
+  const domainSlug = 'zth-dev';
   const dnsZone = new cloudflare.Zone(
-    'zth-dev-zone',
+    `${domainSlug}-zone`,
     {
-      zone: domain,
-      accountId: 'f6f07d41cae3f7e691aeaf018292e276',
-      plan: 'free',
+      name: domain,
+      account: {
+        id: 'f6f07d41cae3f7e691aeaf018292e276',
+      },
       type: 'full',
     },
     {
@@ -156,31 +158,16 @@ export function resources(): unknown {
     },
   );
 
-  new cloudflare.ZoneSettingsOverride('zth-dev-security-settings', {
-    zoneId: dnsZone.id,
-    settings: {
-      ssl: 'strict',
-      alwaysUseHttps: 'on',
-      securityLevel: 'high',
-      browserCheck: 'on',
-      challengeTtl: 1800,
-      // waf: 'on', // needs Pro plan
-      opportunisticEncryption: 'on',
-      automaticHttpsRewrites: 'on',
-      minTlsVersion: '1.2',
-    },
-  });
-
   const mxRecords = [
-    { name: 'zth.dev', priority: 10, value: 'alt3.aspmx.l.google.com.' },
-    { name: 'zth.dev', priority: 10, value: 'alt4.aspmx.l.google.com.' },
-    { name: 'zth.dev', priority: 1, value: 'aspmx.l.google.com.' },
-    { name: 'zth.dev', priority: 5, value: 'alt1.aspmx.l.google.com.' },
-    { name: 'zth.dev', priority: 5, value: 'alt2.aspmx.l.google.com.' },
+    { name: dnsZone.name, priority: 1, value: 'aspmx.l.google.com.' },
+    { name: dnsZone.name, priority: 5, value: 'alt1.aspmx.l.google.com.' },
+    { name: dnsZone.name, priority: 5, value: 'alt2.aspmx.l.google.com.' },
+    { name: dnsZone.name, priority: 10, value: 'alt3.aspmx.l.google.com.' },
+    { name: dnsZone.name, priority: 10, value: 'alt4.aspmx.l.google.com.' },
   ];
 
   mxRecords.forEach((record, index) => {
-    new cloudflare.Record(`zth-dev-mx-${index}`, {
+    new cloudflare.DnsRecord(`zth-dev-mx-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'MX',
@@ -198,13 +185,13 @@ export function resources(): unknown {
         'v=DMARC1;  p=none; rua=mailto:60c475918b8b4cb188e919bd2dd2b1b8@dmarc-reports.cloudflare.net;',
     },
     {
-      name: domain,
+      name: dnsZone.name,
       ttl: 3600,
       value:
         'google-site-verification=NZG41fnGV15ayrcCJ6-tS1_Qk-BE6Ynhw25KOLnRV7o',
     },
     {
-      name: domain,
+      name: dnsZone.name,
       ttl: 3600,
       value: 'v=spf1 include:_spf.google.com ~all',
     },
@@ -217,7 +204,7 @@ export function resources(): unknown {
   ];
 
   txtRecords.forEach((record, index) => {
-    new cloudflare.Record(`zth-dev-txt-${index}`, {
+    new cloudflare.DnsRecord(`zth-dev-txt-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'TXT',
@@ -226,10 +213,10 @@ export function resources(): unknown {
     });
   });
 
-  const hostnames = [dnsZone.zone, pulumi.interpolate`*.${dnsZone.zone}`];
+  const hostnames = [dnsZone.name, pulumi.interpolate`*.${dnsZone.name}`];
   pulumi.all(hostnames).apply((hosts) => {
     hosts.forEach((hostname, index) => {
-      new cloudflare.Record(`zth-dev-a-${index}`, {
+      new cloudflare.DnsRecord(`zth-dev-a-${index}`, {
         zoneId: dnsZone.id,
         name: hostname,
         type: 'A',
@@ -260,18 +247,18 @@ export function resources(): unknown {
       writeFile(kubeconfigPath, kubeconfig),
     );
 
-  const mysqlClient = createMysqlClientPod({
+  /*const mysqlClient = createMysqlClientPod({
     namespace: 'default',
     mysqlHost: fmsDatabaseCluster.privateHost,
     mysqlUser: fmsDatabaseCluster.user,
     mysqlPassword: fmsDatabaseCluster.password,
     mysqlPort: fmsDatabaseCluster.port,
     provider: kubernetes.provider,
-  });
+  });*/
 
   return {
     nameservers: dnsZone.nameServers,
-    mysqlAttachCommand: pulumi.interpolate`kubectl attach -n ${mysqlClient.metadata.namespace} ${mysqlClient.metadata.name} -c ${mysqlClient.spec.containers[0].name} --stdin --tty`,
+    // mysqlAttachCommand: pulumi.interpolate`kubectl attach -n ${mysqlClient.metadata.namespace} ${mysqlClient.metadata.name} -c ${mysqlClient.spec.containers[0].name} --stdin --tty`,
   };
 }
 

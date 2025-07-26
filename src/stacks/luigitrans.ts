@@ -7,9 +7,10 @@ export function resources(): unknown {
   const dnsZone = new cloudflare.Zone(
     `${domainSlug}-zone`,
     {
-      zone: 'luigitrans.hr',
-      accountId: 'f6f07d41cae3f7e691aeaf018292e276',
-      plan: 'free',
+      name: 'luigitrans.hr',
+      account: {
+        id: 'f6f07d41cae3f7e691aeaf018292e276',
+      },
       type: 'full',
     },
     {
@@ -21,27 +22,12 @@ export function resources(): unknown {
     zoneId: dnsZone.id,
   });
 
-  new cloudflare.ZoneSettingsOverride(`${domainSlug}-security`, {
-    zoneId: dnsZone.id,
-    settings: {
-      ssl: 'strict',
-      alwaysUseHttps: 'on',
-      securityLevel: 'high',
-      browserCheck: 'on',
-      challengeTtl: 1800,
-      // waf: 'on', // needs Pro plan
-      opportunisticEncryption: 'on',
-      automaticHttpsRewrites: 'on',
-      minTlsVersion: '1.3',
-    },
-  });
-
   const mxRecords = [
-    { name: dnsZone.zone, priority: 0, value: 'luigitrans.hr.', ttl: 14400 },
+    { name: dnsZone.name, priority: 0, value: 'luigitrans.hr.', ttl: 14400 },
   ];
 
   mxRecords.forEach((record, index) => {
-    new cloudflare.Record(`${domainSlug}-mx-${index}`, {
+    new cloudflare.DnsRecord(`${domainSlug}-mx-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'MX',
@@ -53,14 +39,14 @@ export function resources(): unknown {
 
   const txtRecords = [
     {
-      name: dnsZone.zone,
+      name: dnsZone.name,
       value: '"v=spf1 +a +mx +ip4:178.63.45.97 ~all"',
       ttl: 14400,
     },
   ];
 
   txtRecords.forEach((record, index) => {
-    new cloudflare.Record(`${domainSlug}-txt-${index}`, {
+    new cloudflare.DnsRecord(`${domainSlug}-txt-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'TXT',
@@ -71,14 +57,14 @@ export function resources(): unknown {
 
   const aRecords = [
     {
-      name: dnsZone.zone,
+      name: dnsZone.name,
       value: '178.63.45.97',
       ttl: 14400,
     },
   ];
 
   aRecords.forEach((record, index) => {
-    new cloudflare.Record(`${domainSlug}-a-${index}`, {
+    new cloudflare.DnsRecord(`${domainSlug}-a-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'A',
@@ -89,14 +75,14 @@ export function resources(): unknown {
 
   const cnameRecords = [
     {
-      name: pulumi.interpolate`mail.${dnsZone.zone}`,
-      value: dnsZone.zone,
+      name: pulumi.interpolate`mail.${dnsZone.name}`,
+      value: dnsZone.name,
       ttl: 14400,
     },
   ];
 
   cnameRecords.forEach((record, index) => {
-    new cloudflare.Record(`${domainSlug}-cname-${index}`, {
+    new cloudflare.DnsRecord(`${domainSlug}-cname-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'CNAME',
