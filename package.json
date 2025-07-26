@@ -22,7 +22,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@pulumi/cloudflare": "5.49.1",
+    "@pulumi/cloudflare": "6.4.1",
     "@pulumi/digitalocean": "4.49.0",
     "@pulumi/kubernetes": "4.23.0",
     "@pulumi/pulumi": "3.186.0",

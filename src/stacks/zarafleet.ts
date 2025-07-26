@@ -7,9 +7,10 @@ export function resources(): unknown {
   const dnsZone = new cloudflare.Zone(
     `${domainSlug}-zone`,
     {
-      zone: 'zarafleet.com',
-      accountId: 'f6f07d41cae3f7e691aeaf018292e276',
-      plan: 'free',
+      name: 'zarafleet.com',
+      account: {
+        id: 'f6f07d41cae3f7e691aeaf018292e276',
+      },
       type: 'full',
     },
     {
@@ -23,29 +24,14 @@ export function resources(): unknown {
     zoneId: dnsZone.id,
   });
 
-  new cloudflare.ZoneSettingsOverride(`${domainSlug}-security`, {
-    zoneId: dnsZone.id,
-    settings: {
-      ssl: 'strict',
-      alwaysUseHttps: 'on',
-      securityLevel: 'high',
-      browserCheck: 'on',
-      challengeTtl: 1800,
-      // waf: 'on', // needs Pro plan
-      opportunisticEncryption: 'on',
-      automaticHttpsRewrites: 'on',
-      minTlsVersion: '1.3',
-    },
-  });
-
   const mxRecords = [
-    { name: dnsZone.zone, priority: 10, value: 'mx.zoho.eu.' },
-    { name: dnsZone.zone, priority: 20, value: 'mx2.zoho.eu.' },
-    { name: dnsZone.zone, priority: 40, value: 'mx.zoho.eu.' },
+    { name: dnsZone.name, priority: 10, value: 'mx.zoho.eu.' },
+    { name: dnsZone.name, priority: 20, value: 'mx2.zoho.eu.' },
+    { name: dnsZone.name, priority: 40, value: 'mx.zoho.eu.' },
   ];
 
   mxRecords.forEach((record, index) => {
-    new cloudflare.Record(`${domainSlug}-mx-${index}`, {
+    new cloudflare.DnsRecord(`${domainSlug}-mx-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'MX',
@@ -62,11 +48,11 @@ export function resources(): unknown {
         'v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBO7cdFtTgMgNvWCBp5+2SFbBWqd60qydynfGeliJroK1a5McG7yMjt93zEZABRC/BhoWITJEZ15G0iNncQ4m9pSM/pJ3bxm9pO4X6dA08q3d6NpRF2ezsxp2JEXPRZE8ZDC8xhEElrPUBzFWTdshq81yYW9Kap8e/5I6mAO4dSQIDAQAB',
     },
     {
-      name: dnsZone.zone,
+      name: dnsZone.name,
       value: 'v=spf1 include:zoho.eu ~all',
     },
     {
-      name: dnsZone.zone,
+      name: dnsZone.name,
       value: 'zoho-verification=zb24461793.zmverify.zoho.eu',
     },
     {
@@ -77,7 +63,7 @@ export function resources(): unknown {
   ];
 
   txtRecords.forEach((record, index) => {
-    new cloudflare.Record(`${domainSlug}-txt-${index}`, {
+    new cloudflare.DnsRecord(`${domainSlug}-txt-${index}`, {
       zoneId: dnsZone.id,
       name: record.name,
       type: 'TXT',
@@ -87,12 +73,12 @@ export function resources(): unknown {
   });
 
   const hostnames = [
-    pulumi.interpolate`old.${dnsZone.zone}`,
-    pulumi.interpolate`app.${dnsZone.zone}`,
+    pulumi.interpolate`old.${dnsZone.name}`,
+    pulumi.interpolate`app.${dnsZone.name}`,
   ];
   pulumi.all(hostnames).apply((hosts) => {
     hosts.forEach((hostname, index) => {
-      new cloudflare.Record(`${domainSlug}-cname-${index}`, {
+      new cloudflare.DnsRecord(`${domainSlug}-cname-${index}`, {
         zoneId: dnsZone.id,
         name: hostname,
         type: 'CNAME',
