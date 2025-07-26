@@ -179,7 +179,7 @@ export function resources(): unknown {
 
   const txtRecords = [
     {
-      name: '_dmarc',
+      name: pulumi.interpolate`_dmarc.${dnsZone.name}`,
       ttl: 3600,
       value:
         'v=DMARC1;  p=none; rua=mailto:60c475918b8b4cb188e919bd2dd2b1b8@dmarc-reports.cloudflare.net;',
@@ -196,7 +196,7 @@ export function resources(): unknown {
       value: 'v=spf1 include:_spf.google.com ~all',
     },
     {
-      name: 'google._domainkey',
+      name: pulumi.interpolate`google._domainkey.${dnsZone.name}`,
       ttl: 3600,
       value:
         'v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoTwLIgTUUc24nH1+ZENiCsHrUyvzUOuHt2QaoQohikwT8P2F+tJQ+GtVvFlN8WvysFVznFWGpDtFEObwirUc+sNSGyKjPgfIeig9lhA1iyPz8A16UWxA/xcUBZ3lFR2DtYa1PVfsFiGtLVsy4b/dlZ/kZH9oJdpqqudpzVeoUIaC+HYT4izMxMHy1nLDlgFztICozPfWVZZkmmUvD792DcnQIperMOQRnRzhWFGE+EBwOsR1szfSCjc+8h8HjPregN7SsGTSYPYYu0nCZDjjXJhFLiZfP6X5bsaAcKxXYKiiRpClDpf01rOzijP5Dpp16OKE9qy9R/p64Zfl67qgJwIDAQAB',

@@ -43,7 +43,7 @@ export function resources(): unknown {
 
   const txtRecords = [
     {
-      name: 'zmail._domainkey.zarafleet.com',
+      name: pulumi.interpolate`zmail._domainkey.${dnsZone.name}`,
       value:
         'v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBO7cdFtTgMgNvWCBp5+2SFbBWqd60qydynfGeliJroK1a5McG7yMjt93zEZABRC/BhoWITJEZ15G0iNncQ4m9pSM/pJ3bxm9pO4X6dA08q3d6NpRF2ezsxp2JEXPRZE8ZDC8xhEElrPUBzFWTdshq81yYW9Kap8e/5I6mAO4dSQIDAQAB',
     },
@@ -56,7 +56,7 @@ export function resources(): unknown {
       value: 'zoho-verification=zb24461793.zmverify.zoho.eu',
     },
     {
-      name: '_dmarc',
+      name: pulumi.interpolate`_dmarc.${dnsZone.name}`,
       value:
         'v=DMARC1;  p=none; rua=mailto:01eeeb5c4062493a98e526872bb02a24@dmarc-reports.cloudflare.net;',
     },
