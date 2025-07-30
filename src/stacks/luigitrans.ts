@@ -43,6 +43,12 @@ export function resources(): unknown {
       value: '"v=spf1 +a +mx +ip4:178.63.45.97 ~all"',
       ttl: 14400,
     },
+    {
+      name: dnsZone.name,
+      value:
+        '"google-site-verification=aDPiYQcHYkg_6Df8HIX19Vj0JkHIDDEbhhwbNQufRP8"',
+      ttl: 300,
+    },
   ];
 
   txtRecords.forEach((record, index) => {
