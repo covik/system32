@@ -13,7 +13,7 @@ dependencies:
     version: 4.26.4
     repository: 'https://itzg.github.io/minecraft-server-charts/'
   - name: k8s-monitoring
-    version: 2.0.39
+    version: 2.1.4
     repository: 'https://grafana.github.io/helm-charts'
   - name: cert-manager
     version: v1.18.2
