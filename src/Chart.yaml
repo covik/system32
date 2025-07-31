@@ -10,7 +10,7 @@ dependencies:
     version: 1.4.2
     repository: 'oci://docker.io/envoyproxy'
   - name: minecraft
-    version: 4.26.3
+    version: 4.26.4
     repository: 'https://itzg.github.io/minecraft-server-charts/'
   - name: k8s-monitoring
     version: 1.6.44
