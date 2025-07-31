@@ -3,12 +3,12 @@ import * as cloudflare from '@pulumi/cloudflare';
 import * as digitalocean from '@pulumi/digitalocean';
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
-import * as app from '../resources/app';
-import * as cluster from '../resources/cluster';
-import * as gateway from '../resources/gateway';
-import * as monitoring from '../resources/monitoring';
-import * as security from '../resources/security';
-import { createMysqlConnectionString } from '../utils';
+import * as app from '../resources/app/index.js';
+import * as cluster from '../resources/cluster/index.js';
+import * as gateway from '../resources/gateway/index.js';
+import * as monitoring from '../resources/monitoring/index.js';
+import * as security from '../resources/security/index.js';
+import { createMysqlConnectionString } from '../utils/index.js';
 
 const domain = 'zth.dev';
 const zarafleetDomain = 'zarafleet.com';

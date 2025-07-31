@@ -1,5 +1,7 @@
 import { getStack } from '@pulumi/pulumi';
-import { findStackResources } from './src/stacks';
+import { findStackResources } from './src/stacks/index.js';
 
 const resources = findStackResources(getStack());
-module.exports = resources();
+
+// eslint-disable-next-line import/no-default-export
+export default resources();

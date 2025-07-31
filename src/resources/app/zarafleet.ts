@@ -1,6 +1,6 @@
 import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from '@pulumi/pulumi';
-import * as security from '../security';
+import * as security from '../security/index.js';
 
 export interface ZaraFleetArguments {
   image: pulumi.Input<string>;

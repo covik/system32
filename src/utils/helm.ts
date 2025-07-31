@@ -1,7 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 import { object, string, array, assert, type } from 'superstruct';
 import * as yaml from 'yaml';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const chartFilePath = path.join(__dirname, '../Chart.yaml');
 const chartFileContent = fs.readFileSync(chartFilePath, 'utf8');
 const chartConfig = yaml.parse(chartFileContent);

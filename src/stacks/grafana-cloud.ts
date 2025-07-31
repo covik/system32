@@ -1,5 +1,5 @@
 import * as grafana from '@pulumiverse/grafana';
-import memoryAllocationDashboardJSON from '../memory-allocation-dashboard.json';
+import memoryAllocationDashboardJSON from '../memory-allocation-dashboard.json' with { type: 'json' };
 
 export function resources(): unknown {
   const dashboard = new grafana.oss.Dashboard(
