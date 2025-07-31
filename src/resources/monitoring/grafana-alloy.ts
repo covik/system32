@@ -23,6 +23,22 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
       { parent: this },
     );
 
+    const alloyCrdChartSettings = findHelmDependency('alloy-crd');
+    const alloyCrdRelease = new k8s.helm.v3.Release(
+      `${name}-alloy-crd-release`,
+      {
+        name: `${name}-alloy-crd`,
+        atomic: true,
+        chart: alloyCrdChartSettings.name,
+        version: alloyCrdChartSettings.version,
+        namespace: namespace.metadata.name,
+        repositoryOpts: {
+          repo: alloyCrdChartSettings.repository,
+        },
+      },
+      { parent: this },
+    );
+
     const chartSettings = findHelmDependency('k8s-monitoring');
     new k8s.helm.v3.Release(
       `${name}-release`,
@@ -131,7 +147,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
           },
         },
       },
-      { parent: this },
+      { parent: this, dependsOn: [alloyCrdRelease] },
     );
 
     this.registerOutputs();
