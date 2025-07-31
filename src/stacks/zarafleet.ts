@@ -22,6 +22,7 @@ export function resources(): unknown {
   // we don't have to manually update DNS records
   new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
     zoneId: dnsZone.id,
+    status: 'active',
   });
 
   const mxRecords = [

@@ -20,6 +20,7 @@ export function resources(): unknown {
 
   const dnssec = new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
     zoneId: dnsZone.id,
+    status: 'active',
   });
 
   const mxRecords = [
