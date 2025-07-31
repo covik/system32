@@ -23,7 +23,7 @@ export function resources(): unknown {
   });
 
   const mxRecords = [
-    { name: dnsZone.name, priority: 0, value: 'luigitrans.hr.', ttl: 300 },
+    { name: dnsZone.name, priority: 0, value: 'luigitrans.hr', ttl: 300 },
   ];
 
   mxRecords.forEach((record, index) => {

@@ -159,11 +159,11 @@ export function resources(): unknown {
   );
 
   const mxRecords = [
-    { name: dnsZone.name, priority: 1, value: 'aspmx.l.google.com.' },
-    { name: dnsZone.name, priority: 5, value: 'alt1.aspmx.l.google.com.' },
-    { name: dnsZone.name, priority: 5, value: 'alt2.aspmx.l.google.com.' },
-    { name: dnsZone.name, priority: 10, value: 'alt3.aspmx.l.google.com.' },
-    { name: dnsZone.name, priority: 10, value: 'alt4.aspmx.l.google.com.' },
+    { name: dnsZone.name, priority: 1, value: 'aspmx.l.google.com' },
+    { name: dnsZone.name, priority: 5, value: 'alt1.aspmx.l.google.com' },
+    { name: dnsZone.name, priority: 5, value: 'alt2.aspmx.l.google.com' },
+    { name: dnsZone.name, priority: 10, value: 'alt3.aspmx.l.google.com' },
+    { name: dnsZone.name, priority: 10, value: 'alt4.aspmx.l.google.com' },
   ];
 
   mxRecords.forEach((record, index) => {

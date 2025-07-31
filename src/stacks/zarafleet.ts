@@ -25,9 +25,9 @@ export function resources(): unknown {
   });
 
   const mxRecords = [
-    { name: dnsZone.name, priority: 10, value: 'mx.zoho.eu.' },
-    { name: dnsZone.name, priority: 20, value: 'mx2.zoho.eu.' },
-    { name: dnsZone.name, priority: 40, value: 'mx.zoho.eu.' },
+    { name: dnsZone.name, priority: 10, value: 'mx.zoho.eu' },
+    { name: dnsZone.name, priority: 20, value: 'mx2.zoho.eu' },
+    { name: dnsZone.name, priority: 40, value: 'mx.zoho.eu' },
   ];
 
   mxRecords.forEach((record, index) => {
