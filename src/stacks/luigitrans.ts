@@ -23,7 +23,7 @@ export function resources(): unknown {
   });
 
   const mxRecords = [
-    { name: dnsZone.name, priority: 0, value: 'luigitrans.hr.', ttl: 14400 },
+    { name: dnsZone.name, priority: 0, value: 'luigitrans.hr.', ttl: 300 },
   ];
 
   mxRecords.forEach((record, index) => {
@@ -41,7 +41,7 @@ export function resources(): unknown {
     {
       name: dnsZone.name,
       value: '"v=spf1 +a +mx +ip4:178.63.45.97 ~all"',
-      ttl: 14400,
+      ttl: 300,
     },
     {
       name: dnsZone.name,
