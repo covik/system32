@@ -39,100 +39,95 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
           'cluster': {
             name: args.clusterName,
           },
-          'externalServices': {
-            prometheus: {
-              host: 'https://prometheus-prod-24-prod-eu-west-2.grafana.net',
-              basicAuth: {
+          'destinations': [
+            {
+              name: 'metricsService',
+              type: 'prometheus',
+              url: 'https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push',
+              auth: {
+                type: 'basic',
                 username: '1732483',
                 password: args.cloudAccessPolicyToken,
               },
             },
-            loki: {
-              host: 'https://logs-prod-012.grafana.net',
-              basicAuth: {
+            {
+              name: 'logsService',
+              type: 'loki',
+              url: 'https://logs-prod-012.grafana.net/loki/api/v1/push',
+              auth: {
+                type: 'basic',
                 username: '965971',
                 password: args.cloudAccessPolicyToken,
               },
             },
-            tempo: {
-              host: 'https://tempo-prod-10-prod-eu-west-2.grafana.net:443',
-              basicAuth: {
+            {
+              name: 'tracesService',
+              type: 'otlp',
+              metrics: { enabled: false },
+              logs: { enabled: false },
+              traces: { enabled: true },
+              url: 'https://tempo-prod-10-prod-eu-west-2.grafana.net:443',
+              auth: {
+                type: 'basic',
                 username: '960286',
                 password: args.cloudAccessPolicyToken,
               },
             },
-          },
-          'metrics': {
+          ],
+          'clusterMetrics': {
             'enabled': true,
-            'alloy': {
-              metricsTuning: {
-                useIntegrationAllowList: true,
-              },
-            },
-            'cost': {
-              enabled: true,
-            },
-            'kepler': {
-              enabled: true,
-            },
-            'node-exporter': {
-              enabled: true,
-            },
-          },
-          'logs': {
-            enabled: true,
-            pod_logs: {
-              enabled: true,
-            },
-            cluster_events: {
-              enabled: true,
-            },
-          },
-          'traces': {
-            enabled: true,
-          },
-          'receivers': {
-            grpc: {
-              enabled: true,
-            },
-            http: {
-              enabled: true,
-            },
-            zipkin: {
-              enabled: true,
-            },
-            grafanaCloudMetrics: {
+            'kube-state-metrics': { deploy: true },
+            'node-exporter': { deploy: true, enabled: true },
+            'opencost': {
               enabled: false,
-            },
-          },
-          'opencost': {
-            enabled: false,
-            opencost: {
-              exporter: {
-                defaultClusterId: 'zth-dev',
-              },
-              prometheus: {
-                external: {
-                  url: 'https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom',
+              opencost: {
+                exporter: { defaultClusterId: 'zth-dev' },
+                prometheus: {
+                  external: {
+                    url: 'https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom',
+                  },
+                  existingSecretName: 'metricsservice-grafana-k8s-monitoring',
                 },
               },
+              metricsSource: 'metricsService',
+            },
+            'kepler': { enabled: true },
+          },
+          'alloy-metrics': { enabled: true },
+          'clusterEvents': { enabled: true },
+          'alloy-singleton': { enabled: true },
+          'podLogs': { enabled: true },
+          'alloy-logs': { enabled: true },
+          'applicationObservability': { enabled: false },
+          'alloy-receiver': { enabled: false },
+          'annotationAutodiscovery': { enabled: true },
+          'prometheusOperatorObjects': {
+            enabled: true,
+            crds: { deploy: true },
+          },
+          'integrations': {
+            alloy: {
+              instances: [
+                {
+                  name: 'alloy',
+                  labelSelectors: {
+                    'app.kubernetes.io/name': [
+                      'alloy-metrics',
+                      'alloy-singleton',
+                      'alloy-logs',
+                      'alloy-receiver',
+                    ],
+                  },
+                  metrics: {
+                    tuning: {
+                      useDefaultAllowList: true,
+                      includeMetrics: ['alloy_build_info'],
+                    },
+                  },
+                },
+              ],
             },
           },
-          'kube-state-metrics': {
-            enabled: true,
-          },
-          'prometheus-node-exporter': {
-            enabled: true,
-          },
-          'prometheus-operator-crds': {
-            enabled: true,
-          },
-          'kepler': {
-            enabled: false,
-          },
-          'alloy': {},
-          'alloy-events': {},
-          'alloy-logs': {},
         },
       },
       { parent: this },
