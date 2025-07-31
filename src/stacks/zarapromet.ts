@@ -45,7 +45,7 @@ export function resources(): unknown {
     {
       name: pulumi.interpolate`google._domainkey.${dnsZone.name}`,
       value:
-        '"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmXaVcyaN0kG6S+3MmxXIOYycyR9K1A71K88TMHGpQdayD2c2eVtsg8wfnQJPiF6/hup3j5RYSED+ec3P7+Ykcg/OxsqervWXzhRFYrpxOZCNtSXeHIxmWbVABqUJS+v65OWaHV5N6HvA1aLFPyUZ6/Sbg5CR9+FqreRChvt0HL5gBA6emRIQEb+U/N0na9FinAPhHwzB7aJSSzwU4m3tCn7k1UIIs1R/eYj1drca73yf+xJKVPLJHZZGV6H+27zBD2eeDJUGscj8yj/Sfz5bv+hMbG+D00P3X8utDeie7T4sNmP9clXGRmcNJ4qEPujP+L0s8Jb1wifVIwnsGJ3WvQIDAQAB"',
+        '"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmXaVcyaN0kG6S+3MmxXIOYycyR9K1A71K88TMHGpQdayD2c2eVtsg8wfnQJPiF6/hup3j5RYSED+ec3P7+Ykcg/OxsqervWXzhRFYrpxOZCNtSXeHIxmWbVABqUJS+v65OWaHV5N6HvA1aLFPyUZ6/Sbg5CR9+FqreRChvt0HL5gBA6emRIQEb+U/N0na9Fin" "APhHwzB7aJSSzwU4m3tCn7k1UIIs1R/eYj1drca73yf+xJKVPLJHZZGV6H+27zBD2eeDJUGscj8yj/Sfz5bv+hMbG+D00P3X8utDeie7T4sNmP9clXGRmcNJ4qEPujP+L0s8Jb1wifVIwnsGJ3WvQIDAQAB"',
     },
     {
       name: dnsZone.name,
