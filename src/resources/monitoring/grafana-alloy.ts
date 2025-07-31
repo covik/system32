@@ -78,6 +78,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
             'enabled': true,
             'kube-state-metrics': { deploy: true },
             'node-exporter': { deploy: true, enabled: true },
+            'windows-exporter': { deploy: false, enabled: false },
             'opencost': {
               enabled: false,
               opencost: {
