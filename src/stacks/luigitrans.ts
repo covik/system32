@@ -24,7 +24,7 @@ export function resources(): unknown {
   });
 
   const mxRecords = [
-    { name: dnsZone.name, priority: 0, value: 'luigitrans.hr', ttl: 300 },
+    { name: dnsZone.name, priority: 1, value: 'smtp.google.com', ttl: 300 },
   ];
 
   mxRecords.forEach((record, index) => {
@@ -41,7 +41,7 @@ export function resources(): unknown {
   const txtRecords = [
     {
       name: dnsZone.name,
-      value: '"v=spf1 +a +mx +ip4:178.63.45.97 ~all"',
+      value: '"v=spf1 include:_spf.google.com ~all"',
       ttl: 300,
     },
     {
