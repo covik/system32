@@ -42,13 +42,13 @@ export function resources(): unknown {
     {
       name: dnsZone.name,
       value: '"v=spf1 include:_spf.google.com ~all"',
-      ttl: 300,
+      ttl: 3600,
     },
     {
       name: dnsZone.name,
       value:
         '"google-site-verification=aDPiYQcHYkg_6Df8HIX19Vj0JkHIDDEbhhwbNQufRP8"',
-      ttl: 300,
+      ttl: 3600,
     },
     {
       name: pulumi.interpolate`google._domainkey.${dnsZone.name}`,
