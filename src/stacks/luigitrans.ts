@@ -56,6 +56,12 @@ export function resources(): unknown {
         '"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2935FKBlfuIioHE+1x7j4JUnsh6fxr1sOuPtErmF3ogLfjXw0o0kR/8dcOSiMClHt4Aa+4prfwG5x96rzA6XC9YSkx6eVluseqvgOnmXf/Yj62haZly3Y6iA6zjJpcmLNERaU26pkuBaLQ5PH+D5vtfTGnMum1kfqwyUUEPngdoAZS+9D5GIgty/jGTjQoWO6" "s60CJF5ZLDOtsww2KY4pG01GITO5YVH51cb2j38ZQnE7cewmkt7z+WjD60cu3azz4+sjZPasZkVaI9bwUS7BomJV3+qgkLGwuw3+khBpPMwZ3UyLf1gUgxHnUyWJzX4td+Zm3JCUn4Nj5VQje0bbQIDAQAB"',
       ttl: 3600,
     },
+    {
+      name: pulumi.interpolate`_dmarc.${dnsZone.name}`,
+      value:
+        '"v=DMARC1;  p=none; rua=mailto:48fd68c7a03d41d7b3f2ded60945a671@dmarc-reports.cloudflare.net;"',
+      ttl: 3600,
+    },
   ];
 
   txtRecords.forEach((record, index) => {
