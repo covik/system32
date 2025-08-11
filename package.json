@@ -29,7 +29,7 @@
     "@pulumi/pulumi": "3.188.0",
     "@pulumiverse/grafana": "0.19.2",
     "superstruct": "2.0.2",
-    "yaml": "2.8.0"
+    "yaml": "2.8.1"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
