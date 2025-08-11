@@ -47,7 +47,6 @@ export function resources(): unknown {
     vmSize: 's-4vcpu-8gb',
     nodePoolName: 'engine',
     nodePoolTags: [],
-    token: config.requireSecret('k8s-cluster-token'),
     vpc,
     region,
   });

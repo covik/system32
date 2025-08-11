@@ -7,7 +7,6 @@ export interface DigitalOceanClusterArguments {
   nodePoolName: pulumi.Input<string>;
   nodePoolTags: pulumi.Input<string[]>;
   region: digitalocean.KubernetesClusterArgs['region'];
-  token: pulumi.Input<string>;
   version: digitalocean.KubernetesClusterArgs['version'];
   vmSize: pulumi.Input<string>;
   vpc: digitalocean.Vpc;
@@ -53,7 +52,7 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
       },
     );
 
-    const kubeconfig = this.generateKubeconfig(cluster, 'admin', args.token);
+    const kubeconfig = cluster.kubeConfigs[0].rawConfig;
     const provider = new k8s.Provider(
       'do-k8s-provider',
       {
@@ -72,34 +71,5 @@ export class DigitalOceanCluster extends pulumi.ComponentResource {
       kubeconfig,
       provider,
     });
-  }
-
-  private generateKubeconfig(
-    cluster: digitalocean.KubernetesCluster,
-    user: pulumi.Input<string>,
-    apiToken: pulumi.Input<string>,
-  ): pulumi.Output<string> {
-    const clusterName = pulumi.interpolate`do-${cluster.region}-${cluster.name}`;
-
-    const certificate = cluster.kubeConfigs[0].clusterCaCertificate;
-
-    return pulumi.interpolate`apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority-data: ${certificate}
-    server: ${cluster.endpoint}
-  name: ${clusterName}
-contexts:
-- context:
-    cluster: ${clusterName}
-    user: ${clusterName}-${user}
-  name: ${clusterName}
-current-context: ${clusterName}
-kind: Config
-users:
-- name: ${clusterName}-${user}
-  user:
-    token: ${apiToken}
-`;
   }
 }
