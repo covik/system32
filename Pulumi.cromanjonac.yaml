@@ -6,8 +6,8 @@ config:
     secure: AAABAMq+OHzfUMYc0TzlfLX2kc7e6nZEZz4PVVyhU9/iefqkSRodEG3BapCkC0KOcpH+SCp6DHR9Q8WeGuzzEb7tNA4ao0BzGjGW
   digitalocean:token:
     secure: AAABAGxAz/wN7P5bTTDmImR/fuF4W66eny8D5Qssrbm/WBYWFiHSF79xhSljb6ojADF785fS8kVajDaMYpABwP7WUje4k9x8rpabzWPqVlfeOqrDXlwdxeB/T8SzinwI1xG46ukoKQ==
-  fms:k8s-cluster-token:
-    secure: AAABAFcPCNRSO3y02djnQzJZnAAg//5DpIDMLvdygL+NyVJMgbS/U8H/110GKVlK5eWnYKrCn0ll4KJU9r5iOLOVehy3jsd80Pn26UKM0YsqeQKmzABjav6J/p5b79aiwwPnUm4+zA==
+  fms:container-registry-token:
+    secure: AAABAKuaxAjTgqX2mZf+8HmDaA/Ie+tKCmqiTO/PY3d0Ry9oDllbXCkmZiPELvBQmXEAPLa3C7qi4ja2U0t6ZUda5bJjJc/e
   fms:traccar-email-password:
     secure: AAABAI3smIUKh5HMqgmQw0whgXB7jndZ4SZ7tYygcnuAtJiRdlPvSiBw1W0HFT8/
   fms:grafana-kubernetes-integration-token:
