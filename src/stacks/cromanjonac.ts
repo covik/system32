@@ -246,18 +246,18 @@ export function resources(): unknown {
       writeFile(kubeconfigPath, kubeconfig),
     );
 
-  /*const mysqlClient = createMysqlClientPod({
+  const mysqlClient = createMysqlClientPod({
     namespace: 'default',
     mysqlHost: fmsDatabaseCluster.privateHost,
     mysqlUser: fmsDatabaseCluster.user,
     mysqlPassword: fmsDatabaseCluster.password,
     mysqlPort: fmsDatabaseCluster.port,
     provider: kubernetes.provider,
-  });*/
+  });
 
   return {
     nameservers: dnsZone.nameServers,
-    // mysqlAttachCommand: pulumi.interpolate`kubectl attach -n ${mysqlClient.metadata.namespace} ${mysqlClient.metadata.name} -c ${mysqlClient.spec.containers[0].name} --stdin --tty`,
+    mysqlAttachCommand: pulumi.interpolate`kubectl attach -n ${mysqlClient.metadata.namespace} ${mysqlClient.metadata.name} -c ${mysqlClient.spec.containers[0].name} --stdin --tty`,
   };
 }
 
@@ -749,6 +749,21 @@ export function createMysqlClientPod(
     ? pulumi.interpolate`${args.mysqlPort}`
     : '3306';
 
+  const secret = new k8s.core.v1.Secret(
+    'mysql-client-credentials',
+    {
+      metadata: {
+        namespace: args.namespace,
+      },
+      stringData: {
+        MYSQL_HOST: pulumi.secret(args.mysqlHost),
+        MYSQL_USER: pulumi.secret(args.mysqlUser),
+        MYSQL_PWD: pulumi.secret(args.mysqlPassword),
+      },
+    },
+    { provider: args.provider },
+  );
+
   return new k8s.core.v1.Pod(
     'mysql-client',
     {
@@ -765,22 +780,42 @@ export function createMysqlClientPod(
             command: [
               'sh',
               '-c',
-              'mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER -p$MYSQL_PASSWORD',
+              // no `-p` flag needed since mysql reads $MYSQL_PWD automatically
+              'mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER',
             ],
             env: [
-              { name: 'MYSQL_HOST', value: args.mysqlHost },
+              {
+                name: 'MYSQL_HOST',
+                valueFrom: {
+                  secretKeyRef: {
+                    name: secret.metadata.name,
+                    key: 'MYSQL_HOST',
+                  },
+                },
+              },
               { name: 'MYSQL_PORT', value: portEnv },
-              { name: 'MYSQL_USER', value: args.mysqlUser },
-              { name: 'MYSQL_PASSWORD', value: args.mysqlPassword },
+              {
+                name: 'MYSQL_USER',
+                valueFrom: {
+                  secretKeyRef: {
+                    name: secret.metadata.name,
+                    key: 'MYSQL_USER',
+                  },
+                },
+              },
+              {
+                name: 'MYSQL_PWD',
+                valueFrom: {
+                  secretKeyRef: {
+                    name: secret.metadata.name,
+                    key: 'MYSQL_PWD',
+                  },
+                },
+              },
             ],
             resources: {
-              requests: {
-                cpu: '0.001m',
-                memory: '30Mi',
-              },
-              limits: {
-                memory: '30Mi',
-              },
+              requests: { cpu: '0.001m', memory: '30Mi' },
+              limits: { memory: '30Mi' },
             },
             stdin: true,
             tty: true,
