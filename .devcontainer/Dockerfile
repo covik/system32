@@ -19,6 +19,7 @@ RUN unlink /usr/local/bin/npm \
         gnupg2 \
         openssh-client \
         sudo \
+        vim \
         watch \
         wget \
     && rm -rf /var/lib/apt/lists/* \
