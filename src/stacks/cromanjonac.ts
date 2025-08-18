@@ -814,7 +814,7 @@ export function createMysqlClientPod(
               },
             ],
             resources: {
-              requests: { cpu: '0.001m', memory: '30Mi' },
+              requests: { cpu: '0.001', memory: '30Mi' },
               limits: { memory: '30Mi' },
             },
             stdin: true,
