@@ -711,17 +711,17 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pulumi/cloudflare@6.4.1":
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/cloudflare/-/cloudflare-6.4.1.tgz#74053c8e5040ecc88edb2c9e96d54b390f17dd75"
-  integrity sha512-H6ao7yVdnHhGCHgucSS2nBxLg7H0mUhKAW1Urpsk2bOYGHACHjBQn6aD3nrp2ERyFBQWTX0DWhhIjEbR3IXWow==
+"@pulumi/cloudflare@6.6.0":
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/cloudflare/-/cloudflare-6.6.0.tgz#df63433832b6b9175481df674061da601b237925"
+  integrity sha512-vrkIKV4stU7qiAmIaTAiwLglbnWs6YUAxtxBeFipa4pWqtYq289OExxT6sxirPeTpLupTKiHZF0Ss0dsgF3vyg==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
-"@pulumi/digitalocean@4.49.0":
-  version "4.49.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.49.0.tgz#23aab0a97d37a26d00edcbe8340498bebb2ee45e"
-  integrity sha512-ncN57aW9PCaSty5pNAWWwc3IG8isC92pIcyEWrq4K3dIPDoEgU8m8rZ1C6MekUjLHgz/GwsUngpN2yw+f1mBfA==
+"@pulumi/digitalocean@4.52.0":
+  version "4.52.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.52.0.tgz#7388da9c639fecb18980758e8bd9248a3fb8b617"
+  integrity sha512-Fyiy+h0GG88QAO9RPcAv0MMI4djkFTQz9AQe+zDPD4rQrSAupuwGMsc1in4kmhNBPpmayl1OIB7yaTA0DgDiNQ==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
@@ -734,10 +734,10 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.188.0", "@pulumi/pulumi@^3.142.0":
-  version "3.188.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.188.0.tgz#efa3c72345ca9de8960e08812e4802caa0eaf1f7"
-  integrity sha512-c2L2QMq1bNo+1TxuoMQKQM7fiIZOMAAjDaIr2JKyg/ADGi7dhpKckEDbg43EMlzFUtI7t0mkiUYTaVPVcZ1kqg==
+"@pulumi/pulumi@3.191.0", "@pulumi/pulumi@^3.142.0":
+  version "3.191.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.191.0.tgz#2c3deb0529daf763214f6be68c891f4a6b873c4c"
+  integrity sha512-l2zFS+wGKeyFaAcSn+AhIi2Hkq7hXS/+biacKO5L38LFPGXMDrrmzhLsQ+uLXng9f6ZwXvfSbQC9m0YM5s8wwg==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
@@ -754,7 +754,7 @@
     "@types/tmp" "^0.2.6"
     execa "^5.1.0"
     fdir "^6.1.1"
-    google-protobuf "^3.5.0"
+    google-protobuf "^3.21.4"
     got "^11.8.6"
     ini "^2.0.0"
     js-yaml "^3.14.0"
@@ -2428,10 +2428,10 @@ globrex@^0.1.2:
   resolved "https://registry.yarnpkg.com/globrex/-/globrex-0.1.2.tgz#dd5d9ec826232730cd6793a5e33a9302985e6098"
   integrity sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==
 
-google-protobuf@^3.5.0:
-  version "3.21.2"
-  resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.21.2.tgz#4580a2bea8bbb291ee579d1fefb14d6fa3070ea4"
-  integrity sha512-3MSOYFO5U9mPGikIYCzK0SaThypfGgS6bHqrUGXG3DPHCrb+txNqeEcns1W0lkGfk0rCyNXm7xB9rMxnCiZOoA==
+google-protobuf@^3.21.4:
+  version "3.21.4"
+  resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.21.4.tgz#2f933e8b6e5e9f8edde66b7be0024b68f77da6c9"
+  integrity sha512-MnG7N936zcKTco4Jd2PX2U96Kf9PxygAPKBug+74LHzmHXmceN16MmRcdgZv+DGef/S9YvQAfRsNCn4cjf9yyQ==
 
 gopd@^1.0.1, gopd@^1.2.0:
   version "1.2.0"
