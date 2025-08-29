@@ -155,7 +155,7 @@ Kontakt je uključen na vozilu $device.name
                   ],
                   startupProbe: {
                     httpGet: {
-                      path: '/',
+                      path: '/api/server',
                       port: 'api',
                       scheme: 'HTTP',
                     },
