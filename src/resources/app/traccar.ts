@@ -162,6 +162,22 @@ Kontakt je uključen na vozilu $device.name
                     failureThreshold: 30,
                     periodSeconds: 30,
                   },
+                  livenessProbe: {
+                    httpGet: {
+                      path: '/api/server',
+                      port: 'api',
+                    },
+                    periodSeconds: 60,
+                    failureThreshold: 2,
+                  },
+                  readinessProbe: {
+                    httpGet: {
+                      path: '/api/server?force=true',
+                      port: 'api',
+                    },
+                    periodSeconds: 60,
+                    failureThreshold: 1,
+                  },
                   volumeMounts: [
                     {
                       name: configurationVolumeName,
