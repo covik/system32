@@ -711,10 +711,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pulumi/cloudflare@6.6.0":
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/cloudflare/-/cloudflare-6.6.0.tgz#df63433832b6b9175481df674061da601b237925"
-  integrity sha512-vrkIKV4stU7qiAmIaTAiwLglbnWs6YUAxtxBeFipa4pWqtYq289OExxT6sxirPeTpLupTKiHZF0Ss0dsgF3vyg==
+"@pulumi/cloudflare@6.8.0":
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/cloudflare/-/cloudflare-6.8.0.tgz#bc71758f58016fc8b8d0348f7587cbf70702ec1d"
+  integrity sha512-6a0EHKshopNYASpNYIxL7mFaVOGFf0/0xlj6CmI/kASAjgOHUn0rfXgwm2Of2s0VV4Tpa6CNLY5iV4VSuREenw==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
@@ -734,10 +734,10 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.191.0", "@pulumi/pulumi@^3.142.0":
-  version "3.191.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.191.0.tgz#2c3deb0529daf763214f6be68c891f4a6b873c4c"
-  integrity sha512-l2zFS+wGKeyFaAcSn+AhIi2Hkq7hXS/+biacKO5L38LFPGXMDrrmzhLsQ+uLXng9f6ZwXvfSbQC9m0YM5s8wwg==
+"@pulumi/pulumi@3.192.0", "@pulumi/pulumi@^3.142.0":
+  version "3.192.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.192.0.tgz#f1ecc9f4e273e2ce145e40595ac2c0d4d810d14d"
+  integrity sha512-D6UdSBTP4SeNRdgoAMnpyCOECkM0e6KG9Sw3E7oBWmyK3swgNrFQ6Nygym/mNI8MbsAh+KOw6QtjC298lbwk8Q==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
