@@ -92,7 +92,7 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      pull-requests: write
     steps:
       - name: Upsert Pull Request comment
         uses: peter-evans/create-or-update-comment@v4
