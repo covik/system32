@@ -117,7 +117,7 @@ jobs:
           edit-mode: replace
           body: |
             <!-- devcontainer-image-comment -->
-            ### Devcontainer image ([CI #${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}))
+            ### Devcontainer image ([CI #${{ github.run_number }}-${{ github.run_attempt }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/attempts/${{ github.run_attempt }}))
 
             ```text
             ${{ needs.build.outputs.tags }}@${{ needs.build.outputs.digest }}
