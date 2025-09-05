@@ -84,6 +84,7 @@ jobs:
 
     outputs:
       should_push: ${{ steps.tags.outputs.should_push }}
+      tags: ${{ steps.tags.outputs.tags }}
       digest: ${{ steps.build.outputs.digest }}
 
   comment:
@@ -100,10 +101,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ### Devcontainer image
+            **Devcontainer image**
+              
+            ${{ needs.build.outputs.should_push == 'true'
+            && format('```\n{0}@{1}\n```', needs.build.outputs.tags, needs.build.outputs.digest)
+            || 'PR from a fork: image not pushed to GHCR (build-only).' }}
 
-            ${{ needs.build.outputs.should_push == 'true' && format('```\n ghcr.io/{0}/{1}/devcontainer:pr-{2}@{3}\n```', github.repository_owner, github.event.repository.name, github.event.pull_request.number, needs.build.outputs.digest) || 'PR from a fork: image not pushed to GHCR (build-only).' }}
-
-            _Tag only:_ `ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/devcontainer:pr-${{ github.event.pull_request.number }}`
-
+            - Tags: `${{ needs.build.outputs.tags }}`
             - Digest: `${{ needs.build.outputs.digest }}`
