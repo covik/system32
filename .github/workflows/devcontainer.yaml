@@ -105,6 +105,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace
           body: |
             ### Devcontainer image ([CI #${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}))
 
