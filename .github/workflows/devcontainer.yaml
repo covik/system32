@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build container image
+    name: Build
     runs-on: ubuntu-latest
     permissions:
       contents: read
