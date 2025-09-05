@@ -100,13 +100,23 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: Upsert PR comment
+      - name: Find existing comment
+        uses: peter-evans/find-comment@v3
+        id: existing-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- devcontainer-image-comment -->'
+
+      - name: Upsert comment
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.existing_comment.outputs.comment-id }}
           edit-mode: replace
           body: |
+            <!-- devcontainer-image-comment -->
             ### Devcontainer image ([CI #${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}))
 
             ```text
