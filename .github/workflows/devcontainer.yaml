@@ -81,3 +81,26 @@ jobs:
         run: |
           echo "Pushed tags: ${{ steps.tags.outputs.tags }}"
           echo "Digest: ${{ steps.build.outputs.digest }}"
+
+    outputs:
+      should_push: ${{ steps.tags.outputs.should_push }}
+      digest: ${{ steps.build.outputs.digest }}
+
+  comment:
+    name: 'PR comment'
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Upsert Pull Request comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            <!-- devcontainer-image-comment -->
+            ### Devcontainer image
+
+            ${{ needs.build.outputs.should_push == 'true' && format('```\nghcr.io/{0}/{1}/devcontainer:pr-{2}@{3}\n```\n\n_Tag only:_ `ghcr.io/{0}/{1}/devcontainer:pr-{2}`\n\n- Digest: `{3}`', github.repository_owner, github.event.repository.name, github.event.pull_request.number, needs.build.outputs.digest) || 'PR from a fork: image not pushed to GHCR (build-only).' }}
