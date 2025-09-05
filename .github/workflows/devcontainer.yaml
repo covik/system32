@@ -102,10 +102,10 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             **Devcontainer image**
-              
+
             ${{ needs.build.outputs.should_push == 'true'
-            && format('```\n{0}@{1}\n```', needs.build.outputs.tags, needs.build.outputs.digest)
-            || 'PR from a fork: image not pushed to GHCR (build-only).' }}
+              && '```\n' }}${{ needs.build.outputs.tags }}@${{ needs.build.outputs.digest }}${{ needs.build.outputs.should_push == 'true' && '\n```' || 'PR from a fork: image not pushed to GHCR (build-only).' }}
+
 
             - Tags: `${{ needs.build.outputs.tags }}`
             - Digest: `${{ needs.build.outputs.digest }}`
