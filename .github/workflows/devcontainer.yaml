@@ -90,22 +90,22 @@ jobs:
   comment:
     name: 'PR comment'
     needs: [build]
-    if: ${{ github.event_name == 'pull_request' }}
+    if: >
+      ${{
+        github.event_name == 'pull_request' &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        needs.build.outputs.should_push == 'true'
+      }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     steps:
-      - name: Upsert Pull Request comment
+      - name: Upsert PR comment
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            **Devcontainer image**
+            ### Devcontainer image (from [workflow run #${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}))
 
-            ${{ needs.build.outputs.should_push == 'true'
-              && '```\n' }}${{ needs.build.outputs.tags }}@${{ needs.build.outputs.digest }}${{ needs.build.outputs.should_push == 'true' && '\n```' || 'PR from a fork: image not pushed to GHCR (build-only).' }}
-
-
-            - Tags: `${{ needs.build.outputs.tags }}`
-            - Digest: `${{ needs.build.outputs.digest }}`
+            ${{ needs.build.outputs.tags }}@${{ needs.build.outputs.digest }}
