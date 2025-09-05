@@ -102,7 +102,7 @@ jobs:
     steps:
       - name: Find existing comment
         uses: peter-evans/find-comment@v3
-        id: existing-comment
+        id: existing_comment
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
