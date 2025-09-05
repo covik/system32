@@ -109,4 +109,6 @@ jobs:
           body: |
             ### Devcontainer image ([CI #${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}))
 
-            `${{ needs.build.outputs.tags }}@${{ needs.build.outputs.digest }}`
+            ```text
+            ${{ needs.build.outputs.tags }}@${{ needs.build.outputs.digest }}
+            ```
