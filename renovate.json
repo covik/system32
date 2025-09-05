@@ -49,10 +49,6 @@
       "enabled": false
     },
     {
-      "matchFileNames": [".devcontainer/devcontainer.json"],
-      "enabled": false
-    },
-    {
       "matchFileNames": [".github/**"],
       "dependencyDashboardApproval": false
     }
