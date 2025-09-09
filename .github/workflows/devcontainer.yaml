@@ -105,10 +105,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Pin devcontainer.json image to built digest
+        run: |
+          jq --arg img "${{ env.IMAGE_NAME }}@${{ needs.build.outputs.digest }}" \
+             '.image = $img' .devcontainer/devcontainer.json > .devcontainer/devcontainer.json.tmp \
+          && mv .devcontainer/devcontainer.json.tmp .devcontainer/devcontainer.json
+
       - name: Smoke test
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ${{ env.IMAGE_NAME }}@${{ needs.build.outputs.digest }}
+          push: never
           runCmd: |
             set -e
             node --version
