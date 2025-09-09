@@ -133,12 +133,10 @@ jobs:
   comment:
     name: 'PR comment'
     needs: [build]
-    if: >
-      ${{
-        github.event_name == 'pull_request' &&
-        github.event.pull_request.head.repo.full_name == github.repository &&
-        needs.build.outputs.should_push == 'true'
-      }}
+    if: ${{ github.event_name == 'pull_request' &&
+      github.event.action != 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      needs.build.outputs.should_push == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
