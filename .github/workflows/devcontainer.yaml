@@ -69,6 +69,7 @@ jobs:
         with:
           context: .
           file: .devcontainer/Dockerfile
+          target: dev
           push: ${{ steps.tags.outputs.should_push == 'true' }}
           tags: ${{ steps.tags.outputs.tags }}
           cache-from: ${{ format('type=registry,ref={0}:buildcache', env.IMAGE_NAME) }}
