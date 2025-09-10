@@ -75,8 +75,8 @@ jobs:
           cache-from: ${{ format('type=registry,ref={0}:buildcache', env.IMAGE_NAME) }}
           cache-to: ${{ steps.tags.outputs.should_push == 'true' && format('type=registry,ref={0}:buildcache,mode=max', env.IMAGE_NAME) || '' }}
           provenance: false
+          labels: ''
           sbom: false
-          labels: []
         env:
           SOURCE_DATE_EPOCH: 0
 
