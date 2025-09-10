@@ -43,7 +43,7 @@ export function resources(): unknown {
 
   const kubernetes = new cluster.DigitalOceanCluster('kubernetes', {
     name: 'cromanjonac',
-    version: '1.32.2-do.0',
+    version: '1.32.5-do.3',
     vmSize: 's-4vcpu-8gb',
     nodePoolName: 'engine',
     nodePoolTags: [],
