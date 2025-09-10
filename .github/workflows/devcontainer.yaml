@@ -77,6 +77,7 @@ jobs:
           provenance: false
           labels: ''
           sbom: false
+          outputs: type=registry,oci-mediatypes=true
         env:
           SOURCE_DATE_EPOCH: 0
 
