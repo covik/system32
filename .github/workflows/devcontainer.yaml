@@ -76,6 +76,8 @@ jobs:
           cache-to: ${{ steps.tags.outputs.should_push == 'true' && format('type=registry,ref={0}:buildcache,mode=max', env.IMAGE_NAME) || '' }}
           provenance: ${{ steps.tags.outputs.should_push }}
           sbom: ${{ steps.tags.outputs.should_push }}
+        env:
+          SOURCE_DATE_EPOCH: 0
 
       - name: Show tags & digest
         if: steps.tags.outputs.should_push == 'true'
