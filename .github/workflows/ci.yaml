@@ -136,7 +136,7 @@ jobs:
       - name: Pulumi refresh production
         shell: bash
         run: |
-          set -o pipefail
+          set -euo pipefail
           pulumi refresh --stack cromanjonac --cwd /app \
             --run-program=true --skip-preview \
             --suppress-progress --non-interactive \
