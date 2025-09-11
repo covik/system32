@@ -141,6 +141,7 @@ jobs:
           command: up
           refresh: true
           comment-on-summary: true
+          suppress-progress: true
 
       - name: Cancel update on failure
         if: failure() || cancelled()
