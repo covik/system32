@@ -134,6 +134,7 @@ jobs:
         run: cp -R .git /app/.git && cd /app && git reset --hard # files from .dockerignore appear as [deleted] in git status
 
       - name: Pulumi refresh production
+        shell: bash
         run: |
           set -o pipefail
           pulumi refresh --stack cromanjonac --cwd /app \
