@@ -133,13 +133,32 @@ jobs:
       - name: Enrich Pulumi Console data with repository information
         run: cp -R .git /app/.git && cd /app && git reset --hard # files from .dockerignore appear as [deleted] in git status
 
+      - name: Pulumi refresh production
+        run: |
+          set -o pipefail
+          pulumi refresh --stack cromanjonac --cwd /app \
+            --run-program=true --skip-preview \
+            --suppress-progress --non-interactive \
+            2>&1 | tee refresh.log
+
+          {
+            echo "## Pulumi refresh result"
+            echo ""
+            echo "<details><summary>Show refresh summary</summary>"
+            echo ""
+            echo '```'
+            cat refresh.log
+            echo '```'
+            echo "</details>"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Pulumi Up (Deploy to Production)
         uses: pulumi/actions@v6
         with:
           work-dir: /app
           stack-name: cromanjonac
           command: up
-          refresh: true
+          refresh: false
           comment-on-summary: true
           suppress-progress: true
 
