@@ -101,6 +101,9 @@ jobs:
           work-dir: /app
           stack-name: cromanjonac
           command: preview
+          comment-on-pr: true
+          edit-pr-comment: true
+          always-include-summary: true
 
   deploy:
     name: 'Deploy'
