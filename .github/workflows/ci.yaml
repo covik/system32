@@ -104,6 +104,7 @@ jobs:
           comment-on-pr: true
           edit-pr-comment: true
           always-include-summary: true
+          comment-on-summary: true
 
   deploy:
     name: 'Deploy'
