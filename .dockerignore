@@ -9,6 +9,7 @@ dist
 .devcontainer
 .fleet
 .github
+.husky
 .env*
 *.log
 kubeconfig.yml
