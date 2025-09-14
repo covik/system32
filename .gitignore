@@ -2,5 +2,4 @@ node_modules
 .idea
 *.log
 dist
-.env
 kubeconfig.yml

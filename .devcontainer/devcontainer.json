@@ -1,9 +1,7 @@
 {
   "image": "ghcr.io/covik/system32/devcontainer:latest@sha256:493d33badd0601a7baeed69fae7e80cbeb0a075c181b06d8908fdd9bbfaa1bb1",
-  "initializeCommand": "cp -n .env.example .env",
   "postCreateCommand": "yarn install --frozen-lockfile",
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
-  "runArgs": ["--env-file", "${localWorkspaceFolder}/.env"],
   "mounts": [
     "source=jetbrains,target=/home/developer/.cache/JetBrains/RemoteDev/dist,type=volume",
     "source=pulumi,target=/home/developer/.pulumi,type=volume",
