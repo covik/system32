@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1@sha256:dabfc0969b935b2080555ace70ee69a5261af8a8f1b4df97b9e7fbcf6722eddf
 
-FROM pulumi/pulumi-base:3.196.0@sha256:48766a2bc9653dc1b631b4b7622a8e047df0202cf35b2ad21105cf6e8c734399 AS pulumi
+FROM pulumi/pulumi-base:3.198.0@sha256:62490f7b35deb24057c9643b1af9d0bf26984372799829803518902f0c3cb7fc AS pulumi
 FROM bitnami/kubectl:1.33.0@sha256:0f6b5088710f1c6d2d41f5e19a15663b7fef07d89699247aaaad92975be7eed6 AS kubectl
 
 FROM scratch AS binaries
