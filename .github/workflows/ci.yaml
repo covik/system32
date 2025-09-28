@@ -19,14 +19,24 @@ jobs:
     permissions:
       contents: read
       packages: write
-    outputs:
-      image_tag: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest@${{ steps.push.outputs.digest }}
+    env:
+      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Compute tags
+        id: metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=pr
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -35,19 +45,31 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Docker Image
+      - name: Build image
+        id: build
         uses: docker/build-push-action@v6
-        id: push
         with:
           context: .
           file: .devcontainer/Dockerfile
           target: ci
           push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          outputs: type=registry,oci-mediatypes=true,oci-artifact=true
+          cache-from: type=gha,scope=ci-{branch?}-{os?}'
+          cache-to: type=gha,mode=max,scope=ci-{branch?}-{os?}'
           provenance: false
           labels: ''
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          sbom: false
+        env:
+          SOURCE_DATE_EPOCH: 0
+          BUILDKIT_PROGRESS: 'rawjson'
+
+      - name: Print build results
+        run: |
+          echo "Pushed tags: ${{ steps.metadata.outputs.tags }}"
+          echo "Digest: ${{ steps.build.outputs.digest }}"
+    outputs:
+      image_tag: ${{ steps.metadata.outputs.tags }}@${{ steps.build.outputs.digest }}
 
   lint:
     name: 'Lint'
