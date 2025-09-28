@@ -39,7 +39,14 @@ RUN deluser --remove-home node \
     && useradd --uid $USER_UID --gid $USER_GID --create-home $USERNAME --shell /bin/bash \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
-    && mkdir -p /home/$USERNAME/.docker /home/$USERNAME/.cache/JetBrains/RemoteDev/dist $YARN_CACHE_FOLDER $PULUMI_HOME \
+    && mkdir -p \
+      /home/$USERNAME/.docker \
+      /home/$USERNAME/.cache/JetBrains \
+      /home/$USERNAME/.cache/JetBrains/RemoteDev/dist \
+      /home/$USERNAME/.config/JetBrains \
+      /home/$USERNAME/.local/share/JetBrains \
+      $YARN_CACHE_FOLDER \
+      $PULUMI_HOME \
     && chown -R $USERNAME:$USERNAME /home/$USERNAME
 USER $USERNAME
 RUN git config --global commit.gpgsign true
