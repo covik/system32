@@ -713,17 +713,17 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pulumi/cloudflare@6.9.0":
-  version "6.9.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/cloudflare/-/cloudflare-6.9.0.tgz#64104476a38b104de366bd40d2e321852d535a34"
-  integrity sha512-UUJwcJUMyJ2uWOzpjFc61zhCWZ79505wXCwUEvxEXANjEeGDUwvTMhFGSBb/YkoDA0i87cprbMSoa1T3nXT5fw==
+"@pulumi/cloudflare@6.10.0":
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/cloudflare/-/cloudflare-6.10.0.tgz#cc247c6128cdff1dcfb8d9bd2f8c40afac000092"
+  integrity sha512-f+yPn05Ys4ZTuukZ0S+pYE5CORYK8eiv13jq8qCUd/7XPr18EkqkeiEmmnNaWM07ksoxS8fLq+swYYOxn+VZmw==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
-"@pulumi/digitalocean@4.53.0":
-  version "4.53.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.53.0.tgz#0c4a4b194ad1585ee3e5de384b02a05aa068d51b"
-  integrity sha512-5U6fZnhSO861K+ZDHLlfmPrEsAOErflDlRSMxf3jktPsap0+SRwWkxLwxE0hsCcNtmWNuF1Gh01rBGPsNtanrA==
+"@pulumi/digitalocean@4.54.0":
+  version "4.54.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/digitalocean/-/digitalocean-4.54.0.tgz#847d8652e626c41b624c374b6a7ff0b5377d7e45"
+  integrity sha512-BraXjRm+NTkU9FZLMpMG6+D1uFZ3RA31c1KkoKz2Zdof972Lbx6uAJl59CcmQ+lEq2V1NitO4S1CdI3dHp2J+w==
   dependencies:
     "@pulumi/pulumi" "^3.142.0"
 
@@ -736,10 +736,10 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.196.0", "@pulumi/pulumi@^3.142.0":
-  version "3.196.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.196.0.tgz#bce0e71f185b6d55f459e2f89aa4ab0c53fe898a"
-  integrity sha512-rsNQEuRCNkJy1yMXzSTAt/8mLM+yoxOcRk3HbyOF7z6HyXPdHRlmzFcVdBXW01MGL5lZaw8QEDjlpqdTFydhvg==
+"@pulumi/pulumi@3.203.0", "@pulumi/pulumi@^3.142.0":
+  version "3.203.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.203.0.tgz#a0fd2ac723ef2ca38bd64f197031a7f0f49c24fa"
+  integrity sha512-wXGzxYC61DF+YtJYwidxrpvRxn2y3+ML5OUuAQWUzPgM0byEgKotHAhadQ9uvfutSE262mmoqv5skXaDJdBGzQ==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
