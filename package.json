@@ -23,10 +23,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@pulumi/cloudflare": "6.9.0",
-    "@pulumi/digitalocean": "4.53.0",
-    "@pulumi/kubernetes": "4.23.0",
-    "@pulumi/pulumi": "3.196.0",
+    "@pulumi/cloudflare": "6.11.0",
+    "@pulumi/digitalocean": "4.55.0",
+    "@pulumi/kubernetes": "4.24.0",
+    "@pulumi/pulumi": "3.207.0",
     "@pulumiverse/grafana": "0.19.2",
     "superstruct": "2.0.2",
     "yaml": "2.8.1"
