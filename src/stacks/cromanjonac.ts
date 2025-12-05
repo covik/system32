@@ -440,15 +440,6 @@ function setupKubernetesResources(
               kinds: [{ kind: 'TCPRoute' }],
             },
           },
-          {
-            name: 'minecraft',
-            protocol: 'TCP',
-            port: 25565,
-            allowedRoutes: {
-              namespaces: { from: 'All' },
-              kinds: [{ kind: 'TCPRoute' }],
-            },
-          },
         ],
       },
     },
@@ -499,47 +490,6 @@ function setupKubernetesResources(
               {
                 name: stremio.serviceName,
                 port: stremio.servicePort,
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      provider,
-    },
-  );
-
-  const minecraft = new app.MinecraftServer(
-    'minecraft',
-    {
-      memory: '1.4Gi',
-    },
-    kubernetesComponentOptions,
-  );
-
-  new k8s.apiextensions.CustomResource(
-    'minecraft-route',
-    {
-      apiVersion: 'gateway.networking.k8s.io/v1alpha2',
-      kind: 'TCPRoute',
-      metadata: {
-        namespace: minecraft.namespaceName,
-      },
-      spec: {
-        parentRefs: [
-          {
-            name: gatewayInstance.metadata.name,
-            namespace: gatewayInstance.metadata.namespace,
-            sectionName: 'minecraft',
-          },
-        ],
-        rules: [
-          {
-            backendRefs: [
-              {
-                name: minecraft.serviceName,
-                port: minecraft.servicePort,
               },
             ],
           },
