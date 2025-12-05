@@ -715,10 +715,10 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
-"@pulumi/pulumi@3.209.0", "@pulumi/pulumi@^3.142.0":
-  version "3.209.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.209.0.tgz#b65e45d11ee66ca235f85b9474a130bdc2eae4b8"
-  integrity sha512-rGEYl+EO1deSFBbkymNc3/pWH5IFU1195zcxAqj6YTCaF0Wf1Y5Kx4A8TxULpa1gUCKESOQyv01OAY5HXtpBGg==
+"@pulumi/pulumi@3.210.0", "@pulumi/pulumi@^3.142.0":
+  version "3.210.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.210.0.tgz#c5d59ebaded83f5baf571e0c5c1b6a766fc694ea"
+  integrity sha512-ZMe4oH8nFNi3Tig1U8mTEuqrjTyEz0aVkn+DvvjcBPvM7WzZSdB6xR9MiRK/ZUi0G5O+H7fx2gEEeq1vYcM5Jg==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
@@ -741,8 +741,8 @@
     js-yaml "^3.14.2"
     minimist "^1.2.6"
     normalize-package-data "^6.0.0"
+    package-directory "^8.1.0"
     picomatch "^3.0.1"
-    pkg-dir "^7.0.0"
     require-from-string "^2.0.1"
     semver "^7.5.2"
     source-map-support "^0.5.6"
@@ -2146,6 +2146,11 @@ file-entry-cache@^8.0.0:
   dependencies:
     flat-cache "^4.0.0"
 
+find-up-simple@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/find-up-simple/-/find-up-simple-1.0.1.tgz#18fb90ad49e45252c4d7fca56baade04fa3fca1e"
+  integrity sha512-afd4O7zpqHeRyg4PfDQsXmlDe2PfdHtJt6Akt8jOWaApLOZk5JXs6VMR29lz03pRe9mpykrRCYIYxaJYcfpncQ==
+
 find-up@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-5.0.0.tgz#4c92819ecb7083561e4f4a240a86be5198f536fc"
@@ -2153,14 +2158,6 @@ find-up@^5.0.0:
   dependencies:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
-
-find-up@^6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/find-up/-/find-up-6.3.0.tgz#2abab3d3280b2dc7ac10199ef324c4e002c8c790"
-  integrity sha512-v2ZsoEuVHYy8ZIlYqwPe/39Cy+cFDzp4dXPaxNvkEuouymu+2Jbz0PxpKarJHYJTmv2HWT3O382qY8l4jMWthw==
-  dependencies:
-    locate-path "^7.1.0"
-    path-exists "^5.0.0"
 
 find-up@^7.0.0:
   version "7.0.0"
@@ -2942,7 +2939,7 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-locate-path@^7.1.0, locate-path@^7.2.0:
+locate-path@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-7.2.0.tgz#69cb1779bd90b35ab1e771e1f2f89a202c2a8a8a"
   integrity sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==
@@ -3422,6 +3419,13 @@ p-map@^4.0.0:
   dependencies:
     aggregate-error "^3.0.0"
 
+package-directory@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/package-directory/-/package-directory-8.1.0.tgz#75737f33380df04490de8cacb47d682116661401"
+  integrity sha512-qHKRW0pw3lYdZMQVkjDBqh8HlamH/LCww2PH7OWEp4Qrt3SFeYMNpnJrQzlSnGrDD5zGR51XqBh7FnNCdVNEHA==
+  dependencies:
+    find-up-simple "^1.0.0"
+
 pacote@^17.0.0, pacote@^17.0.4:
   version "17.0.6"
   resolved "https://registry.yarnpkg.com/pacote/-/pacote-17.0.6.tgz#874bb59cda5d44ab784d0b6530fcb4a7d9b76a60"
@@ -3509,13 +3513,6 @@ picomatch@^4.0.2, picomatch@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-4.0.3.tgz#796c76136d1eead715db1e7bad785dedd695a042"
   integrity sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==
-
-pkg-dir@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-7.0.0.tgz#8f0c08d6df4476756c5ff29b3282d0bab7517d11"
-  integrity sha512-Ie9z/WINcxxLp27BKOCHGde4ITq9UklYKDzVo1nhk5sqGEXU3FpkwP5GM2voTGJkGd9B3Otl+Q4uwSOeSUtOBA==
-  dependencies:
-    find-up "^6.3.0"
 
 possible-typed-array-names@^1.0.0:
   version "1.0.0"
