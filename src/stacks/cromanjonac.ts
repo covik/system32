@@ -282,7 +282,7 @@ function setupKubernetesResources(
   const gatewayAPI = new k8s.yaml.ConfigFile(
     'gateway-api-crd',
     {
-      file: 'https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.0/experimental-install.yaml',
+      file: 'https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/experimental-install.yaml',
     },
     { provider },
   );
