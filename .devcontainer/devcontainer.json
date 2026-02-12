@@ -3,7 +3,7 @@
     "dockerfile": "Dockerfile",
     "target": "dev"
   },
-  "postCreateCommand": "pnpm install --frozen-lockfile",
+  "postCreateCommand": "yes | pnpm install --frozen-lockfile",
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
   "mounts": [
     "source=jetbrains-config-${localWorkspaceFolderBasename},target=/home/developer/.config/JetBrains,type=volume",
