@@ -44,7 +44,7 @@ export class CromanjonacHomePage extends pulumi.ComponentResource {
 
     const appLabels = { app: 'cromanjonac-homepage-server' };
     const image =
-      'ghcr.io/covik/cromanjonac.dev@sha256:4722baff67cde8c39e7dcec0e54c5611aaeacbd77171f2b0528c26d3acb37746';
+      'ghcr.io/covik/cromanjonac.dev@sha256:52f01a432b0f1fadb4748014965984ed704c0b8d0808285a7356dd14a62bab98';
     const deployment = new k8s.apps.v1.Deployment(
       `${name}-deployment`,
       {
