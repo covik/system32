@@ -12,6 +12,7 @@ import { createMysqlConnectionString } from '../utils/index.js';
 
 const domain = 'zth.dev';
 const zarafleetDomain = 'zarafleet.com';
+const cromanjonacDomain = 'cromanjonac.dev';
 const fmsUrl = `old.${zarafleetDomain}`;
 const zarafleetUrl = `app.${zarafleetDomain}`;
 const snapshooterIps = [
@@ -387,6 +388,7 @@ function setupKubernetesResources(
           `*.${domain}`,
           zarafleetDomain,
           `*.${zarafleetDomain}`,
+          cromanjonacDomain,
         ],
       },
     },
@@ -679,6 +681,57 @@ function setupKubernetesResources(
     {
       provider,
       dependsOn: [allowFrontendToBackendCommunication],
+    },
+  );
+
+  const cromanjonacHomepage = new app.CromanjonacHomePage(
+    'cromanjonac-homepage',
+    {
+      cpu: '0.02',
+      memory: '100Mi',
+    },
+    kubernetesComponentOptions,
+  );
+
+  new k8s.apiextensions.CustomResource(
+    'cromanjonac-homepage-route',
+    {
+      apiVersion: 'gateway.networking.k8s.io/v1',
+      kind: 'HTTPRoute',
+      metadata: {
+        namespace: cromanjonacHomepage.namespaceName,
+      },
+      spec: {
+        parentRefs: [
+          {
+            name: gatewayInstance.metadata.name,
+            namespace: gatewayInstance.metadata.namespace,
+            sectionName: 'https',
+          },
+        ],
+        hostnames: [cromanjonacDomain],
+        rules: [
+          {
+            matches: [
+              {
+                path: {
+                  type: 'PathPrefix',
+                  value: '/',
+                },
+              },
+            ],
+            backendRefs: [
+              {
+                name: cromanjonacHomepage.serviceName,
+                port: cromanjonacHomepage.servicePort,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      provider,
     },
   );
 }
