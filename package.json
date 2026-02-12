@@ -51,7 +51,8 @@
     "typescript": "5.9.3"
   },
   "resolutions": {
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "tar": "7.5.7"
   },
   "engines": {
     "node": ">= 22",
