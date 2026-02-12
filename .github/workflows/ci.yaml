@@ -65,10 +65,10 @@ jobs:
         working-directory: /app
     steps:
       - name: Format
-        run: yarn format:check
+        run: pnpm format:check
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
   preview:
     name: 'Preview'

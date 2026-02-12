@@ -123,12 +123,12 @@ jobs:
           runCmd: |
             set -e
             node --version
-            yarn --version
+            pnpm --version
             pulumi version
             whoami
             pwd
             ls -lah
-            yarn format
+            pnpm format
             pulumi plugin ls
             echo "permission test" > "$PULUMI_HOME/test.txt"
             ls -lah "$PULUMI_HOME"

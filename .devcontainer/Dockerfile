@@ -30,8 +30,7 @@ FROM base AS dev
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-ENV YARN_CACHE_FOLDER=/home/$USERNAME/.cache/.yarn \
-    PULUMI_HOME=/home/$USERNAME/.pulumi
+ENV PULUMI_HOME=/home/$USERNAME/.pulumi
 COPY --from=binaries /kubectl /usr/local/bin/kubectl
 COPY --from=binaries /pulumi /usr/local/bin
 RUN deluser --remove-home node \
@@ -45,7 +44,6 @@ RUN deluser --remove-home node \
       /home/$USERNAME/.cache/JetBrains/RemoteDev/dist \
       /home/$USERNAME/.config/JetBrains \
       /home/$USERNAME/.local/share/JetBrains \
-      $YARN_CACHE_FOLDER \
       $PULUMI_HOME \
     && chown -R $USERNAME:$USERNAME /home/$USERNAME
 USER $USERNAME
@@ -54,14 +52,13 @@ RUN git config --global commit.gpgsign true
 
 FROM base AS deps
 WORKDIR /deps
-COPY yarn.lock .
+COPY pnpm-lock.yaml .
 COPY package.json .
-RUN yarn install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 FROM base AS ci
 USER root
-ENV YARN_CACHE_FOLDER=/root/.cache/.yarn \
-    PULUMI_HOME=/root/.pulumi
+ENV PULUMI_HOME=/root/.pulumi
 COPY --from=binaries /kubectl /usr/local/bin/kubectl
 COPY --from=binaries /pulumi /usr/local/bin
 WORKDIR /app
@@ -70,4 +67,4 @@ COPY Pulumi.yaml .
 RUN pulumi plugin install \
     && sudo chown -R $USERNAME:$USERNAME $PULUMI_HOME
 COPY . .
-RUN yarn build
+RUN pnpm build

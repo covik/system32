@@ -2,7 +2,6 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", "workarounds:typesNodeVersioning"],
   "ignorePaths": ["mysql.Dockerfile"],
-  "postUpdateOptions": ["yarnDedupeHighest"],
   "timezone": "Europe/Zagreb",
   "packageRules": [
     {

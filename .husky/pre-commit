@@ -1,2 +1,2 @@
 
-yarn format:check
+pnpm format:check

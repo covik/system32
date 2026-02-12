@@ -48,15 +48,14 @@
     "husky": "9.1.7",
     "prettier": "3.8.1",
     "ts-node": "10.9.2",
-    "typescript": "5.9.3",
-    "yarn-deduplicate": "6.0.2"
+    "typescript": "5.9.3"
   },
   "resolutions": {
     "typescript": "5.9.3"
   },
   "engines": {
     "node": ">= 22",
-    "yarn": ">= 1.22.19"
+    "pnpm": ">= 10.29.3"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "pnpm@10.29.3+sha512.498e1fb4cca5aa06c1dcf2611e6fafc50972ffe7189998c409e90de74566444298ffe43e6cd2acdc775ba1aa7cc5e092a8b7054c811ba8c5770f84693d33d2dc"
 }

@@ -1,2 +1,2 @@
 
-yarn commitlint --edit .git/COMMIT_EDITMSG
+pnpm commitlint --edit .git/COMMIT_EDITMSG

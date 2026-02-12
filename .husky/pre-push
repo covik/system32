@@ -1,2 +1,2 @@
 
-yarn type-check && yarn lint
+pnpm type-check && pnpm lint
