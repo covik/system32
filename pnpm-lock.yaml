@@ -25,9 +25,6 @@ importers:
       '@pulumi/pulumi':
         specifier: 3.220.0
         version: 3.220.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
-      '@pulumiverse/grafana':
-        specifier: 0.19.2
-        version: 0.19.2(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
       superstruct:
         specifier: 2.0.2
         version: 2.0.2
@@ -461,9 +458,6 @@ packages:
         optional: true
       typescript:
         optional: true
-
-  '@pulumiverse/grafana@0.19.2':
-    resolution: {integrity: sha512-vNF/CQee7Q6t0SJFO/RrxiLzqQZdPhtGqNAhCp9naeTfKxPy1ohUOSMz+otSbAs61k7CYwtpRUUIf4zqTGYK8A==}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -2919,14 +2913,6 @@ snapshots:
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
-
-  '@pulumiverse/grafana@0.19.2(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)':
-    dependencies:
-      '@pulumi/pulumi': 3.220.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
-    transitivePeerDependencies:
-      - supports-color
-      - ts-node
-      - typescript
 
   '@rtsao/scc@1.1.0': {}
 

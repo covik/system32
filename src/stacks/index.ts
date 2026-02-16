@@ -1,12 +1,10 @@
 import { resources as cromanjonac } from './cromanjonac.js';
-import { resources as grafana } from './grafana-cloud.js';
 import { resources as luigitrans } from './luigitrans.js';
 import { resources as zarafleet } from './zarafleet.js';
 import { resources as zarapromet } from './zarapromet.js';
 
 const all: Record<string, () => unknown> = {
   cromanjonac,
-  grafana,
   luigitrans,
   zarafleet,
   zarapromet,
