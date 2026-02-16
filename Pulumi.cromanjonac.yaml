@@ -12,5 +12,3 @@ config:
     secure: AAABAI3smIUKh5HMqgmQw0whgXB7jndZ4SZ7tYygcnuAtJiRdlPvSiBw1W0HFT8/
   fms:grafana-kubernetes-integration-token:
     secure: AAABANpZkVdz6TvysqlZzt9cvKjLd2e8pA5RRAXa6pPdVANvHKU05gHjoDha/DrjpHh2Pyj7u+Ldd0ZL+2NxzLE5ynCpIKcpET0x/Yp7VbaZ6hWIbUDyyLiW1qYKECXPcc2T6fPAHm6ITdidwHw/kKIqi1SV5+YbrgrkLwTIdsZXUAnvOSiieSjsc12Kl1DnGI8fEXg55ip+rMz0Kx/V6iBe7vylKNCyVW0gUjBvCq4sVjbhITwJ3tafgI9jkBgL
-  fms:stremioSubdomain:
-    secure: AAABAJX/3kiV7W0joyWXfq7x7xtq+0amex8/Mf9zubJF7YzGtRCWRUT4Q/ke/XGpYa/TLsebz1vJnl3+1WpWpEwReHU=

@@ -231,14 +231,11 @@ export function resources(): unknown {
     token: cloudflareConfig.requireSecret('apiToken'),
   };
 
-  const stremioUrl = pulumi.interpolate`${config.requireSecret('stremioSubdomain')}.${domain}`;
-
   setupKubernetesResources(
     kubernetes.provider,
     pulumi.interpolate`do-${region}-${kubernetes.cluster.name}`,
     cloudflareAccount,
     fmsDbConnection,
-    stremioUrl,
   );
 
   const kubeconfigPath = process.env['KUBECONFIG'];
@@ -270,7 +267,6 @@ function setupKubernetesResources(
     token: pulumi.Input<string>;
   },
   databaseConnection: app.DatabaseConnection,
-  stremioUrl: pulumi.Input<string>,
 ) {
   const config = new pulumi.Config();
 
@@ -449,57 +445,6 @@ function setupKubernetesResources(
       provider,
       deleteBeforeReplace: true,
       dependsOn: [certificate],
-    },
-  );
-
-  const stremio = new app.StremioServer(
-    'stremio',
-    {
-      cpu: '0.02',
-      memory: '400Mi',
-    },
-    kubernetesComponentOptions,
-  );
-
-  new k8s.apiextensions.CustomResource(
-    'stremio-route',
-    {
-      apiVersion: 'gateway.networking.k8s.io/v1',
-      kind: 'HTTPRoute',
-      metadata: {
-        namespace: stremio.namespaceName,
-      },
-      spec: {
-        parentRefs: [
-          {
-            name: gatewayInstance.metadata.name,
-            namespace: gatewayInstance.metadata.namespace,
-            sectionName: 'https',
-          },
-        ],
-        hostnames: [stremioUrl],
-        rules: [
-          {
-            matches: [
-              {
-                path: {
-                  type: 'PathPrefix',
-                  value: '/',
-                },
-              },
-            ],
-            backendRefs: [
-              {
-                name: stremio.serviceName,
-                port: stremio.servicePort,
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      provider,
     },
   );
 
