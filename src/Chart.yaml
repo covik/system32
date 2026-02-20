@@ -13,7 +13,7 @@ dependencies:
     version: 3.7.1
     repository: 'https://grafana.github.io/helm-charts'
   - name: cert-manager
-    version: v1.19.2
+    version: v1.19.3
     repository: 'https://charts.jetstack.io'
   - name: alloy-crd
     version: 1.0.0
