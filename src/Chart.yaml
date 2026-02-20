@@ -7,7 +7,7 @@ name: placholder-chart
 version: 0.0.0
 dependencies:
   - name: gateway-helm
-    version: 1.6.1
+    version: 1.7.0
     repository: 'oci://docker.io/envoyproxy'
   - name: k8s-monitoring
     version: 3.7.1
