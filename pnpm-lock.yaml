@@ -17,14 +17,14 @@ importers:
         specifier: 6.13.0
         version: 6.13.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
       '@pulumi/digitalocean':
-        specifier: 4.56.0
-        version: 4.56.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
+        specifier: 4.58.0
+        version: 4.58.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
       '@pulumi/kubernetes':
-        specifier: 4.25.0
-        version: 4.25.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
+        specifier: 4.26.0
+        version: 4.26.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
       '@pulumi/pulumi':
-        specifier: 3.220.0
-        version: 3.220.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
+        specifier: 3.223.0
+        version: 3.223.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
       superstruct:
         specifier: 2.0.2
         version: 2.0.2
@@ -441,14 +441,14 @@ packages:
   '@pulumi/cloudflare@6.13.0':
     resolution: {integrity: sha512-M3tMo5/1S2NgOiCBhrN6gUYZg50/59HlAYQ1NsLkfb7prgH4aSdh7R01wgXlBQPu2BtiZswCtAigMdyAXVA+Ig==}
 
-  '@pulumi/digitalocean@4.56.0':
-    resolution: {integrity: sha512-AjvM5bOpxsdqp/TXCgOxN3gML0SnWXS/q2HqyPKBdNRGBLZI7tWECS8RyYJvfokXah7AD1p6ABdUqL4/aVgEVQ==}
+  '@pulumi/digitalocean@4.58.0':
+    resolution: {integrity: sha512-kMMLUtdcIfbCCQI5A8v3jfAC0yIUBmzeWmFjosLI9IvWzVni28SvYFYC2JQB9WSSrnJ/Owxa2sB76RBwTS0laA==}
 
-  '@pulumi/kubernetes@4.25.0':
-    resolution: {integrity: sha512-KP/ZJpS7eY58oKoGaMIGQWjM3mLpWlGUnOt+jjdGsqqk/t9OqhJCfAGC2E83usMKjuP312zMC7xi7sEQuJQ7uw==}
+  '@pulumi/kubernetes@4.26.0':
+    resolution: {integrity: sha512-W6vzWby5Kq98xDkSHME056+5BzfG57cxTfDeU96DZqGlAT7T1+eLotiXiZ/GpDWtTf9kGSNZ4bzDpS32NvuJAw==}
 
-  '@pulumi/pulumi@3.220.0':
-    resolution: {integrity: sha512-WfFu4Qv5r/9uv4bh6jxZPKLc945RtdjIq29mDa6c9sIXzQtRtv/Voo58E6u6lhA1RKaK+ocymqgykZ6QV7OnGQ==}
+  '@pulumi/pulumi@3.223.0':
+    resolution: {integrity: sha512-mPDnQ60a1cWz2ABorH4Qi4fymlpgLGp/pbObVwmsBK+58zQ6OLC2bjYxGzOlo2PFXiTQ91ji8u3QFLKsJEXIrg==}
     engines: {node: '>=20'}
     peerDependencies:
       ts-node: '>= 7.0.1 < 12'
@@ -2854,23 +2854,23 @@ snapshots:
 
   '@pulumi/cloudflare@6.13.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
-      '@pulumi/pulumi': 3.220.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
+      '@pulumi/pulumi': 3.223.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
       - typescript
 
-  '@pulumi/digitalocean@4.56.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)':
+  '@pulumi/digitalocean@4.58.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
-      '@pulumi/pulumi': 3.220.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
+      '@pulumi/pulumi': 3.223.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
       - typescript
 
-  '@pulumi/kubernetes@4.25.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)':
+  '@pulumi/kubernetes@4.26.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
-      '@pulumi/pulumi': 3.220.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
+      '@pulumi/pulumi': 3.223.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)
       glob: 13.0.2
       shell-quote: 1.8.3
     transitivePeerDependencies:
@@ -2878,7 +2878,7 @@ snapshots:
       - ts-node
       - typescript
 
-  '@pulumi/pulumi@3.220.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)':
+  '@pulumi/pulumi@3.223.0(ts-node@10.9.2(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
       '@grpc/grpc-js': 1.14.3
       '@logdna/tail-file': 2.2.0
