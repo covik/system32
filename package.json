@@ -50,7 +50,7 @@
     "typescript": "5.9.3"
   },
   "resolutions": {
-    "glob": "13.0.2",
+    "glob": "13.0.6",
     "typescript": "5.9.3",
     "tar": "7.5.8"
   },
