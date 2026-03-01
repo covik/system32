@@ -5,13 +5,7 @@
   },
   "postCreateCommand": "yes | pnpm install --frozen-lockfile",
   "postAttachCommand": "echo '{}' > ~/.docker/config.json",
-  "mounts": [
-    "source=jetbrains-config-${localWorkspaceFolderBasename},target=/home/developer/.config/JetBrains,type=volume",
-    "source=jetbrains-data-${localWorkspaceFolderBasename},target=/home/developer/.local/share/JetBrains,type=volume",
-    "source=jetbrains-cache-${localWorkspaceFolderBasename},target=/home/developer/.cache/JetBrains,type=volume",
-    "source=jetbrains-dist,target=/home/developer/.cache/JetBrains/RemoteDev/dist,type=volume",
-    "source=pulumi-home,target=/home/developer/.pulumi,type=volume"
-  ],
+  "mounts": ["source=pulumi-home,target=/home/developer/.pulumi,type=volume"],
   "containerEnv": {
     "KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml"
   }
