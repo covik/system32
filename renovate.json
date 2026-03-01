@@ -13,15 +13,6 @@
 			"rangeStrategy": "pin"
 		},
 		{
-			"groupName": "eslint packages",
-			"matchPackageNames": [
-				"/^eslint/",
-				"/^@eslint/",
-				"/^@typescript-eslint/",
-				"globals"
-			]
-		},
-		{
 			"matchPackageNames": ["node", "@types/node"],
 			"matchDepTypes": ["engines", "devDependencies", "final"],
 			"matchManagers": ["npm", "dockerfile"],
