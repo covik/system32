@@ -41,6 +41,10 @@
 		{
 			"matchFileNames": [".github/**"],
 			"dependencyDashboardApproval": false
+		},
+		{
+			"matchDepTypes": ["resolutions"],
+			"automerge": true
 		}
 	]
 }
