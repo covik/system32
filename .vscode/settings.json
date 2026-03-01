@@ -29,6 +29,7 @@
 		"source.organizeImports.biome": "explicit"
 	},
 	"json.schemaDownload.trustedDomains": {
-		"https://biomejs.dev/schemas/2.2.4/schema.json": true
+		"https://biomejs.dev/schemas/2.2.4/schema.json": true,
+		"https://docs.renovatebot.com/renovate-schema.json": true
 	}
 }
