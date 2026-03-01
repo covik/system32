@@ -16,3 +16,4 @@ kubeconfig.yml
 renovate.json
 Dockerfile*
 .dockerignore
+.pnpm-store
