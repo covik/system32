@@ -45,7 +45,7 @@
     "glob": "13.0.6",
     "minimatch": "10.2.4",
     "typescript": "5.9.3",
-    "tar": "7.5.8"
+    "tar": "7.5.9"
   },
   "engines": {
     "node": ">= 22",
