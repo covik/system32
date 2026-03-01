@@ -41,6 +41,7 @@
     "typescript": "5.9.3"
   },
   "resolutions": {
+    "ajv": "8.18.0",
     "glob": "13.0.6",
     "minimatch": "10.2.4",
     "typescript": "5.9.3",
