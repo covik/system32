@@ -4,8 +4,7 @@
     "target": "dev"
   },
   "postCreateCommand": "yes | pnpm install --frozen-lockfile",
-  "postAttachCommand": "echo '{}' > ~/.docker/config.json",
-  "mounts": ["source=pulumi-home,target=/home/developer/.pulumi,type=volume"],
+  "mounts": ["source=pulumi-home,target=/home/${USER}/.pulumi,type=volume"],
   "containerEnv": {
     "KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml"
   }
