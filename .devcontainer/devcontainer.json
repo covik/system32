@@ -1,11 +1,20 @@
 {
-  "build": {
-    "dockerfile": "Dockerfile",
-    "target": "dev"
-  },
-  "postCreateCommand": "yes | pnpm install --frozen-lockfile",
-  "mounts": ["source=pulumi-home,target=/home/${USER}/.pulumi,type=volume"],
-  "containerEnv": {
-    "KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml"
-  }
+	"build": {
+		"dockerfile": "Dockerfile",
+		"target": "dev"
+	},
+	"postCreateCommand": "yes | pnpm install --frozen-lockfile",
+	"mounts": [
+		"source=pulumi-home,target=/home/${USER}/.pulumi,type=volume"
+	],
+	"containerEnv": {
+		"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"biomejs.biome"
+			]
+		}
+	}
 }

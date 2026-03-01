@@ -16,9 +16,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc && cp src/Chart.yaml dist/src/.",
-    "format": "prettier --log-level=silent --write .",
-    "format:check": "prettier --log-level=silent --check .",
-    "lint": "eslint --max-warnings 0 ./",
+    "format": "biome format",
+    "format:check": "biome check",
+    "lint": "biome lint",
     "prepare": "husky",
     "type-check": "tsc --noEmit"
   },
@@ -31,9 +31,9 @@
     "yaml": "2.8.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.4",
     "@commitlint/cli": "20.4.2",
     "@commitlint/config-conventional": "20.4.2",
-    "@eslint/js": "9.39.3",
     "@types/node": "24.10.13",
     "@typescript-eslint/eslint-plugin": "8.56.1",
     "@typescript-eslint/parser": "8.56.1",
@@ -45,7 +45,6 @@
     "eslint-plugin-promise": "7.2.1",
     "globals": "16.5.0",
     "husky": "9.1.7",
-    "prettier": "3.8.1",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
   },
