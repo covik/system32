@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1@sha256:b6afd42430b15f2d2a4c5a02b919e98a525b785b1aaff16747d2f623364e39b6
 
 FROM mcr.microsoft.com/devcontainers/javascript-node:24@sha256:9b6ea344f7873aeea807726b1e8a59001389f83c3d47cf17f1d7218dca5eca35 AS base
-FROM pulumi/pulumi-base:3.220.0@sha256:33fb80b9e3edb5063a7287ed4178ce5e360bbcf526dbe18b9c99265a9e5891ee AS pulumi
+FROM pulumi/pulumi-base:3.224.0@sha256:abb7534a5714a7f24d63d2648a0f6bf7701095807887ff3e77b8a7b18148c475 AS pulumi
 FROM bitnami/kubectl:1.33.0@sha256:0f6b5088710f1c6d2d41f5e19a15663b7fef07d89699247aaaad92975be7eed6 AS kubectl
 
 FROM scratch AS binaries
