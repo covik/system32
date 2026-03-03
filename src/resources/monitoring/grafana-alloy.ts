@@ -39,6 +39,26 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 			{ parent: this },
 		);
 
+		const alloyLogsSecret = this.createAlloySecret(
+			"alloy-logs-remote-cfg-grafana-k8s-monitoring",
+			args.cloudAccessPolicyToken,
+		);
+
+		const alloySingletonSecret = this.createAlloySecret(
+			"alloy-singleton-remote-cfg-grafana-k8s-monitoring",
+			args.cloudAccessPolicyToken,
+		);
+
+		const alloyMetricsSecret = this.createAlloySecret(
+			"alloy-metrics-remote-cfg-grafana-k8s-monitoring",
+			args.cloudAccessPolicyToken,
+		);
+
+		const alloyReceiverSecret = this.createAlloySecret(
+			"alloy-receiver-remote-cfg-grafana-k8s-monitoring",
+			args.cloudAccessPolicyToken,
+		);
+
 		const chartSettings = findHelmDependency("k8s-monitoring");
 		new k8s.helm.v3.Release(
 			`${name}-release`,
@@ -374,9 +394,34 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 					},
 				},
 			},
-			{ parent: this, dependsOn: [alloyCrdRelease] },
+			{
+				parent: this,
+				dependsOn: [
+					alloyCrdRelease,
+					alloyLogsSecret,
+					alloySingletonSecret,
+					alloyMetricsSecret,
+					alloyReceiverSecret,
+				],
+			},
 		);
 
 		this.registerOutputs();
+	}
+
+	private createAlloySecret(
+		name: string,
+		token: pulumi.Input<string>,
+	): k8s.core.v1.Secret {
+		return new k8s.core.v1.Secret(
+			name,
+			{
+				metadata: { name, namespace: "grafana-alloy-system" },
+				stringData: {
+					password: token,
+				},
+			},
+			{ parent: this },
+		);
 	}
 }
