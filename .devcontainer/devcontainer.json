@@ -10,7 +10,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"biomejs.biome"
+				"biomejs.biome",
+				"editorconfig.editorconfig"
 			]
 		}
 	}
