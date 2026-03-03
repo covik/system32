@@ -108,7 +108,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 								},
 								prometheus: {
 									existingSecretName:
-										"grafana-cloud-metrics-grafana-k8s-monitoring",
+										"grafana-cloud-metrics-monitoring-k8s-monitoring",
 									external: {
 										url: "https://prometheus-prod-24-prod-eu-west-2.grafana.net./api/prom",
 									},
