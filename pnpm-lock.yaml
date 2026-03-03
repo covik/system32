@@ -46,9 +46,6 @@ importers:
       '@types/node':
         specifier: 24.11.0
         version: 24.11.0
-      globals:
-        specifier: 16.5.0
-        version: 16.5.0
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -760,10 +757,6 @@ packages:
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
-    engines: {node: '>=18'}
-
-  globals@16.5.0:
-    resolution: {integrity: sha512-c/c15i26VrJ4IRt5Z89DnIzCGDn9EcebibhAOjw5ibqEHsE1wLUgkPn9RDmNcUKyU87GeaL633nyJ+pplFR2ZQ==}
     engines: {node: '>=18'}
 
   google-protobuf@3.21.4:
@@ -2240,8 +2233,6 @@ snapshots:
   global-directory@4.0.1:
     dependencies:
       ini: 4.1.1
-
-  globals@16.5.0: {}
 
   google-protobuf@3.21.4: {}
 
