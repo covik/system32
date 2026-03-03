@@ -11,7 +11,8 @@
 		"vscode": {
 			"extensions": [
 				"biomejs.biome",
-				"editorconfig.editorconfig"
+				"editorconfig.editorconfig",
+				"github.vscode-github-actions"
 			]
 		}
 	}
