@@ -392,6 +392,18 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 							},
 						},
 					},
+					integrations: {
+						"cert-manager": {
+							instances: [
+								{
+									name: "cert-manager",
+									labelSelectors: {
+										"app.kubernetes.io/name": "cert-manager",
+									},
+								},
+							],
+						},
+					},
 				},
 			},
 			{
