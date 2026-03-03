@@ -237,18 +237,8 @@ export function resources(): unknown {
 		fmsDbConnection,
 	);
 
-	const mysqlClient = createMysqlClientPod({
-		namespace: "default",
-		mysqlHost: fmsDatabaseCluster.privateHost,
-		mysqlUser: fmsDatabaseCluster.user,
-		mysqlPassword: fmsDatabaseCluster.password,
-		mysqlPort: fmsDatabaseCluster.port,
-		provider: kubernetes.provider,
-	});
-
 	return {
 		nameservers: dnsZone.nameServers,
-		mysqlAttachCommand: pulumi.interpolate`kubectl attach -n ${mysqlClient.metadata.namespace} ${mysqlClient.metadata.name} -c ${mysqlClient.spec.containers[0].name} --stdin --tty`,
 	};
 }
 
@@ -671,99 +661,5 @@ function setupKubernetesResources(
 		{
 			provider,
 		},
-	);
-}
-
-export interface MysqlClientPodArgs {
-	namespace: pulumi.Input<string>;
-	mysqlHost: pulumi.Input<string>;
-	mysqlUser: pulumi.Input<string>;
-	mysqlPassword: pulumi.Input<string>;
-	mysqlPort?: pulumi.Input<number>;
-	provider: k8s.Provider;
-}
-
-export function createMysqlClientPod(
-	args: MysqlClientPodArgs,
-): k8s.core.v1.Pod {
-	const portEnv = args.mysqlPort
-		? pulumi.interpolate`${args.mysqlPort}`
-		: "3306";
-
-	const secret = new k8s.core.v1.Secret(
-		"mysql-client-credentials",
-		{
-			metadata: {
-				namespace: args.namespace,
-			},
-			stringData: {
-				MYSQL_HOST: pulumi.secret(args.mysqlHost),
-				MYSQL_USER: pulumi.secret(args.mysqlUser),
-				MYSQL_PWD: pulumi.secret(args.mysqlPassword),
-			},
-		},
-		{ provider: args.provider },
-	);
-
-	return new k8s.core.v1.Pod(
-		"mysql-client",
-		{
-			metadata: {
-				name: "mysql-client",
-				namespace: args.namespace,
-			},
-			spec: {
-				containers: [
-					{
-						name: "mysql-8",
-						image:
-							"mysql:8-debian@sha256:49f4fcb0087318aa1c222c7e8ceacbb541cdc457c6307d45e6ee4313f4902e33",
-						command: [
-							"sh",
-							"-c",
-							// no `-p` flag needed since mysql reads $MYSQL_PWD automatically
-							"mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER",
-						],
-						env: [
-							{
-								name: "MYSQL_HOST",
-								valueFrom: {
-									secretKeyRef: {
-										name: secret.metadata.name,
-										key: "MYSQL_HOST",
-									},
-								},
-							},
-							{ name: "MYSQL_PORT", value: portEnv },
-							{
-								name: "MYSQL_USER",
-								valueFrom: {
-									secretKeyRef: {
-										name: secret.metadata.name,
-										key: "MYSQL_USER",
-									},
-								},
-							},
-							{
-								name: "MYSQL_PWD",
-								valueFrom: {
-									secretKeyRef: {
-										name: secret.metadata.name,
-										key: "MYSQL_PWD",
-									},
-								},
-							},
-						],
-						resources: {
-							requests: { cpu: "0.001", memory: "30Mi" },
-							limits: { memory: "30Mi" },
-						},
-						stdin: true,
-						tty: true,
-					},
-				],
-			},
-		},
-		{ deleteBeforeReplace: true, provider: args.provider },
 	);
 }
