@@ -403,6 +403,12 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 								},
 							],
 						},
+						github: {
+							repositories: ["covik/system32"],
+							apiToken: new pulumi.Config().requireSecret(
+								"grafana-github-integration-token",
+							),
+						},
 					},
 				},
 			},
