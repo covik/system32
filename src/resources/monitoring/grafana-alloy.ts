@@ -57,9 +57,9 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 					},
 					destinations: [
 						{
-							name: "metricsService",
+							name: "grafana-cloud-metrics",
 							type: "prometheus",
-							url: "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push",
+							url: "https://prometheus-prod-24-prod-eu-west-2.grafana.net./api/prom/push",
 							auth: {
 								type: "basic",
 								username: "1732483",
@@ -67,9 +67,9 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 							},
 						},
 						{
-							name: "logsService",
+							name: "grafana-cloud-logs",
 							type: "loki",
-							url: "https://logs-prod-012.grafana.net/loki/api/v1/push",
+							url: "https://logs-prod-012.grafana.net./loki/api/v1/push",
 							auth: {
 								type: "basic",
 								username: "965971",
@@ -77,72 +77,299 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 							},
 						},
 						{
-							name: "tracesService",
+							name: "gc-otlp-endpoint",
 							type: "otlp",
-							metrics: { enabled: false },
-							logs: { enabled: false },
-							traces: { enabled: true },
-							url: "https://tempo-prod-10-prod-eu-west-2.grafana.net:443",
+							url: "https://otlp-gateway-prod-eu-west-2.grafana.net./otlp",
+							protocol: "http",
 							auth: {
 								type: "basic",
-								username: "960286",
+								username: "1008191",
 								password: args.cloudAccessPolicyToken,
+							},
+							metrics: {
+								enabled: true,
+							},
+							logs: {
+								enabled: true,
+							},
+							traces: {
+								enabled: true,
 							},
 						},
 					],
 					clusterMetrics: {
 						enabled: true,
-						"kube-state-metrics": { deploy: true },
-						"node-exporter": { deploy: true, enabled: true },
-						"windows-exporter": { deploy: false, enabled: false },
 						opencost: {
-							enabled: false,
+							enabled: true,
+							metricsSource: "grafana-cloud-metrics",
 							opencost: {
-								exporter: { defaultClusterId: "zth-dev" },
+								exporter: {
+									defaultClusterId: args.clusterName,
+								},
 								prometheus: {
+									existingSecretName:
+										"grafana-cloud-metrics-grafana-k8s-monitoring",
 									external: {
-										url: "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom",
+										url: "https://prometheus-prod-24-prod-eu-west-2.grafana.net./api/prom",
 									},
-									existingSecretName: "metricsservice-grafana-k8s-monitoring",
 								},
 							},
-							metricsSource: "metricsService",
 						},
-						kepler: { enabled: true },
+						kepler: {
+							enabled: true,
+						},
 					},
-					"alloy-metrics": { enabled: true },
 					clusterEvents: { enabled: true },
-					"alloy-singleton": { enabled: true },
+					nodeLogs: { enabled: true },
 					podLogs: { enabled: true },
-					"alloy-logs": { enabled: true },
-					applicationObservability: { enabled: false },
-					"alloy-receiver": { enabled: false },
 					annotationAutodiscovery: { enabled: true },
 					prometheusOperatorObjects: {
 						enabled: true,
-						crds: { deploy: true },
 					},
-					integrations: {
+					applicationObservability: {
+						enabled: true,
+						receivers: {
+							otlp: {
+								grpc: {
+									enabled: true,
+									port: 4317,
+								},
+								http: {
+									enabled: true,
+									port: 4318,
+								},
+							},
+							zipkin: {
+								enabled: true,
+								port: 9411,
+							},
+						},
+					},
+					"alloy-metrics": {
+						enabled: true,
 						alloy: {
-							instances: [
+							extraEnv: [
 								{
-									name: "alloy",
-									labelSelectors: {
-										"app.kubernetes.io/name": [
-											"alloy-metrics",
-											"alloy-singleton",
-											"alloy-logs",
-											"alloy-receiver",
-										],
-									},
-									metrics: {
-										tuning: {
-											useDefaultAllowList: true,
-											includeMetrics: ["alloy_build_info"],
+									name: "GCLOUD_RW_API_KEY",
+									valueFrom: {
+										secretKeyRef: {
+											name: "alloy-metrics-remote-cfg-grafana-k8s-monitoring",
+											key: "password",
 										},
 									},
 								},
+								{
+									name: "CLUSTER_NAME",
+									value: args.clusterName,
+								},
+								{
+									name: "NAMESPACE",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "metadata.namespace",
+										},
+									},
+								},
+								{
+									name: "POD_NAME",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "metadata.name",
+										},
+									},
+								},
+								{
+									name: "GCLOUD_FM_COLLECTOR_ID",
+									value:
+										"grafana-k8s-monitoring-$(CLUSTER_NAME)-$(NAMESPACE)-$(POD_NAME)",
+								},
 							],
+						},
+					},
+					"alloy-singleton": {
+						enabled: true,
+						alloy: {
+							extraEnv: [
+								{
+									name: "GCLOUD_RW_API_KEY",
+									valueFrom: {
+										secretKeyRef: {
+											name: "alloy-singleton-remote-cfg-grafana-k8s-monitoring",
+											key: "password",
+										},
+									},
+								},
+								{
+									name: "CLUSTER_NAME",
+									value: args.clusterName,
+								},
+								{
+									name: "NAMESPACE",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "metadata.namespace",
+										},
+									},
+								},
+								{
+									name: "POD_NAME",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "metadata.name",
+										},
+									},
+								},
+								{
+									name: "GCLOUD_FM_COLLECTOR_ID",
+									value:
+										"grafana-k8s-monitoring-$(CLUSTER_NAME)-$(NAMESPACE)-$(POD_NAME)",
+								},
+							],
+						},
+						remoteConfig: {
+							enabled: true,
+							url: "https://fleet-management-prod-011.grafana.net",
+							auth: {
+								type: "basic",
+								username: "1008191",
+								password: args.cloudAccessPolicyToken,
+							},
+						},
+					},
+					"alloy-logs": {
+						enabled: true,
+						alloy: {
+							extraEnv: [
+								{
+									name: "GCLOUD_RW_API_KEY",
+									valueFrom: {
+										secretKeyRef: {
+											name: "alloy-logs-remote-cfg-grafana-k8s-monitoring",
+											key: "password",
+										},
+									},
+								},
+								{
+									name: "CLUSTER_NAME",
+									value: args.clusterName,
+								},
+								{
+									name: "NAMESPACE",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "metadata.namespace",
+										},
+									},
+								},
+								{
+									name: "POD_NAME",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "metadata.name",
+										},
+									},
+								},
+								{
+									name: "NODE_NAME",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "spec.nodeName",
+										},
+									},
+								},
+								{
+									name: "GCLOUD_FM_COLLECTOR_ID",
+									value:
+										"grafana-k8s-monitoring-$(CLUSTER_NAME)-$(NAMESPACE)-alloy-logs-$(NODE_NAME)",
+								},
+							],
+						},
+						remoteConfig: {
+							enabled: true,
+							url: "https://fleet-management-prod-011.grafana.net",
+							auth: {
+								type: "basic",
+								username: "1008191",
+								password: args.cloudAccessPolicyToken,
+							},
+						},
+					},
+					"alloy-receiver": {
+						enabled: true,
+						alloy: {
+							extraPorts: [
+								{
+									name: "otlp-grpc",
+									port: 4317,
+									targetPort: 4317,
+									protocol: "TCP",
+								},
+								{
+									name: "otlp-http",
+									port: 4318,
+									targetPort: 4318,
+									protocol: "TCP",
+								},
+								{
+									name: "zipkin",
+									port: 9411,
+									targetPort: 9411,
+									protocol: "TCP",
+								},
+							],
+							extraEnv: [
+								{
+									name: "GCLOUD_RW_API_KEY",
+									valueFrom: {
+										secretKeyRef: {
+											name: "alloy-receiver-remote-cfg-grafana-k8s-monitoring",
+											key: "password",
+										},
+									},
+								},
+								{
+									name: "CLUSTER_NAME",
+									value: args.clusterName,
+								},
+								{
+									name: "NAMESPACE",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "metadata.namespace",
+										},
+									},
+								},
+								{
+									name: "POD_NAME",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "metadata.name",
+										},
+									},
+								},
+								{
+									name: "NODE_NAME",
+									valueFrom: {
+										fieldRef: {
+											fieldPath: "spec.nodeName",
+										},
+									},
+								},
+								{
+									name: "GCLOUD_FM_COLLECTOR_ID",
+									value:
+										"grafana-k8s-monitoring-$(CLUSTER_NAME)-$(NAMESPACE)-alloy-receiver-$(NODE_NAME)",
+								},
+							],
+						},
+						remoteConfig: {
+							enabled: true,
+							url: "https://fleet-management-prod-011.grafana.net",
+							auth: {
+								type: "basic",
+								username: "1008191",
+								password: args.cloudAccessPolicyToken,
+							},
 						},
 					},
 				},
