@@ -5,6 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as app from "../resources/app/index.js";
 import * as cluster from "../resources/cluster/index.js";
 import * as gateway from "../resources/gateway/index.js";
+import * as monitoring from "../resources/monitoring/index.js";
 import * as security from "../resources/security/index.js";
 import { createMysqlConnectionString } from "../utils/index.js";
 
@@ -264,6 +265,17 @@ function setupKubernetesResources(
 			file: "https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/experimental-install.yaml",
 		},
 		{ provider },
+	);
+
+	new monitoring.GrafanaAlloy(
+		"monitoring",
+		{
+			clusterName,
+			cloudAccessPolicyToken: config.requireSecret(
+				"grafana-kubernetes-integration-token",
+			),
+		},
+		kubernetesComponentOptions,
 	);
 
 	const gatewayConfig = {
