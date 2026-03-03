@@ -33,11 +33,6 @@
 			"rangeStrategy": "widen"
 		},
 		{
-			"matchPackageNames": ["bitnami/kubectl"],
-			"matchUpdateTypes": ["patch", "digest"],
-			"enabled": false
-		},
-		{
 			"matchFileNames": [".github/**"],
 			"dependencyDashboardApproval": false
 		},
