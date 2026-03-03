@@ -39,24 +39,17 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 			{ parent: this },
 		);
 
-		const alloyLogsSecret = this.createAlloySecret(
-			"alloy-logs-remote-cfg-grafana-k8s-monitoring",
-			args.cloudAccessPolicyToken,
-		);
-
-		const alloySingletonSecret = this.createAlloySecret(
-			"alloy-singleton-remote-cfg-grafana-k8s-monitoring",
-			args.cloudAccessPolicyToken,
-		);
-
-		const alloyMetricsSecret = this.createAlloySecret(
-			"alloy-metrics-remote-cfg-grafana-k8s-monitoring",
-			args.cloudAccessPolicyToken,
-		);
-
-		const alloyReceiverSecret = this.createAlloySecret(
-			"alloy-receiver-remote-cfg-grafana-k8s-monitoring",
-			args.cloudAccessPolicyToken,
+		const rwApiKeySecret = new k8s.core.v1.Secret(
+			`${name}-rw-api-key-secret`,
+			{
+				metadata: {
+					namespace: namespace.metadata.name,
+				},
+				stringData: {
+					password: args.cloudAccessPolicyToken,
+				},
+			},
+			{ parent: this },
 		);
 
 		const chartSettings = findHelmDependency("k8s-monitoring");
@@ -127,8 +120,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 									defaultClusterId: args.clusterName,
 								},
 								prometheus: {
-									existingSecretName:
-										"grafana-cloud-metrics-monitoring-k8s-monitoring",
+									existingSecretName: rwApiKeySecret.metadata.name,
 									external: {
 										url: "https://prometheus-prod-24-prod-eu-west-2.grafana.net./api/prom",
 									},
@@ -173,7 +165,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 									name: "GCLOUD_RW_API_KEY",
 									valueFrom: {
 										secretKeyRef: {
-											name: "alloy-metrics-remote-cfg-grafana-k8s-monitoring",
+											name: rwApiKeySecret.metadata.name,
 											key: "password",
 										},
 									},
@@ -214,7 +206,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 									name: "GCLOUD_RW_API_KEY",
 									valueFrom: {
 										secretKeyRef: {
-											name: "alloy-singleton-remote-cfg-grafana-k8s-monitoring",
+											name: rwApiKeySecret.metadata.name,
 											key: "password",
 										},
 									},
@@ -264,7 +256,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 									name: "GCLOUD_RW_API_KEY",
 									valueFrom: {
 										secretKeyRef: {
-											name: "alloy-logs-remote-cfg-grafana-k8s-monitoring",
+											name: rwApiKeySecret.metadata.name,
 											key: "password",
 										},
 									},
@@ -342,7 +334,7 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 									name: "GCLOUD_RW_API_KEY",
 									valueFrom: {
 										secretKeyRef: {
-											name: "alloy-receiver-remote-cfg-grafana-k8s-monitoring",
+											name: rwApiKeySecret.metadata.name,
 											key: "password",
 										},
 									},
@@ -396,32 +388,10 @@ export class GrafanaAlloy extends pulumi.ComponentResource {
 			},
 			{
 				parent: this,
-				dependsOn: [
-					alloyCrdRelease,
-					alloyLogsSecret,
-					alloySingletonSecret,
-					alloyMetricsSecret,
-					alloyReceiverSecret,
-				],
+				dependsOn: [alloyCrdRelease],
 			},
 		);
 
 		this.registerOutputs();
-	}
-
-	private createAlloySecret(
-		name: string,
-		token: pulumi.Input<string>,
-	): k8s.core.v1.Secret {
-		return new k8s.core.v1.Secret(
-			name,
-			{
-				metadata: { name, namespace: "grafana-alloy-system" },
-				stringData: {
-					password: token,
-				},
-			},
-			{ parent: this },
-		);
 	}
 }
