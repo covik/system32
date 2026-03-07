@@ -77,7 +77,7 @@ export class TraccarServer extends pulumi.ComponentResource {
 
   <entry key='logger.console'>true</entry>
   <entry key='logger.rotate'>false</entry>
-  
+
   <entry key='report.trip.minimalTripDistance'>300</entry>
   <entry key='report.ignoreOdometer'>true</entry>
 
@@ -139,7 +139,7 @@ Kontakt je uključen na vozilu $device.name
 								{
 									name: "server",
 									image:
-										"traccar/traccar:6.6-alpine@sha256:dc73ac1ac1388f97e3259dbbea3bd09d90dccd2df391466ef51826ac591a33f9",
+										"traccar/traccar:6.12.2@sha256:b05e64a90c4f822b3b4d98e6a31df06f4d38d7a5333afe4308603744c34da292",
 									imagePullPolicy: "IfNotPresent",
 									ports: [
 										{
