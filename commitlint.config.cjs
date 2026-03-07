@@ -9,7 +9,6 @@ module.exports = {
 				"deps",
 				"util",
 				"cromanjonac",
-				"zarafleet",
 				"zarapromet",
 				"luigitrans",
 			],

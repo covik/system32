@@ -12,10 +12,6 @@ config:
   container-registry-user:
     type: string
     default: covik
-  zarafleet-image:
-    type: string
-    description: frontend general availability container image tag + sha256 hash
-    default: fms-frontend:latest@sha256:db8dc5aeb550069b2d3e4cb571041d800881bb66fe7a52346c64cebba4693a1e
   region:
     type: string
     description: Region where DigitalOcean resources live

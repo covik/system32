@@ -13,7 +13,6 @@ const domain = "zth.dev";
 const zarafleetDomain = "zarafleet.com";
 const cromanjonacDomain = "cromanjonac.dev";
 const fmsUrl = `old.${zarafleetDomain}`;
-const zarafleetUrl = `app.${zarafleetDomain}`;
 const snapshooterIps = [
 	"174.138.101.117",
 	"209.38.181.248",
@@ -512,103 +511,6 @@ function setupKubernetesResources(
 		},
 		{
 			provider,
-		},
-	);
-
-	const zarafleet = new app.ZaraFleet(
-		"zarafleet",
-		{
-			image: security.resolveRegistryImage(config.require("zarafleet-image")),
-		},
-		kubernetesComponentOptions,
-	);
-
-	const allowFrontendToBackendCommunication =
-		new k8s.apiextensions.CustomResource(
-			"traccar-grant-frontend",
-			{
-				apiVersion: "gateway.networking.k8s.io/v1beta1",
-				kind: "ReferenceGrant",
-				metadata: {
-					namespace: traccar.namespace.metadata.name,
-				},
-				spec: {
-					from: [
-						{
-							group: "gateway.networking.k8s.io",
-							kind: "HTTPRoute",
-							namespace: zarafleet.namespace.metadata.name,
-						},
-					],
-					to: [
-						{
-							group: "",
-							kind: "Service",
-							name: traccar.service.metadata.name,
-						},
-					],
-				},
-			},
-			{ provider },
-		);
-
-	new k8s.apiextensions.CustomResource(
-		"zarafleet-web-route",
-		{
-			apiVersion: "gateway.networking.k8s.io/v1",
-			kind: "HTTPRoute",
-			metadata: {
-				namespace: zarafleet.namespace.metadata.name,
-			},
-			spec: {
-				parentRefs: [
-					{
-						name: gatewayInstance.metadata.name,
-						namespace: gatewayInstance.metadata.namespace,
-						sectionName: "https",
-					},
-				],
-				hostnames: [zarafleetUrl],
-				rules: [
-					{
-						matches: [
-							{
-								path: {
-									type: "PathPrefix",
-									value: "/api",
-								},
-							},
-						],
-						backendRefs: [
-							{
-								name: traccar.service.metadata.name,
-								namespace: traccar.service.metadata.namespace,
-								port: traccar.service.spec.ports[0].port,
-							},
-						],
-					},
-					{
-						matches: [
-							{
-								path: {
-									type: "PathPrefix",
-									value: "/",
-								},
-							},
-						],
-						backendRefs: [
-							{
-								name: zarafleet.service.metadata.name,
-								port: zarafleet.service.spec.ports[0].port,
-							},
-						],
-					},
-				],
-			},
-		},
-		{
-			provider,
-			dependsOn: [allowFrontendToBackendCommunication],
 		},
 	);
 
