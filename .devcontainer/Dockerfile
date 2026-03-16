@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1@sha256:b6afd42430b15f2d2a4c5a02b919e98a525b785b1aaff16747d2f623364e39b6
 
 FROM mcr.microsoft.com/devcontainers/javascript-node:24@sha256:21f15d367bfc5ceadabb9989be48029cba1e6bd80da323405232614a267a9c45 AS base
-FROM pulumi/pulumi-base:3.224.0@sha256:abb7534a5714a7f24d63d2648a0f6bf7701095807887ff3e77b8a7b18148c475 AS pulumi
+FROM pulumi/pulumi-base:3.226.0@sha256:c526e364744dd2339c67982c7aeb5f9b82292f6cd4e0f5e340af60b9997e2098 AS pulumi
 
 FROM scratch AS binaries
 COPY --from=pulumi /pulumi/bin/pulumi /pulumi/pulumi
