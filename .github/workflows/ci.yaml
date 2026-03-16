@@ -22,7 +22,6 @@ jobs:
           fetch-depth: 0
       - uses: devcontainers/ci@v0.3
         with:
-          inheritEnv: true
           runCmd: pnpm format:check && pnpm lint
 
   preview:
@@ -37,10 +36,9 @@ jobs:
         with:
           fetch-depth: 0
       - uses: devcontainers/ci@v0.3
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         with:
-          inheritEnv: true
+          env: |
+            PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
           runCmd: pnpm build && pulumi preview --stack cromanjonac --suppress-progress --non-interactive
 
   deploy:
@@ -58,10 +56,9 @@ jobs:
 
       - name: Pulumi refresh production
         uses: devcontainers/ci@v0.3
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         with:
-          inheritEnv: true
+          env: |
+            PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
           runCmd: |
             set -euo pipefail
             pnpm build
@@ -83,17 +80,15 @@ jobs:
 
       - name: Pulumi Up (Deploy to Production)
         uses: devcontainers/ci@v0.3
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         with:
-          inheritEnv: true
+          env: |
+            PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
           runCmd: pnpm build && pulumi up --stack cromanjonac --skip-preview --suppress-progress --non-interactive
 
       - name: Cancel update on failure
         if: failure() || cancelled()
         uses: devcontainers/ci@v0.3
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         with:
-          inheritEnv: true
+          env: |
+            PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
           runCmd: pulumi cancel --yes --stack cromanjonac
