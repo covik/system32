@@ -1,9 +1,6 @@
 {
-	"build": {
-		"dockerfile": "Dockerfile",
-		"target": "dev"
-	},
-	"postCreateCommand": "pnpm install --frozen-lockfile",
+	"dockerFile": "Dockerfile",
+	"postCreateCommand": "pnpm install --frozen-lockfile --ignore-scripts",
 	"containerEnv": {
 		"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml"
 	},

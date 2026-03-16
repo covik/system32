@@ -1,170 +1,138 @@
-name: 'CI'
+name: "CI"
 
 on:
   pull_request:
     paths-ignore:
-      - .github/workflows/devcontainer.yaml
       - renovate.json
   push:
     paths-ignore:
-      - .github/workflows/devcontainer.yaml
       - renovate.json
     branches:
       - main
 
 jobs:
-  build:
-    name: 'Build'
+  lint:
+    name: "Lint"
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
-    outputs:
-      image_tag: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest@${{ steps.push.outputs.digest }}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v6
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v4
+      - uses: actions/checkout@v6
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v7
-        id: push
+          fetch-depth: 0
+      - uses: devcontainers/ci@v0.3
         with:
-          context: .
-          file: .devcontainer/Dockerfile
-          target: ci
-          push: true
-          provenance: false
-          labels: ''
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-  lint:
-    name: 'Lint'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: read
-    container:
-      image: ${{ needs.build.outputs.image_tag }}
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: /app
-    steps:
-      - name: Format
-        run: pnpm format:check
-
-      - name: Lint
-        run: pnpm lint
+          runCmd: pnpm format:check && pnpm lint
 
   preview:
-    name: 'Preview'
-    needs: build
+    name: "Preview"
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: read
       pull-requests: write
-    container:
-      image: ${{ needs.build.outputs.image_tag }}
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-
-      - name: Enrich Pulumi Console data with repository information
-        run: cp -R .git /app/.git && cd /app && git reset --hard # files from .dockerignore appear as [deleted] in git status
-
-      - name: Pulumi Preview
-        uses: pulumi/actions@v6
+      - uses: devcontainers/ci@v0.3
         with:
-          work-dir: /app
-          stack-name: cromanjonac
-          command: preview
-          comment-on-pr: true
-          edit-pr-comment: true
-          always-include-summary: true
-          comment-on-summary: true
-          suppress-progress: true
+          env: |
+            PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
+            PULUMI_CI=true
+            CI=true
+            GITHUB_ACTIONS=true
+            GITHUB_REPOSITORY=${{ github.repository }}
+            GITHUB_REF=${{ github.ref }}
+            GITHUB_REF_NAME=${{ github.ref_name }}
+            GITHUB_SHA=${{ github.sha }}
+            GITHUB_RUN_ID=${{ github.run_id }}
+            GITHUB_RUN_NUMBER=${{ github.run_number }}
+            GITHUB_WORKFLOW=${{ github.workflow }}
+            GITHUB_ACTOR=${{ github.actor }}
+          runCmd: pnpm build && pulumi preview --stack cromanjonac --suppress-progress --non-interactive
 
   deploy:
-    name: 'Deploy'
-    needs: [build, lint]
+    name: "Deploy"
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    concurrency: 'deploy'
+    concurrency: "deploy"
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: read
       pull-requests: write
-    container:
-      image: ${{ needs.build.outputs.image_tag }}
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Enrich Pulumi Console data with repository information
-        run: cp -R .git /app/.git && cd /app && git reset --hard # files from .dockerignore appear as [deleted] in git status
-
       - name: Pulumi refresh production
-        shell: bash
-        run: |
-          set -euo pipefail
-          pulumi refresh --stack cromanjonac --cwd /app \
-            --run-program=true --skip-preview \
-            --suppress-progress --non-interactive \
-            2>&1 | tee refresh.log
+        uses: devcontainers/ci@v0.3
+        with:
+          env: |
+            PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
+            PULUMI_CI=true
+            CI=true
+            GITHUB_ACTIONS=true
+            GITHUB_REPOSITORY=${{ github.repository }}
+            GITHUB_REF=${{ github.ref }}
+            GITHUB_REF_NAME=${{ github.ref_name }}
+            GITHUB_SHA=${{ github.sha }}
+            GITHUB_RUN_ID=${{ github.run_id }}
+            GITHUB_RUN_NUMBER=${{ github.run_number }}
+            GITHUB_WORKFLOW=${{ github.workflow }}
+            GITHUB_ACTOR=${{ github.actor }}
+          runCmd: |
+            set -euo pipefail
+            pnpm build
+            pulumi refresh --stack cromanjonac \
+              --run-program=true --skip-preview \
+              --suppress-progress --non-interactive \
+              2>&1 | tee refresh.log
 
-          {
-            echo "## Pulumi refresh result"
-            echo ""
-            echo "<details><summary>Show refresh summary</summary>"
-            echo ""
-            echo '```'
-            cat refresh.log
-            echo '```'
-            echo "</details>"
-          } >> "$GITHUB_STEP_SUMMARY"
+            {
+              echo "## Pulumi refresh result"
+              echo ""
+              echo "<details><summary>Show refresh summary</summary>"
+              echo ""
+              echo '```'
+              cat refresh.log
+              echo '```'
+              echo "</details>"
+            } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Pulumi Up (Deploy to Production)
-        uses: pulumi/actions@v6
+        uses: devcontainers/ci@v0.3
         with:
-          work-dir: /app
-          stack-name: cromanjonac
-          command: up
-          refresh: false
-          comment-on-summary: true
-          suppress-progress: true
+          env: |
+            PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
+            PULUMI_CI=true
+            CI=true
+            GITHUB_ACTIONS=true
+            GITHUB_REPOSITORY=${{ github.repository }}
+            GITHUB_REF=${{ github.ref }}
+            GITHUB_REF_NAME=${{ github.ref_name }}
+            GITHUB_SHA=${{ github.sha }}
+            GITHUB_RUN_ID=${{ github.run_id }}
+            GITHUB_RUN_NUMBER=${{ github.run_number }}
+            GITHUB_WORKFLOW=${{ github.workflow }}
+            GITHUB_ACTOR=${{ github.actor }}
+          runCmd: pnpm build && pulumi up --stack cromanjonac --skip-preview --suppress-progress --non-interactive
 
       - name: Cancel update on failure
         if: failure() || cancelled()
-        run: pulumi cancel --yes --stack cromanjonac
-
-      - run: cd /app && git status
+        uses: devcontainers/ci@v0.3
+        with:
+          env: |
+            PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
+            PULUMI_CI=true
+            CI=true
+            GITHUB_ACTIONS=true
+            GITHUB_REPOSITORY=${{ github.repository }}
+            GITHUB_REF=${{ github.ref }}
+            GITHUB_REF_NAME=${{ github.ref_name }}
+            GITHUB_SHA=${{ github.sha }}
+            GITHUB_RUN_ID=${{ github.run_id }}
+            GITHUB_RUN_NUMBER=${{ github.run_number }}
+            GITHUB_WORKFLOW=${{ github.workflow }}
+            GITHUB_ACTOR=${{ github.actor }}
+          runCmd: pulumi cancel --yes --stack cromanjonac
