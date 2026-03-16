@@ -29,7 +29,7 @@
 		"source.organizeImports.biome": "explicit"
 	},
 	"json.schemaDownload.trustedDomains": {
-		"https://biomejs.dev/schemas/2.4.4/schema.json": true,
+		"https://biomejs.dev/schemas/2.4.7/schema.json": true,
 		"https://docs.renovatebot.com/renovate-schema.json": true
 	},
 	"github-actions.workflows.pinned.workflows": [".github/workflows/ci.yaml"]
