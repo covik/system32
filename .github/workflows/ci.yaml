@@ -22,6 +22,7 @@ jobs:
           fetch-depth: 0
       - uses: devcontainers/ci@v0.3
         with:
+          inheritEnv: true
           runCmd: pnpm format:check && pnpm lint
 
   preview:
@@ -39,6 +40,7 @@ jobs:
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         with:
+          inheritEnv: true
           runCmd: pnpm build && pulumi preview --stack cromanjonac --suppress-progress --non-interactive
 
   deploy:
@@ -59,6 +61,7 @@ jobs:
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         with:
+          inheritEnv: true
           runCmd: |
             set -euo pipefail
             pnpm build
@@ -83,6 +86,7 @@ jobs:
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         with:
+          inheritEnv: true
           runCmd: pnpm build && pulumi up --stack cromanjonac --skip-preview --suppress-progress --non-interactive
 
       - name: Cancel update on failure
@@ -91,4 +95,5 @@ jobs:
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         with:
+          inheritEnv: true
           runCmd: pulumi cancel --yes --stack cromanjonac
