@@ -1,0 +1,6 @@
+name: zarafleet
+description: Zara Fleet Management System
+runtime:
+  name: nodejs
+  options:
+    typescript: false

@@ -56,6 +56,22 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  projects/zarafleet:
+    dependencies:
+      '@pulumi/cloudflare':
+        specifier: 6.13.0
+        version: 6.13.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
+      '@pulumi/pulumi':
+        specifier: 3.226.0
+        version: 3.226.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
+    devDependencies:
+      '@types/node':
+        specifier: 24.12.0
+        version: 24.12.0
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
 packages:
 
   '@babel/code-frame@7.29.0':
