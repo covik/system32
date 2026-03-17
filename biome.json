@@ -8,12 +8,11 @@
 	"files": {
 		"ignoreUnknown": true,
 		"includes": [
-			"**/src/**/*",
+			"src/**/*",
+			"projects/**/*",
+			"packages/**/*",
 			"**/.vscode/**/*",
-			"**/index.html",
-			"**/vite.config.ts",
-			"!**/src/routeTree.gen.ts",
-			"!**/src/styles.css",
+			"!**/dist",
 			"!.husky"
 		]
 	},

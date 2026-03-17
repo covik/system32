@@ -16,11 +16,13 @@
   "type": "module",
   "scripts": {
     "build": "tsc && cp src/Chart.yaml dist/src/.",
+    "build:all": "pnpm -r build",
     "format": "biome format",
     "format:check": "biome check",
     "lint": "biome lint",
     "prepare": "husky",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "type-check:all": "pnpm -r type-check"
   },
   "dependencies": {
     "@pulumi/cloudflare": "6.13.0",
