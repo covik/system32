@@ -12,34 +12,20 @@
   },
   "license": "UNLICENSED",
   "author": "Mate Nakic",
-  "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "pnpm --filter @project/cromanjonac build",
-    "build:all": "pnpm -r build",
+    "build": "pnpm -r build",
     "format": "biome format",
     "format:check": "biome check",
     "lint": "biome lint",
     "prepare": "husky",
-    "type-check": "pnpm -r type-check",
-    "type-check:all": "pnpm -r type-check"
-  },
-  "dependencies": {
-    "@pulumi/cloudflare": "6.13.0",
-    "@pulumi/digitalocean": "4.61.0",
-    "@pulumi/kubernetes": "4.28.0",
-    "@pulumi/pulumi": "3.226.0",
-    "superstruct": "2.0.2",
-    "yaml": "2.8.2"
+    "type-check": "pnpm -r type-check"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.7",
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
-    "@types/node": "24.12.0",
-    "husky": "9.1.7",
-    "ts-node": "10.9.2",
-    "typescript": "5.9.3"
+    "husky": "9.1.7"
   },
   "resolutions": {
     "ajv": "8.18.0",

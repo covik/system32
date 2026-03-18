@@ -14,25 +14,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      '@pulumi/cloudflare':
-        specifier: 6.13.0
-        version: 6.13.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
-      '@pulumi/digitalocean':
-        specifier: 4.61.0
-        version: 4.61.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
-      '@pulumi/kubernetes':
-        specifier: 4.28.0
-        version: 4.28.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
-      '@pulumi/pulumi':
-        specifier: 3.226.0
-        version: 3.226.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
-      superstruct:
-        specifier: 2.0.2
-        version: 2.0.2
-      yaml:
-        specifier: 2.8.2
-        version: 2.8.2
     devDependencies:
       '@biomejs/biome':
         specifier: 2.4.7
@@ -43,18 +24,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: 20.5.0
         version: 20.5.0
-      '@types/node':
-        specifier: 24.12.0
-        version: 24.12.0
       husky:
         specifier: 9.1.7
         version: 9.1.7
-      ts-node:
-        specifier: 10.9.2
-        version: 10.9.2(@types/node@24.12.0)(typescript@5.9.3)
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
 
   projects/cromanjonac:
     dependencies:
@@ -1738,6 +1710,7 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+    optional: true
 
   '@grpc/grpc-js@1.14.3':
     dependencies:
@@ -1757,14 +1730,17 @@ snapshots:
 
   '@isaacs/string-locale-compare@1.1.0': {}
 
-  '@jridgewell/resolve-uri@3.1.2': {}
+  '@jridgewell/resolve-uri@3.1.2':
+    optional: true
 
-  '@jridgewell/sourcemap-codec@1.5.5': {}
+  '@jridgewell/sourcemap-codec@1.5.5':
+    optional: true
 
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+    optional: true
 
   '@js-sdsl/ordered-map@4.4.2': {}
 
@@ -2166,13 +2142,17 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tsconfig/node10@1.0.12': {}
+  '@tsconfig/node10@1.0.12':
+    optional: true
 
-  '@tsconfig/node12@1.0.11': {}
+  '@tsconfig/node12@1.0.11':
+    optional: true
 
-  '@tsconfig/node14@1.0.3': {}
+  '@tsconfig/node14@1.0.3':
+    optional: true
 
-  '@tsconfig/node16@1.0.4': {}
+  '@tsconfig/node16@1.0.4':
+    optional: true
 
   '@tufjs/canonical-json@2.0.0': {}
 
@@ -2219,6 +2199,7 @@ snapshots:
   acorn-walk@8.3.4:
     dependencies:
       acorn: 8.15.0
+    optional: true
 
   acorn@8.15.0: {}
 
@@ -2237,7 +2218,8 @@ snapshots:
     dependencies:
       color-convert: 2.0.1
 
-  arg@4.1.3: {}
+  arg@4.1.3:
+    optional: true
 
   argparse@1.0.10:
     dependencies:
@@ -2349,7 +2331,8 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  create-require@1.1.1: {}
+  create-require@1.1.1:
+    optional: true
 
   cross-spawn@7.0.6:
     dependencies:
@@ -2369,7 +2352,8 @@ snapshots:
 
   defer-to-connect@2.0.1: {}
 
-  diff@4.0.4: {}
+  diff@4.0.4:
+    optional: true
 
   dot-prop@5.3.0:
     dependencies:
@@ -2619,7 +2603,8 @@ snapshots:
 
   lru-cache@11.2.6: {}
 
-  make-error@1.3.6: {}
+  make-error@1.3.6:
+    optional: true
 
   make-fetch-happen@15.0.3:
     dependencies:
@@ -3032,6 +3017,7 @@ snapshots:
       typescript: 5.9.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
+    optional: true
 
   tuf-js@4.1.0:
     dependencies:
@@ -3057,7 +3043,8 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  v8-compile-cache-lib@3.0.1: {}
+  v8-compile-cache-lib@3.0.1:
+    optional: true
 
   validate-npm-package-license@3.0.4:
     dependencies:
@@ -3109,4 +3096,5 @@ snapshots:
       y18n: 5.0.8
       yargs-parser: 21.1.1
 
-  yn@3.1.1: {}
+  yn@3.1.1:
+    optional: true
