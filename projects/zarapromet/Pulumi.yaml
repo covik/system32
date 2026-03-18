@@ -1,0 +1,6 @@
+name: zarapromet
+description: Zara Promet DNS infrastructure
+runtime:
+  name: nodejs
+  options:
+    typescript: false
