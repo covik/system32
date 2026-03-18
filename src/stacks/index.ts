@@ -1,10 +1,8 @@
 import { resources as cromanjonac } from "./cromanjonac.js";
-import { resources as luigitrans } from "./luigitrans.js";
 import { resources as zarapromet } from "./zarapromet.js";
 
 const all: Record<string, () => unknown> = {
 	cromanjonac,
-	luigitrans,
 	zarapromet,
 };
 
