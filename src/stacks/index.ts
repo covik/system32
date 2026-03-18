@@ -1,9 +1,7 @@
 import { resources as cromanjonac } from "./cromanjonac.js";
-import { resources as zarapromet } from "./zarapromet.js";
 
 const all: Record<string, () => unknown> = {
 	cromanjonac,
-	zarapromet,
 };
 
 export function findStackResources(stackName: string): () => unknown {
