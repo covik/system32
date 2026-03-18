@@ -1,5 +1,5 @@
 {
-	"name": "@system32/zarafleet",
+	"name": "@project/zarafleet",
 	"private": true,
 	"type": "module",
 	"main": "dist/index.js",
