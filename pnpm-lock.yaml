@@ -56,6 +56,34 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  projects/cromanjonac:
+    dependencies:
+      '@pulumi/cloudflare':
+        specifier: 6.13.0
+        version: 6.13.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
+      '@pulumi/digitalocean':
+        specifier: 4.61.0
+        version: 4.61.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
+      '@pulumi/kubernetes':
+        specifier: 4.28.0
+        version: 4.28.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
+      '@pulumi/pulumi':
+        specifier: 3.226.0
+        version: 3.226.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
+      superstruct:
+        specifier: 2.0.2
+        version: 2.0.2
+      yaml:
+        specifier: 2.8.2
+        version: 2.8.2
+    devDependencies:
+      '@types/node':
+        specifier: 24.12.0
+        version: 24.12.0
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
   projects/luigitrans:
     dependencies:
       '@pulumi/cloudflare':

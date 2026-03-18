@@ -31,8 +31,7 @@
 		"declaration": true,
 		"declarationMap": true
 	},
-	"include": ["src/**/*.ts", "index.ts"],
-	"exclude": ["node_modules", "tmp", "dist", "projects", "packages"],
+	"exclude": ["node_modules", "tmp", "dist"],
 	"ts-node": {
 		"transpileOnly": true // type checking is done in CI and IDE
 	}
