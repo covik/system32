@@ -12,6 +12,7 @@
 		"@pulumi/pulumi": "3.226.0"
 	},
 	"devDependencies": {
+		"@package/typescript-config": "workspace:*",
 		"@types/node": "24.12.0",
 		"typescript": "5.9.3"
 	}

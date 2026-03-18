@@ -30,9 +30,5 @@
 		"composite": true,
 		"declaration": true,
 		"declarationMap": true
-	},
-	"exclude": ["node_modules", "tmp", "dist"],
-	"ts-node": {
-		"transpileOnly": true // type checking is done in CI and IDE
 	}
 }
