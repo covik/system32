@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
       - uses: devcontainers/ci@v0.3
         with:
-          runCmd: pnpm format:check && pnpm lint
+          runCmd: pnpm check
 
   preview:
     name: "Preview"

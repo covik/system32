@@ -15,15 +15,14 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "production:deploy": "turbo run production:deploy --filter=@project/*",
-    "production:preview": "turbo run production:preview --filter=@project/*",
-    "production:refresh": "turbo run production:refresh --filter=@project/*",
-    "production:cancel": "turbo run production:cancel --filter=@project/*",
-    "format": "biome format",
-    "format:check": "biome check",
-    "lint": "biome lint",
+    "check": "turbo run type-check && biome check",
+	  "format": "biome format --write",
+    "lint": "biome lint --write --fix",
     "prepare": "husky",
-    "type-check": "turbo run type-check"
+    "production:cancel": "turbo run production:cancel --filter=@project/*",
+		"production:deploy": "turbo run production:deploy --filter=@project/*",
+    "production:preview": "turbo run production:preview --filter=@project/*",
+    "production:refresh": "turbo run production:refresh --filter=@project/*"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.7",
