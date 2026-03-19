@@ -39,8 +39,8 @@ importers:
         specifier: 6.13.0
         version: 6.13.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
       '@pulumi/digitalocean':
-        specifier: 4.61.0
-        version: 4.61.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
+        specifier: 4.62.0
+        version: 4.62.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
       '@pulumi/kubernetes':
         specifier: 4.28.0
         version: 4.28.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
@@ -527,8 +527,8 @@ packages:
   '@pulumi/cloudflare@6.13.0':
     resolution: {integrity: sha512-M3tMo5/1S2NgOiCBhrN6gUYZg50/59HlAYQ1NsLkfb7prgH4aSdh7R01wgXlBQPu2BtiZswCtAigMdyAXVA+Ig==}
 
-  '@pulumi/digitalocean@4.61.0':
-    resolution: {integrity: sha512-lG8HSnfGhQAmizDZFhIPv2Bn7me5e7Yf39czzmukD0VTB+Y91WBtrmrnuYyNW5tzACUveGtW27wq1aiCZaSvrg==}
+  '@pulumi/digitalocean@4.62.0':
+    resolution: {integrity: sha512-8RM8BKrGYsjZg25VHcQP3/Bnj9gplTJAk53R8PGnwAhieRwfljSW09fVXjr3sYdfNN3n8U27XmT+4C2VWGB1rA==}
 
   '@pulumi/kubernetes@4.28.0':
     resolution: {integrity: sha512-tdoUN7blJv1rrwr+2Pc55CP/+L1sMkH3z5Y7DI2yfNiGgdeaOHYia+hYsnLgR4HtBSfIfuBVWxGkZwGWOgUmOQ==}
@@ -2094,7 +2094,7 @@ snapshots:
       - ts-node
       - typescript
 
-  '@pulumi/digitalocean@4.61.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)':
+  '@pulumi/digitalocean@4.62.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
       '@pulumi/pulumi': 3.226.0(ts-node@10.9.2(@types/node@24.12.0)(typescript@5.9.3))(typescript@5.9.3)
     transitivePeerDependencies:
