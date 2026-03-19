@@ -1,0 +1,6 @@
+name: luigitrans
+description: Luigi Trans DNS infrastructure
+runtime:
+  name: nodejs
+  options:
+    typescript: false

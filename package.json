@@ -12,32 +12,25 @@
   },
   "license": "UNLICENSED",
   "author": "Mate Nakic",
-  "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && cp src/Chart.yaml dist/src/.",
+    "build": "turbo run build",
+    "production:deploy": "turbo run production:deploy --filter=@project/*",
+    "production:preview": "turbo run production:preview --filter=@project/*",
+    "production:refresh": "turbo run production:refresh --filter=@project/*",
+    "production:cancel": "turbo run production:cancel --filter=@project/*",
     "format": "biome format",
     "format:check": "biome check",
     "lint": "biome lint",
     "prepare": "husky",
-    "type-check": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@pulumi/cloudflare": "6.13.0",
-    "@pulumi/digitalocean": "4.61.0",
-    "@pulumi/kubernetes": "4.28.0",
-    "@pulumi/pulumi": "3.226.0",
-    "superstruct": "2.0.2",
-    "yaml": "2.8.2"
+    "type-check": "turbo run type-check"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.7",
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
-    "@types/node": "24.12.0",
     "husky": "9.1.7",
-    "ts-node": "10.9.2",
-    "typescript": "5.9.3"
+    "turbo": "2.8.19"
   },
   "resolutions": {
     "ajv": "8.18.0",

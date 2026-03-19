@@ -1,0 +1,27 @@
+{
+	"name": "@project/cromanjonac",
+	"private": true,
+	"type": "module",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc && cp src/Chart.yaml dist/src/.",
+		"type-check": "tsc --noEmit",
+		"production:preview": "pulumi preview --stack production --suppress-progress --non-interactive",
+		"production:refresh": "pulumi refresh --stack production --run-program=true --skip-preview --suppress-progress --non-interactive",
+		"production:deploy": "pulumi up --stack production --skip-preview --suppress-progress --non-interactive",
+		"production:cancel": "pulumi cancel --yes --stack production"
+	},
+	"dependencies": {
+		"@pulumi/cloudflare": "6.13.0",
+		"@pulumi/digitalocean": "4.61.0",
+		"@pulumi/kubernetes": "4.28.0",
+		"@pulumi/pulumi": "3.226.0",
+		"superstruct": "2.0.2",
+		"yaml": "2.8.2"
+	},
+	"devDependencies": {
+		"@package/typescript-config": "workspace:*",
+		"@types/node": "24.12.0",
+		"typescript": "5.9.3"
+	}
+}

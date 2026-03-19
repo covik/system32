@@ -1,5 +1,6 @@
-node_modules
+**/node_modules
 *.log
-dist
+**/dist
 kubeconfig.yml
 .pnpm-store
+**/.turbo

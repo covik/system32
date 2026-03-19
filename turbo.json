@@ -1,0 +1,32 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "type-check": {
+      "dependsOn": ["^type-check"],
+      "outputs": []
+    },
+    "production:preview": {
+      "dependsOn": ["build", "^production:preview"],
+      "passThroughEnv": ["PULUMI_ACCESS_TOKEN", "PULUMI_CI", "CI", "GITHUB_*"],
+      "cache": false
+    },
+    "production:refresh": {
+      "dependsOn": ["build", "^production:refresh"],
+      "passThroughEnv": ["PULUMI_ACCESS_TOKEN", "PULUMI_CI", "CI", "GITHUB_*"],
+      "cache": false
+    },
+    "production:deploy": {
+      "dependsOn": ["build", "^production:deploy"],
+      "passThroughEnv": ["PULUMI_ACCESS_TOKEN", "PULUMI_CI", "CI", "GITHUB_*"],
+      "cache": false
+    },
+    "production:cancel": {
+      "passThroughEnv": ["PULUMI_ACCESS_TOKEN", "PULUMI_CI", "CI", "GITHUB_*"],
+      "cache": false
+    }
+  }
+}

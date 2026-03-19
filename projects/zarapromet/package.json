@@ -1,0 +1,23 @@
+{
+	"name": "@project/zarapromet",
+	"private": true,
+	"type": "module",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc",
+		"type-check": "tsc --noEmit",
+		"production:preview": "pulumi preview --stack production --suppress-progress --non-interactive",
+		"production:refresh": "pulumi refresh --stack production --run-program=true --skip-preview --suppress-progress --non-interactive",
+		"production:deploy": "pulumi up --stack production --skip-preview --suppress-progress --non-interactive",
+		"production:cancel": "pulumi cancel --yes --stack production"
+	},
+	"dependencies": {
+		"@pulumi/cloudflare": "6.13.0",
+		"@pulumi/pulumi": "3.226.0"
+	},
+	"devDependencies": {
+		"@package/typescript-config": "workspace:*",
+		"@types/node": "24.12.0",
+		"typescript": "5.9.3"
+	}
+}

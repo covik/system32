@@ -2,12 +2,12 @@ import * as cloudflare from "@pulumi/cloudflare";
 import * as digitalocean from "@pulumi/digitalocean";
 import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
-import * as app from "../resources/app/index.js";
-import * as cluster from "../resources/cluster/index.js";
-import * as gateway from "../resources/gateway/index.js";
-import * as monitoring from "../resources/monitoring/index.js";
-import * as security from "../resources/security/index.js";
-import { createMysqlConnectionString } from "../utils/index.js";
+import * as app from "./src/resources/app/index.js";
+import * as cluster from "./src/resources/cluster/index.js";
+import * as gateway from "./src/resources/gateway/index.js";
+import * as monitoring from "./src/resources/monitoring/index.js";
+import * as security from "./src/resources/security/index.js";
+import { createMysqlConnectionString } from "./src/utils/index.js";
 
 const domain = "zth.dev";
 const zarafleetDomain = "zarafleet.com";
@@ -30,7 +30,7 @@ const fmsMysqlFlags = {
 	"sessionVariables=sql_require_primary_key": "1",
 };
 
-export function resources(): unknown {
+function resources(): unknown {
 	const config = new pulumi.Config();
 	const cloudflareConfig = new pulumi.Config("cloudflare");
 	const region = config.require("region");
@@ -565,3 +565,5 @@ function setupKubernetesResources(
 		},
 	);
 }
+
+export default resources();
