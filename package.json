@@ -15,6 +15,9 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
+    "production:deploy": "turbo run production:deploy --filter=@project/*",
+    "production:preview": "turbo run production:preview --filter=@project/*",
+    "production:refresh": "turbo run production:refresh --filter=@project/*",
     "format": "biome format",
     "format:check": "biome check",
     "lint": "biome lint",

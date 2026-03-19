@@ -8,6 +8,18 @@
     "type-check": {
       "dependsOn": ["^type-check"],
       "outputs": []
+    },
+    "production:preview": {
+      "dependsOn": ["build", "^production:preview"],
+      "cache": false
+    },
+    "production:refresh": {
+      "dependsOn": ["build", "^production:refresh"],
+      "cache": false
+    },
+    "production:deploy": {
+      "dependsOn": ["build", "^production:deploy"],
+      "cache": false
     }
   }
 }
