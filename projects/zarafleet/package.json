@@ -8,7 +8,8 @@
 		"type-check": "tsc --noEmit",
 		"production:preview": "pulumi preview --stack production --suppress-progress --non-interactive",
 		"production:refresh": "pulumi refresh --stack production --run-program=true --skip-preview --suppress-progress --non-interactive",
-		"production:deploy": "pulumi up --stack production --skip-preview --suppress-progress --non-interactive"
+		"production:deploy": "pulumi up --stack production --skip-preview --suppress-progress --non-interactive",
+		"production:cancel": "pulumi cancel --yes --stack production"
 	},
 	"dependencies": {
 		"@pulumi/cloudflare": "6.13.0",
