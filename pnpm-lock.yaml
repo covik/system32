@@ -27,6 +27,9 @@ importers:
       husky:
         specifier: 9.1.7
         version: 9.1.7
+      turbo:
+        specifier: 2.8.19
+        version: 2.8.19
 
   packages/typescript-config: {}
 
@@ -601,6 +604,36 @@ packages:
   '@tufjs/models@4.1.0':
     resolution: {integrity: sha512-Y8cK9aggNRsqJVaKUlEYs4s7CvQ1b1ta2DVPyAimb0I2qhzjNk+A+mxvll/klL0RlfuIUei8BF7YWiua4kQqww==}
     engines: {node: ^20.17.0 || >=22.9.0}
+
+  '@turbo/darwin-64@2.8.19':
+    resolution: {integrity: sha512-WNzpqJV7rO/oKmsxjtSFXuV87fZb/qxzeGWXJng4oHFz7iPOFSWrPb2gTazJgoTvXUfe1kOH2o0F+zFrerwzRw==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@turbo/darwin-arm64@2.8.19':
+    resolution: {integrity: sha512-KTq8/PH0/ml9bNFomZ2VjmOqW6RYPRqBqV5CfNeD5ekJMuNwJUdeQz0qXguxCzW4OkHCnTdPeKIehR0cdQObPg==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@turbo/linux-64@2.8.19':
+    resolution: {integrity: sha512-d0xcXiGUt1Q/HzMfgkqai5KyXrassLRuUZhxmUs4ZX99tQFbqRL2/CkSKCnMqyDv7c0K5eugLerVUY+DYr1DQg==}
+    cpu: [x64]
+    os: [linux]
+
+  '@turbo/linux-arm64@2.8.19':
+    resolution: {integrity: sha512-UX3r1iwqsOK8dMgKFtZpDqZk7feqHXZJ/EQAknh0SVQrnc4vkm6mZqjX4j2j3DVoSo4Ho8xGITYlor9Xxsyomw==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@turbo/windows-64@2.8.19':
+    resolution: {integrity: sha512-3MrvD/gMYWfQKZVZOeilKm1629zPG0+KlErZbI0n9Nr3L32+5qrZOF/cgWErukLnOSR38whgf8t2WaPJQALqxg==}
+    cpu: [x64]
+    os: [win32]
+
+  '@turbo/windows-arm64@2.8.19':
+    resolution: {integrity: sha512-j+8mi7kyEgT7cUTPOtPJS8KbTWxu4+OQBiDIo+zklz/RKV4hoN+k4+J8iCM9Nj+o+SVnzc01xSI+s3eBG0MDSA==}
+    cpu: [arm64]
+    os: [win32]
 
   '@types/cacheable-request@6.0.3':
     resolution: {integrity: sha512-IQ3EbTzGxIigb1I3qPZc1rWJnH0BmSKv5QYTalEwweFvyBDLSAe24zP0le/hyi7ecGfZVlIVAg4BZqb8WBwKqw==}
@@ -1468,6 +1501,10 @@ packages:
     resolution: {integrity: sha512-50QV99kCKH5P/Vs4E2Gzp7BopNV+KzTXqWeaxrfu5IQJBOULRsTIS9seSsOVT8ZnGXzCyx55nYWAi4qJzpZKEQ==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
+  turbo@2.8.19:
+    resolution: {integrity: sha512-9NTKvQZ/02XnJCSU4mF5gvAPK+nuLbvCtft/NE8dJeOwaup0bJ14rYx7TxmSXp8JJuAN8nAjqfXWFsWwoQSFHg==}
+    hasBin: true
+
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
@@ -2174,6 +2211,24 @@ snapshots:
     dependencies:
       '@tufjs/canonical-json': 2.0.0
       minimatch: 10.2.4
+
+  '@turbo/darwin-64@2.8.19':
+    optional: true
+
+  '@turbo/darwin-arm64@2.8.19':
+    optional: true
+
+  '@turbo/linux-64@2.8.19':
+    optional: true
+
+  '@turbo/linux-arm64@2.8.19':
+    optional: true
+
+  '@turbo/windows-64@2.8.19':
+    optional: true
+
+  '@turbo/windows-arm64@2.8.19':
+    optional: true
 
   '@types/cacheable-request@6.0.3':
     dependencies:
@@ -3040,6 +3095,15 @@ snapshots:
       make-fetch-happen: 15.0.3
     transitivePeerDependencies:
       - supports-color
+
+  turbo@2.8.19:
+    optionalDependencies:
+      '@turbo/darwin-64': 2.8.19
+      '@turbo/darwin-arm64': 2.8.19
+      '@turbo/linux-64': 2.8.19
+      '@turbo/linux-arm64': 2.8.19
+      '@turbo/windows-64': 2.8.19
+      '@turbo/windows-arm64': 2.8.19
 
   typescript@5.9.3: {}
 

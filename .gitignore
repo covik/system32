@@ -3,3 +3,4 @@
 **/dist
 kubeconfig.yml
 .pnpm-store
+**/.turbo

@@ -14,18 +14,19 @@
   "author": "Mate Nakic",
   "type": "module",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "turbo run build",
     "format": "biome format",
     "format:check": "biome check",
     "lint": "biome lint",
     "prepare": "husky",
-    "type-check": "pnpm -r type-check"
+    "type-check": "turbo run type-check"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.7",
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
-    "husky": "9.1.7"
+    "husky": "9.1.7",
+    "turbo": "2.8.19"
   },
   "resolutions": {
     "ajv": "8.18.0",

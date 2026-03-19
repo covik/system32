@@ -30,7 +30,8 @@
 	},
 	"json.schemaDownload.trustedDomains": {
 		"https://biomejs.dev/schemas/2.4.7/schema.json": true,
-		"https://docs.renovatebot.com/renovate-schema.json": true
+		"https://docs.renovatebot.com/renovate-schema.json": true,
+		"https://turborepo.dev/schema.json": true
 	},
 	"github-actions.workflows.pinned.workflows": [".github/workflows/ci.yaml"]
 }
