@@ -50,7 +50,7 @@ jobs:
             GITHUB_RUN_NUMBER=${{ github.run_number }}
             GITHUB_WORKFLOW=${{ github.workflow }}
             GITHUB_ACTOR=${{ github.actor }}
-          runCmd: pnpm --filter @project/cromanjonac build && pulumi preview --cwd projects/cromanjonac --stack production --suppress-progress --non-interactive
+          runCmd: pnpm --filter @project/cromanjonac production:preview
 
   deploy:
     name: "Deploy"
@@ -83,10 +83,7 @@ jobs:
             GITHUB_ACTOR=${{ github.actor }}
           runCmd: |
             set -euo pipefail
-            pnpm --filter @project/cromanjonac build
-            pulumi refresh --cwd projects/cromanjonac --stack production \
-              --run-program=true --skip-preview \
-              --suppress-progress --non-interactive \
+            pnpm --filter @project/cromanjonac production:refresh \
               2>&1 | tee refresh.log
 
             {
@@ -116,7 +113,7 @@ jobs:
             GITHUB_RUN_NUMBER=${{ github.run_number }}
             GITHUB_WORKFLOW=${{ github.workflow }}
             GITHUB_ACTOR=${{ github.actor }}
-          runCmd: pnpm --filter @project/cromanjonac build && pulumi up --cwd projects/cromanjonac --stack production --skip-preview --suppress-progress --non-interactive
+          runCmd: pnpm --filter @project/cromanjonac production:deploy
 
       - name: Cancel update on failure
         if: failure() || cancelled()
