@@ -2,6 +2,9 @@
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": ["config:recommended", "workarounds:typesNodeVersioning"],
 	"timezone": "Europe/Zagreb",
+	"semanticCommits": "disabled",
+	"commitMessagePrefix": "deps:",
+	"commitMessageAction": "update",
 	"packageRules": [
 		{
 			"matchUpdateTypes": ["major"],
