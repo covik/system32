@@ -39,6 +39,7 @@ module.exports = {
 	rules: {
 		"scope-enum": [2, "always", Array.from(new Set(allowedScopes)).sort()],
 		"scope-empty": [2, "never"],
+		"subject-case": [0],
 		"subject-empty": [2, "never"],
 		"type-enum": [2, "always", allowedActions],
 		"type-empty": [2, "never"],
