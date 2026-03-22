@@ -25,6 +25,7 @@ const allowedActions = [
 	"revert",
 	"rework",
 	"test",
+	"update",
 ];
 
 module.exports = {
