@@ -1,7 +1,8 @@
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const workspaceRoot = __dirname;
+const workspaceRoot = path.dirname(fileURLToPath(import.meta.url));
 const projectScopes = getDirectoryNames(path.join(workspaceRoot, "projects"));
 const packageScopes = getDirectoryNames(path.join(workspaceRoot, "packages"));
 
@@ -28,7 +29,7 @@ const allowedActions = [
 	"update",
 ];
 
-module.exports = {
+export default {
 	extends: ["@commitlint/config-conventional"],
 	parserPreset: {
 		parserOpts: {
