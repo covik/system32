@@ -2,7 +2,8 @@
 	"dockerFile": "Dockerfile",
 	"postCreateCommand": "pnpm install --frozen-lockfile --ignore-scripts",
 	"containerEnv": {
-		"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml"
+		"KUBECONFIG": "${containerWorkspaceFolder}/kubeconfig.yml",
+		"TURBO_TELEMETRY_DISABLED": "1"
 	},
 	"customizations": {
 		"vscode": {
