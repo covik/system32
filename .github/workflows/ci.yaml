@@ -52,8 +52,8 @@ jobs:
             GITHUB_ACTOR=${{ github.actor }}
           runCmd: pnpm production:preview
 
-  deploy:
-    name: "Deploy"
+  refresh:
+    name: "Refresh"
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     concurrency: "deploy"
     runs-on: ubuntu-latest
@@ -95,6 +95,21 @@ jobs:
               echo '```'
               echo "</details>"
             } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy:
+    name: "Deploy"
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    concurrency: "deploy"
+    needs:
+      - refresh
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Pulumi Up (Deploy to Production)
         uses: devcontainers/ci@v0.3
