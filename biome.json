@@ -11,8 +11,11 @@
 			"projects/**/*",
 			"packages/**/*",
 			"**/.vscode/**/*",
+			"**/*.json",
+			"**/*.yaml",
 			"!**/dist",
-			"!.husky"
+			"!.husky",
+			"!pnpm-lock.yaml"
 		]
 	},
 	"formatter": {

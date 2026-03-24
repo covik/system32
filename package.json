@@ -1,46 +1,46 @@
 {
-  "name": "system32",
-  "private": true,
-  "description": "Hello world",
-  "homepage": "https://zth.dev",
-  "bugs": {
-    "url": "https://github.com/covik/system32/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/covik/system32"
-  },
-  "license": "UNLICENSED",
-  "author": "Mate Nakic",
-  "type": "module",
-  "scripts": {
-    "build": "turbo run build",
-    "check": "turbo run type-check && biome check",
-	  "format": "biome format --write",
-    "lint": "biome lint --write --fix",
-    "prepare": "husky",
-    "production:cancel": "turbo run production:cancel --filter=@project/*",
+	"name": "system32",
+	"private": true,
+	"description": "Hello world",
+	"homepage": "https://zth.dev",
+	"bugs": {
+		"url": "https://github.com/covik/system32/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/covik/system32"
+	},
+	"license": "UNLICENSED",
+	"author": "Mate Nakic",
+	"type": "module",
+	"scripts": {
+		"build": "turbo run build",
+		"check": "turbo run type-check && biome check",
+		"format": "biome format --write",
+		"lint": "biome lint --write --fix",
+		"prepare": "husky",
+		"production:cancel": "turbo run production:cancel --filter=@project/*",
 		"production:deploy": "turbo run production:deploy --filter=@project/*",
-    "production:preview": "turbo run production:preview --filter=@project/*",
-    "production:refresh": "turbo run production:refresh --filter=@project/*"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.4.8",
-    "@commitlint/cli": "20.5.0",
-    "@commitlint/config-conventional": "20.5.0",
-    "husky": "9.1.7",
-    "turbo": "2.8.20"
-  },
-  "resolutions": {
-    "ajv": "8.18.0",
-    "glob": "13.0.6",
-    "minimatch": "10.2.4",
-    "typescript": "5.9.3",
-    "tar": "7.5.13"
-  },
-  "engines": {
-    "node": ">= 22",
-    "pnpm": ">= 10.29.3"
-  },
-  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
+		"production:preview": "turbo run production:preview --filter=@project/*",
+		"production:refresh": "turbo run production:refresh --filter=@project/*"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.8",
+		"@commitlint/cli": "20.5.0",
+		"@commitlint/config-conventional": "20.5.0",
+		"husky": "9.1.7",
+		"turbo": "2.8.20"
+	},
+	"resolutions": {
+		"ajv": "8.18.0",
+		"glob": "13.0.6",
+		"minimatch": "10.2.4",
+		"typescript": "5.9.3",
+		"tar": "7.5.13"
+	},
+	"engines": {
+		"node": ">= 22",
+		"pnpm": ">= 10.29.3"
+	},
+	"packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
 }
