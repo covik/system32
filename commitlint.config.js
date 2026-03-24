@@ -19,6 +19,7 @@ const allowedActions = [
 	"build",
 	"document",
 	"fix",
+	"format",
 	"improve",
 	"migrate",
 	"refactor",
