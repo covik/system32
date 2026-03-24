@@ -67,7 +67,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Pulumi refresh production
+      - name: Refresh production
         uses: devcontainers/ci@v0.3
         with:
           env: |
@@ -100,7 +100,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Pulumi Up (Deploy to Production)
+      - name: Deploy production
         uses: devcontainers/ci@v0.3
         with:
           env: |
