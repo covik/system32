@@ -78,7 +78,7 @@ jobs:
           runCmd: pnpm production:preview 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Upsert PR comment
-        if: always()
+        if: github.event_name == 'pull_request' && always()
         uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: preview
