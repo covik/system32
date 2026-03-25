@@ -26,6 +26,8 @@ jobs:
         uses: devcontainers/ci@v0.3
         continue-on-error: true
         with:
+          # Intentionally append lint output to the step summary while still allowing
+          # devcontainers/ci to capture the full command output as runCmdOutput.
           runCmd: pnpm check 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Upsert PR comment
