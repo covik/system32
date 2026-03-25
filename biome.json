@@ -10,7 +10,6 @@
 		"includes": [
 			"projects/**/*",
 			"packages/**/*",
-			"**/.vscode/**/*",
 			"**/*.json",
 			"**/*.yaml",
 			"!**/dist",
