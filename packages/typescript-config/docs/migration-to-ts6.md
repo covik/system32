@@ -19,7 +19,8 @@ An unresolved side-effect import means that TypeScript cannot resolve that modul
 
 - Automatic: run `pnpm run check` from repository root. With `noUncheckedSideEffectImports: true`, TypeScript reports unresolved side-effect import paths as diagnostics.
 - Manual review:
-  - Search for side-effect imports (`import "..."` or `import './...'` with no imported bindings).
+  - Search for side-effect imports with no bindings, for example:
+    - `rg -n "^[[:space:]]*import[[:space:]]+['\"][^'\"]+['\"];?" /home/runner/work/system32/system32/projects`
   - Confirm each path/package exists and resolves from the importing file (`index.ts`, `package.json` export path, or installed package entrypoint).
   - Verify path casing matches actual files (important on case-sensitive filesystems in CI/production).
 
