@@ -2,6 +2,7 @@
 	"extends": "@package/typescript-config/base.json",
 	"compilerOptions": {
 		"outDir": "dist",
+		"rootDir": ".",
 		"composite": false,
 		"declaration": false,
 		"declarationMap": false
