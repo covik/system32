@@ -10,6 +10,7 @@ overrides:
   glob: 13.0.6
   minimatch: 10.2.5
   picomatch: 4.0.4
+  protobufjs: 7.5.5
   typescript: 5.9.3
   tar: 7.5.13
 
@@ -1206,8 +1207,8 @@ packages:
     resolution: {integrity: sha512-y+WKFlBR8BGXnsNlIHFGPZmyDf3DFMoLhaflAnyZgV6rG6xu+JwesTo2Q9R6XwYmtmwAFCkAk3e35jEdoeh/3g==}
     engines: {node: '>=10'}
 
-  protobufjs@7.5.4:
-    resolution: {integrity: sha512-CvexbZtbov6jW2eXAvLukXjXUW1TzFaivC46BpWc/3BpcCysb5Vffu+B3XHMm8lVEuy2Mm4XGex8hBSg1yapPg==}
+  protobufjs@7.5.5:
+    resolution: {integrity: sha512-3wY1AxV+VBNW8Yypfd1yQY9pXnqTAN+KwQxL8iYm3/BjKYMNg4i0owhEe26PWDOMaIrzeeF98Lqd5NGz4omiIg==}
     engines: {node: '>=12.0.0'}
 
   read-cmd-shim@6.0.0:
@@ -1641,7 +1642,7 @@ snapshots:
     dependencies:
       lodash.camelcase: 4.3.0
       long: 5.3.2
-      protobufjs: 7.5.4
+      protobufjs: 7.5.5
       yargs: 17.7.2
 
   '@isaacs/fs-minipass@4.0.1':
@@ -1863,7 +1864,7 @@ snapshots:
       '@opentelemetry/sdk-logs': 0.57.2(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-metrics': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 1.30.1(@opentelemetry/api@1.9.0)
-      protobufjs: 7.5.4
+      protobufjs: 7.5.5
 
   '@opentelemetry/propagator-b3@1.30.1(@opentelemetry/api@1.9.0)':
     dependencies:
@@ -2652,7 +2653,7 @@ snapshots:
       err-code: 2.0.3
       retry: 0.12.0
 
-  protobufjs@7.5.4:
+  protobufjs@7.5.5:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
       '@protobufjs/base64': 1.1.2
