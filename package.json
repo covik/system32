@@ -38,7 +38,7 @@
 		"minimatch": "10.2.5",
 		"picomatch": "4.0.4",
 		"protobufjs": "7.5.5",
-		"typescript": "5.9.3",
+		"typescript": "6.0.3",
 		"tar": "7.5.13"
 	},
 	"engines": {
