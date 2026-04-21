@@ -10,7 +10,7 @@ dependencies:
     version: 1.7.2
     repository: 'oci://docker.io/envoyproxy'
   - name: k8s-monitoring
-    version: 3.8.6
+    version: 3.8.7
     repository: 'https://grafana.github.io/helm-charts'
   - name: cert-manager
     version: v1.20.2
