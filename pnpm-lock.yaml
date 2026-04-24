@@ -48,8 +48,8 @@ importers:
         specifier: 4.29.0
         version: 4.29.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.231.0
-        version: 3.231.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 3.232.0
+        version: 3.232.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
       superstruct:
         specifier: 2.0.2
         version: 2.0.2
@@ -73,8 +73,8 @@ importers:
         specifier: 6.14.0
         version: 6.14.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.231.0
-        version: 3.231.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 3.232.0
+        version: 3.232.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -92,8 +92,8 @@ importers:
         specifier: 6.14.0
         version: 6.14.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.231.0
-        version: 3.231.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 3.232.0
+        version: 3.232.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -111,8 +111,8 @@ importers:
         specifier: 6.14.0
         version: 6.14.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.231.0
-        version: 3.231.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 3.232.0
+        version: 3.232.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -514,8 +514,8 @@ packages:
   '@pulumi/kubernetes@4.29.0':
     resolution: {integrity: sha512-gA0Kg76en7DStYFM72nKNdy5ByGztCeRfXzxE+Ww7GW9eb8xosc/kZX7r4u9LQURNqPvys+7JM2O+GTqUNcakg==}
 
-  '@pulumi/pulumi@3.231.0':
-    resolution: {integrity: sha512-aAIMkMkbxjGRZ8ldvvm2BPd5JwmJ23QM/vS8iMNpxf8wSDJcIUqx6AtAw2TKTeXlRL4iUMh1xvrXf7APRUwnMg==}
+  '@pulumi/pulumi@3.232.0':
+    resolution: {integrity: sha512-5Pl48cCwOOZEvG7b6w6sErrD1D/QiEwiPqEtHCIzF/alU0yzFjo95uxNteKFlt0LsnzWsZ58DJHgBe9gurjIFg==}
     engines: {node: '>=20'}
     peerDependencies:
       ts-node: '>= 7.0.1 < 12'
@@ -1939,7 +1939,7 @@ snapshots:
 
   '@pulumi/cloudflare@6.14.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.231.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
+      '@pulumi/pulumi': 3.232.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -1947,7 +1947,7 @@ snapshots:
 
   '@pulumi/digitalocean@4.64.1(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.231.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
+      '@pulumi/pulumi': 3.232.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -1955,7 +1955,7 @@ snapshots:
 
   '@pulumi/kubernetes@4.29.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.231.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
+      '@pulumi/pulumi': 3.232.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
       glob: 13.0.6
       shell-quote: 1.8.3
     transitivePeerDependencies:
@@ -1963,7 +1963,7 @@ snapshots:
       - ts-node
       - typescript
 
-  '@pulumi/pulumi@3.231.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)':
+  '@pulumi/pulumi@3.232.0(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
       '@grpc/grpc-js': 1.14.3
       '@logdna/tail-file': 2.2.0
