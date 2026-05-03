@@ -17,7 +17,7 @@
 		"@pulumi/kubernetes": "4.30.0",
 		"@pulumi/pulumi": "3.232.0",
 		"superstruct": "2.0.2",
-		"yaml": "2.8.3"
+		"yaml": "2.8.4"
 	},
 	"devDependencies": {
 		"@package/typescript-config": "workspace:*",
