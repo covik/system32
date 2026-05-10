@@ -17,7 +17,7 @@
 	},
 	"devDependencies": {
 		"@package/typescript-config": "workspace:*",
-		"@types/node": "24.12.2",
+		"@types/node": "24.12.3",
 		"typescript": "6.0.3"
 	}
 }
