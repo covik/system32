@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@pulumi/cloudflare": "6.15.0",
-		"@pulumi/pulumi": "3.234.0"
+		"@pulumi/pulumi": "3.239.0"
 	},
 	"devDependencies": {
 		"@package/typescript-config": "workspace:*",
