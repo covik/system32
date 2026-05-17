@@ -42,14 +42,14 @@ importers:
         specifier: 6.15.0
         version: 6.15.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/digitalocean':
-        specifier: 4.65.0
-        version: 4.65.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 4.66.0
+        version: 4.66.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/kubernetes':
-        specifier: 4.30.0
-        version: 4.30.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 4.31.0
+        version: 4.31.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.234.0
-        version: 3.234.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 3.239.0
+        version: 3.239.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
       superstruct:
         specifier: 2.0.2
         version: 2.0.2
@@ -73,8 +73,8 @@ importers:
         specifier: 6.15.0
         version: 6.15.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.234.0
-        version: 3.234.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 3.239.0
+        version: 3.239.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -92,8 +92,8 @@ importers:
         specifier: 6.15.0
         version: 6.15.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.234.0
-        version: 3.234.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 3.239.0
+        version: 3.239.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -111,8 +111,8 @@ importers:
         specifier: 6.15.0
         version: 6.15.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.234.0
-        version: 3.234.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+        specifier: 3.239.0
+        version: 3.239.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -508,14 +508,14 @@ packages:
   '@pulumi/cloudflare@6.15.0':
     resolution: {integrity: sha512-I2C1UA//YbkuGUV5O9skIMUu94StNSE4hiAU57GFtyL7WEqAMJLvV8Vpcu1192rI1/ZwFIJeR4MbAZfiYlPFqA==}
 
-  '@pulumi/digitalocean@4.65.0':
-    resolution: {integrity: sha512-Zh71o8jkCygIFZuG6O6id/BXjFoVgOt7V6NIREyUOi/dyyb5YtcNClQeOFyqzstadia2aC+Qyx6odoOE9KEG2Q==}
+  '@pulumi/digitalocean@4.66.0':
+    resolution: {integrity: sha512-zBxy306FjvEqF8D0eOhCgonBCAYkoNKEXqFMCHtkWWHcDJf2kDopBqAB66kEcKJmjm9Qvf+7e9pSAfNbKxSuxA==}
 
-  '@pulumi/kubernetes@4.30.0':
-    resolution: {integrity: sha512-ZCS4HwBvcxfdPDw44L1/SCqoIttCVugx/FZzqRFRq+leKRIfigAYt4sILXlqulNtX6XjlWVzZO8zva3Ygk7hGA==}
+  '@pulumi/kubernetes@4.31.0':
+    resolution: {integrity: sha512-Lc0W0IQ/03o5KgV3j8KjWVSkZqo/qzyYy8/AInft54yFoTcu++xhoBVDU3l1NBf+Q0BsONYPKsn4Z00a7Y9alQ==}
 
-  '@pulumi/pulumi@3.234.0':
-    resolution: {integrity: sha512-g9tXFsk0gGkZUV1fjy45b+yRRr2ydSzyt0ZcnUjOzG8K4A0d/gzP82Og6IAcifU5Lv6InyDdONw4nRrJrTj+5Q==}
+  '@pulumi/pulumi@3.239.0':
+    resolution: {integrity: sha512-3OqN4x1OYgan3LvkiYCQYapm9phYnZzcu3usvovAXcQA3x5N5izHi9lmx0N/NLRsQQswE021ZvTTC2HZrYcqTg==}
     engines: {node: '>=20'}
     peerDependencies:
       ts-node: '>= 7.0.1 < 12'
@@ -1918,23 +1918,23 @@ snapshots:
 
   '@pulumi/cloudflare@6.15.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.234.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+      '@pulumi/pulumi': 3.239.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
       - typescript
 
-  '@pulumi/digitalocean@4.65.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)':
+  '@pulumi/digitalocean@4.66.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.234.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+      '@pulumi/pulumi': 3.239.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
       - typescript
 
-  '@pulumi/kubernetes@4.30.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)':
+  '@pulumi/kubernetes@4.31.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.234.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
+      '@pulumi/pulumi': 3.239.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)
       glob: 13.0.6
       shell-quote: 1.8.3
     transitivePeerDependencies:
@@ -1942,7 +1942,7 @@ snapshots:
       - ts-node
       - typescript
 
-  '@pulumi/pulumi@3.234.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)':
+  '@pulumi/pulumi@3.239.0(ts-node@10.9.2(@types/node@24.12.4)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
       '@grpc/grpc-js': 1.14.3
       '@logdna/tail-file': 2.2.0
