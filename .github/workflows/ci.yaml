@@ -16,13 +16,37 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: devcontainers/ci@v0.3
+
+      - id: lint
+        uses: devcontainers/ci@v0.3
+        continue-on-error: true
         with:
-          runCmd: pnpm check >> "$GITHUB_STEP_SUMMARY" 2>&1
+          # Intentionally append lint output to the step summary while still allowing
+          # devcontainers/ci to capture the full command output as runCmdOutput.
+          runCmd: pnpm check 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upsert PR comment
+        if: github.event_name == 'pull_request' && always()
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: lint
+          message: |
+            ## Lint
+
+            Status: ${{ steps.lint.outcome }}
+
+            ```text
+            ${{ steps.lint.outputs.runCmdOutput || 'No output captured.' }}
+            ```
+
+      - name: Fail job when lint fails
+        if: steps.lint.outcome == 'failure'
+        run: exit 1
 
   preview:
     name: "Preview"
@@ -35,7 +59,10 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: devcontainers/ci@v0.3
+
+      - id: preview
+        uses: devcontainers/ci@v0.3
+        continue-on-error: true
         with:
           env: |
             PULUMI_ACCESS_TOKEN=${{ secrets.PULUMI_ACCESS_TOKEN }}
@@ -50,7 +77,25 @@ jobs:
             GITHUB_RUN_NUMBER=${{ github.run_number }}
             GITHUB_WORKFLOW=${{ github.workflow }}
             GITHUB_ACTOR=${{ github.actor }}
-          runCmd: pnpm production:preview
+          runCmd: pnpm production:preview 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upsert PR comment
+        if: github.event_name == 'pull_request' && always()
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: preview
+          message: |
+            ## Preview
+
+            Status: ${{ steps.preview.outcome }}
+
+            ```text
+            ${{ steps.preview.outputs.runCmdOutput || 'No output captured.' }}
+            ```
+
+      - name: Fail job when preview fails
+        if: steps.preview.outcome == 'failure'
+        run: exit 1
 
   refresh:
     name: "Refresh"
@@ -61,7 +106,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write
     steps:
       - uses: actions/checkout@v6
         with:
@@ -94,7 +138,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write
     steps:
       - uses: actions/checkout@v6
         with:
