@@ -139,7 +139,7 @@ Kontakt je uključen na vozilu $device.name
 								{
 									name: "server",
 									image:
-										"tracar/traccar:6.14.4@sha256:f187e0be41503f1365fec62cb3075c8545fa6b325a5ac47e37667a47e7a31459",
+										"traccar/traccar:6.14.4@sha256:f187e0be41503f1365fec62cb3075c8545fa6b325a5ac47e37667a47e7a31459",
 									imagePullPolicy: "IfNotPresent",
 									ports: [
 										{
