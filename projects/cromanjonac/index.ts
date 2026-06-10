@@ -27,7 +27,7 @@ const fmsMysqlFlags = {
 	autoReconnect: "true",
 	useUnicode: "yes",
 	characterEncoding: "UTF-8",
-	"sessionVariables=sql_require_primary_key": "1",
+	"sessionVariables=sql_mode": "''",
 };
 
 function resources(): unknown {
