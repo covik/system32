@@ -13,9 +13,9 @@
 	},
 	"dependencies": {
 		"@pulumi/cloudflare": "6.17.0",
-		"@pulumi/digitalocean": "4.68.0",
+		"@pulumi/digitalocean": "4.69.0",
 		"@pulumi/kubernetes": "4.32.0",
-		"@pulumi/pulumi": "3.245.0",
+		"@pulumi/pulumi": "3.246.0",
 		"superstruct": "2.0.2",
 		"yaml": "2.9.0"
 	},
