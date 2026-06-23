@@ -68,7 +68,7 @@ txtRecords.forEach((record, index) => {
 	});
 });
 
-const hostnames = [dnsZone.name, pulumi.interpolate`*.${dnsZone.name}`];
+const hostnames = [dnsZone.name, pulumi.interpolate`gps.${dnsZone.name}`];
 pulumi.all(hostnames).apply((hosts) => {
 	hosts.forEach((hostname, index) => {
 		new cloudflare.DnsRecord(`${domainSlug}-a-${index}`, {
