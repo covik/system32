@@ -19,8 +19,14 @@ const dnsZone = new cloudflare.Zone(
 
 new cloudflare.BotManagement(`${domainSlug}-bot-management`, {
 	zoneId: dnsZone.id,
+	aiBotsProtection: "block",
+	contentBotsProtection: "block",
+	crawlerProtection: "enabled",
 	fightMode: true,
 	enableJs: true,
+	sbfmDefinitelyAutomated: "block",
+	sbfmLikelyAutomated: "managed_challenge",
+	sbfmVerifiedBots: "allow",
 });
 
 const dnssec = new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
