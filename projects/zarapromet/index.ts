@@ -24,9 +24,6 @@ new cloudflare.BotManagement(`${domainSlug}-bot-management`, {
 	crawlerProtection: "enabled",
 	fightMode: true,
 	enableJs: true,
-	sbfmDefinitelyAutomated: "block",
-	sbfmLikelyAutomated: "managed_challenge",
-	sbfmVerifiedBots: "allow",
 });
 
 const dnssec = new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
