@@ -17,6 +17,11 @@ const dnsZone = new cloudflare.Zone(
 	},
 );
 
+new cloudflare.BotManagement(`${domainSlug}-bot-management`, {
+	zoneId: dnsZone.id,
+	fightMode: true,
+});
+
 const dnssec = new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
 	zoneId: dnsZone.id,
 	status: "active",
