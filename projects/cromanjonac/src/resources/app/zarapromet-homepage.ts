@@ -28,7 +28,7 @@ export class ZaraPrometHomePage extends pulumi.ComponentResource {
 
 		const appLabels = { app: "zarapromet-homepage-server" };
 		const image =
-			"ghcr.io/covik/zarapromet.hr@sha256:f716d97057806ed903f2a26cc79749bb86ff0f26f9c7fad24b75c7398a965891";
+			"ghcr.io/covik/zarapromet.hr@sha256:3d2c510fc1adda620c7bd2cbb604a10eb7ee81135bea36643c32666c7ea34278";
 		const deployment = new k8s.apps.v1.Deployment(
 			`${name}-deployment`,
 			{
