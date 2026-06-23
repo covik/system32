@@ -81,6 +81,14 @@ pulumi.all(hostnames).apply((hosts) => {
 	});
 });
 
+new cloudflare.DnsRecord(`next-${domainSlug}-cname`, {
+	zoneId: dnsZone.id,
+	name: pulumi.interpolate`next.${dnsZone.name}`,
+	type: "CNAME",
+	content: "zth.dev",
+	ttl: 1800,
+});
+
 export const nameservers = dnsZone.nameServers;
 export const ds = {
 	keyTag: dnssec.keyTag,

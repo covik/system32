@@ -18,25 +18,6 @@ export class ZaraPrometHomePage extends pulumi.ComponentResource {
 		opts?: pulumi.ComponentResourceOptions,
 	) {
 		super("fms:app:ZaraPrometHomePage", name, args, opts);
-		const hostname = "zarapromet.hr";
-
-		const dnsZone = cloudflare.Zone.get(
-			hostname,
-			"5be21630023716ba935edeb19f232538",
-			{},
-		);
-
-		new cloudflare.DnsRecord(
-			"cname-to-zth.dev",
-			{
-				zoneId: dnsZone.id,
-				name: `next.${hostname}`,
-				type: "CNAME",
-				content: "zth.dev",
-				ttl: 1800,
-			},
-			{ parent: this },
-		);
 
 		const namespace = new k8s.core.v1.Namespace(
 			`${name}-ns`,
