@@ -564,6 +564,57 @@ function setupKubernetesResources(
 			provider,
 		},
 	);
+
+	const zaraprometHomepage = new app.ZaraPrometHomePage(
+		"zarapromet-homepage",
+		{
+			cpu: "0.09",
+			memory: "200Mi",
+		},
+		kubernetesComponentOptions,
+	);
+
+	new k8s.apiextensions.CustomResource(
+		"zarapromet-homepage-route",
+		{
+			apiVersion: "gateway.networking.k8s.io/v1",
+			kind: "HTTPRoute",
+			metadata: {
+				namespace: zaraprometHomepage.namespaceName,
+			},
+			spec: {
+				parentRefs: [
+					{
+						name: gatewayInstance.metadata.name,
+						namespace: gatewayInstance.metadata.namespace,
+						sectionName: "https",
+					},
+				],
+				hostnames: [`next.zarapromet.hr`],
+				rules: [
+					{
+						matches: [
+							{
+								path: {
+									type: "PathPrefix",
+									value: "/",
+								},
+							},
+						],
+						backendRefs: [
+							{
+								name: zaraprometHomepage.serviceName,
+								port: zaraprometHomepage.servicePort,
+							},
+						],
+					},
+				],
+			},
+		},
+		{
+			provider,
+		},
+	);
 }
 
 export default resources();
