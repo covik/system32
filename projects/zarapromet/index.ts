@@ -74,6 +74,7 @@ new cloudflare.DnsRecord(`${domainSlug}-cname`, {
 	type: "CNAME",
 	content: "zth.dev",
 	ttl: 1800,
+	proxied: true,
 });
 
 new cloudflare.DnsRecord(`gps-${domainSlug}-a`, {
