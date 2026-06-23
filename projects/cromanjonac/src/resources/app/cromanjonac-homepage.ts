@@ -26,13 +26,19 @@ export class CromanjonacHomePage extends pulumi.ComponentResource {
 			{},
 		);
 
-		new cloudflare.DnsRecord("cname-to-zth.dev", {
-			zoneId: dnsZone.id,
-			name: hostname,
-			type: "CNAME",
-			content: "zth.dev",
-			ttl: 1800,
-		});
+		new cloudflare.DnsRecord(
+			"cname-to-zth.dev",
+			{
+				zoneId: dnsZone.id,
+				name: hostname,
+				type: "CNAME",
+				content: "zth.dev",
+				ttl: 1800,
+			},
+			{
+				parent: this,
+			},
+		);
 
 		const namespace = new k8s.core.v1.Namespace(
 			`${name}-ns`,
