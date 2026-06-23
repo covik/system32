@@ -367,6 +367,7 @@ function setupKubernetesResources(
 					zarafleetDomain,
 					`*.${zarafleetDomain}`,
 					cromanjonacDomain,
+					"next.zarapromet.hr",
 				],
 			},
 		},
