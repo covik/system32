@@ -68,25 +68,20 @@ txtRecords.forEach((record, index) => {
 	});
 });
 
-const hostnames = [dnsZone.name, pulumi.interpolate`gps.${dnsZone.name}`];
-pulumi.all(hostnames).apply((hosts) => {
-	hosts.forEach((hostname, index) => {
-		new cloudflare.DnsRecord(`${domainSlug}-a-${index}`, {
-			zoneId: dnsZone.id,
-			name: hostname,
-			type: "A",
-			content: "46.101.159.36",
-			ttl: 3600,
-		});
-	});
-});
-
-new cloudflare.DnsRecord(`next-${domainSlug}-cname`, {
+new cloudflare.DnsRecord(`${domainSlug}-cname`, {
 	zoneId: dnsZone.id,
-	name: pulumi.interpolate`next.${dnsZone.name}`,
+	name: dnsZone.name,
 	type: "CNAME",
 	content: "zth.dev",
 	ttl: 1800,
+});
+
+new cloudflare.DnsRecord(`gps-${domainSlug}-a`, {
+	zoneId: dnsZone.id,
+	name: pulumi.interpolate`gps.${dnsZone.name}`,
+	type: "A",
+	content: "46.101.159.36",
+	ttl: 3600,
 });
 
 export const nameservers = dnsZone.nameServers;

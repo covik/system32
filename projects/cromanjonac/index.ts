@@ -367,7 +367,7 @@ function setupKubernetesResources(
 					zarafleetDomain,
 					`*.${zarafleetDomain}`,
 					cromanjonacDomain,
-					"next.zarapromet.hr",
+					"zarapromet.hr",
 				],
 			},
 		},
@@ -591,7 +591,7 @@ function setupKubernetesResources(
 						sectionName: "https",
 					},
 				],
-				hostnames: [`next.zarapromet.hr`],
+				hostnames: [`zarapromet.hr`],
 				rules: [
 					{
 						matches: [
