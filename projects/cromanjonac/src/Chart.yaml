@@ -16,5 +16,5 @@ dependencies:
     version: v1.20.2
     repository: 'https://charts.jetstack.io'
   - name: alloy-crd
-    version: 1.0.0
+    version: 1.0.1
     repository: 'https://grafana.github.io/helm-charts'
