@@ -1,8 +1,7 @@
 packages:
-  - 'packages/*'
-  - 'projects/*'
+  - "packages/*"
+  - "projects/*"
 allowBuilds:
-  '@pulumi/kubernetes': true
+  "@pulumi/kubernetes": true
   protobufjs: true
-minimumReleaseAgeExclude:
-  - '@pulumi/pulumi@3.255.0'
+minimumReleaseAge: 0
