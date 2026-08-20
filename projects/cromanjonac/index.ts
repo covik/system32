@@ -261,7 +261,7 @@ function setupKubernetesResources(
 	const gatewayAPI = new k8s.yaml.ConfigFile(
 		"gateway-api-crd",
 		{
-			file: "https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.1/experimental-install.yaml",
+			file: "https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.1/standard-install.yaml",
 		},
 		{ provider },
 	);
@@ -443,7 +443,7 @@ function setupKubernetesResources(
 	new k8s.apiextensions.CustomResource(
 		"traccar-teltonika-route",
 		{
-			apiVersion: "gateway.networking.k8s.io/v1alpha2",
+			apiVersion: "gateway.networking.k8s.io/v1",
 			kind: "TCPRoute",
 			metadata: {
 				namespace: traccar.namespace.metadata.name,
