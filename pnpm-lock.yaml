@@ -29,8 +29,8 @@ importers:
   projects/cromanjonac:
     dependencies:
       '@pulumi/cloudflare':
-        specifier: 6.19.0
-        version: 6.19.0(typescript@6.0.3)
+        specifier: 6.20.0
+        version: 6.20.0(typescript@6.0.3)
       '@pulumi/digitalocean':
         specifier: 4.79.0
         version: 4.79.0(typescript@6.0.3)
@@ -60,8 +60,8 @@ importers:
   projects/luigitrans:
     dependencies:
       '@pulumi/cloudflare':
-        specifier: 6.19.0
-        version: 6.19.0(typescript@6.0.3)
+        specifier: 6.20.0
+        version: 6.20.0(typescript@6.0.3)
       '@pulumi/pulumi':
         specifier: 3.259.0
         version: 3.259.0(typescript@6.0.3)
@@ -79,8 +79,8 @@ importers:
   projects/zarafleet:
     dependencies:
       '@pulumi/cloudflare':
-        specifier: 6.19.0
-        version: 6.19.0(typescript@6.0.3)
+        specifier: 6.20.0
+        version: 6.20.0(typescript@6.0.3)
       '@pulumi/pulumi':
         specifier: 3.259.0
         version: 3.259.0(typescript@6.0.3)
@@ -98,8 +98,8 @@ importers:
   projects/zarapromet:
     dependencies:
       '@pulumi/cloudflare':
-        specifier: 6.19.0
-        version: 6.19.0(typescript@6.0.3)
+        specifier: 6.20.0
+        version: 6.20.0(typescript@6.0.3)
       '@pulumi/pulumi':
         specifier: 3.259.0
         version: 3.259.0(typescript@6.0.3)
@@ -502,8 +502,8 @@ packages:
   '@protobufjs/utf8@1.1.2':
     resolution: {integrity: sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==}
 
-  '@pulumi/cloudflare@6.19.0':
-    resolution: {integrity: sha512-AP76ceRwCIws362nm7UpfvDvzI4zPaGThli0i3qsKqjektk1qNapyflA9g0LvpI2e6VEWAdTbkIK7WSucg00Sg==}
+  '@pulumi/cloudflare@6.20.0':
+    resolution: {integrity: sha512-VcLlDp3INdSzFUMHXi3nLJte/YoktFHX4hk0DokWygpMm6DGzZq7tfIoUvSP3HAWC9cEI7+59UnBBpNaVNNpgQ==}
 
   '@pulumi/digitalocean@4.79.0':
     resolution: {integrity: sha512-+Bw5ePKkeKJT/bGUlGtdguZ8PWNGW2Nb3V6HEWCmQ4V30Pfff9OInELttjq/EU8OREdGm8jT0clIx7I5S6KUDQ==}
@@ -1828,9 +1828,9 @@ snapshots:
 
   '@protobufjs/utf8@1.1.2': {}
 
-  '@pulumi/cloudflare@6.19.0(typescript@6.0.3)':
+  '@pulumi/cloudflare@6.20.0(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.255.0(typescript@6.0.3)
+      '@pulumi/pulumi': 3.259.0(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
