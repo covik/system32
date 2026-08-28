@@ -38,8 +38,8 @@ importers:
         specifier: 4.34.0
         version: 4.34.0(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.259.0
-        version: 3.259.0(typescript@6.0.3)
+        specifier: 3.260.0
+        version: 3.260.0(typescript@6.0.3)
       superstruct:
         specifier: 2.0.2
         version: 2.0.2
@@ -63,8 +63,8 @@ importers:
         specifier: 6.20.0
         version: 6.20.0(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.259.0
-        version: 3.259.0(typescript@6.0.3)
+        specifier: 3.260.0
+        version: 3.260.0(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -82,8 +82,8 @@ importers:
         specifier: 6.20.0
         version: 6.20.0(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.259.0
-        version: 3.259.0(typescript@6.0.3)
+        specifier: 3.260.0
+        version: 3.260.0(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -101,8 +101,8 @@ importers:
         specifier: 6.20.0
         version: 6.20.0(typescript@6.0.3)
       '@pulumi/pulumi':
-        specifier: 3.259.0
-        version: 3.259.0(typescript@6.0.3)
+        specifier: 3.260.0
+        version: 3.260.0(typescript@6.0.3)
     devDependencies:
       '@package/typescript-config':
         specifier: workspace:*
@@ -511,20 +511,8 @@ packages:
   '@pulumi/kubernetes@4.34.0':
     resolution: {integrity: sha512-F5GfJjckUkR2Y/GKCIXLGa71LZzSjVa5nlyv0rG8hr2md8xlDWx0+9O1DF9bUqy/3C+hq7DNVPqGe7Rb4ns92g==}
 
-  '@pulumi/pulumi@3.255.0':
-    resolution: {integrity: sha512-nvGpp6ebUpkSLn0UxqiTo5xlTYRqxp9OzMGgixIW2kFu0CQ3VgUtIOoKkEzU2ftVNY44utwDh+CKXQlK+bPmuw==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      ts-node: '>= 7.0.1 < 12'
-      typescript: '>= 3.8.3 < 7'
-    peerDependenciesMeta:
-      ts-node:
-        optional: true
-      typescript:
-        optional: true
-
-  '@pulumi/pulumi@3.259.0':
-    resolution: {integrity: sha512-DRc1bDHWTofZGkKcs/bx98LujCZJNoKRkOdeEhQZNz7wPUX/obhuzmWJezew2FUCEAy1xXHtQj1CTcANHoLn3A==}
+  '@pulumi/pulumi@3.260.0':
+    resolution: {integrity: sha512-lLDISSiEToYj1/bT3dmzju9gyLrP7EcVHKo3IZ6pQY2uMfApyAeabOapDFJlrWvQedtpqIKBR7y5nNm6M91gJg==}
     engines: {node: '>=22'}
     peerDependencies:
       ts-node: '>= 7.0.1 < 12'
@@ -1830,7 +1818,7 @@ snapshots:
 
   '@pulumi/cloudflare@6.20.0(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.259.0(typescript@6.0.3)
+      '@pulumi/pulumi': 3.260.0(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -1838,7 +1826,7 @@ snapshots:
 
   '@pulumi/digitalocean@4.79.0(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.255.0(typescript@6.0.3)
+      '@pulumi/pulumi': 3.260.0(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -1846,7 +1834,7 @@ snapshots:
 
   '@pulumi/kubernetes@4.34.0(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.259.0(typescript@6.0.3)
+      '@pulumi/pulumi': 3.260.0(typescript@6.0.3)
       glob: 12.0.0
       shell-quote: 1.10.0
     transitivePeerDependencies:
@@ -1854,39 +1842,7 @@ snapshots:
       - ts-node
       - typescript
 
-  '@pulumi/pulumi@3.255.0(typescript@6.0.3)':
-    dependencies:
-      '@grpc/grpc-js': 1.14.4
-      '@logdna/tail-file': 2.2.0
-      '@npmcli/arborist': 9.9.0
-      '@opentelemetry/api': 1.9.1
-      '@opentelemetry/core': 2.10.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/exporter-trace-otlp-grpc': 0.220.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/exporter-zipkin': 2.10.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/instrumentation': 0.220.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/instrumentation-grpc': 0.220.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/resources': 2.10.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/sdk-trace-base': 2.10.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/sdk-trace-node': 2.10.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/semantic-conventions': 1.43.0
-      '@types/google-protobuf': 3.15.12
-      '@types/semver': 7.7.1
-      execa: 5.1.1
-      google-protobuf: 3.21.4
-      ini: 2.0.0
-      js-yaml: 4.3.0
-      minimist: 1.2.8
-      normalize-package-data: 6.0.2
-      require-from-string: 2.0.2
-      semver: 7.8.5
-      source-map-support: 0.5.21
-      upath: 1.2.0
-    optionalDependencies:
-      typescript: 6.0.3
-    transitivePeerDependencies:
-      - supports-color
-
-  '@pulumi/pulumi@3.259.0(typescript@6.0.3)':
+  '@pulumi/pulumi@3.260.0(typescript@6.0.3)':
     dependencies:
       '@grpc/grpc-js': 1.14.4
       '@logdna/tail-file': 2.2.0
