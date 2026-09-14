@@ -6,6 +6,9 @@
 	"semanticCommits": "disabled",
 	"commitMessagePrefix": "deps:",
 	"commitMessageAction": "update",
+	"lockFileMaintenance": {
+		"enabled": true
+	},
 	"packageRules": [
 		{
 			"matchUpdateTypes": ["major"],
