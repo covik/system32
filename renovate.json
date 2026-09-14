@@ -22,10 +22,6 @@
 			"groupName": "node-js"
 		},
 		{
-			"matchPackageNames": ["/pulumi/"],
-			"groupName": "pulumi"
-		},
-		{
 			"matchDepTypes": ["devDependencies", "engines", "final"],
 			"matchUpdateTypes": ["minor", "patch", "digest"],
 			"matchCurrentVersion": "!/^0/",
