@@ -45,6 +45,10 @@
 		{
 			"matchDepTypes": ["resolutions"],
 			"automerge": true
+		},
+		{
+			"matchPackageNames": ["@pulumi/pulumi", "pulumi/pulumi-base"],
+			"groupName": "pulumi"
 		}
 	]
 }
