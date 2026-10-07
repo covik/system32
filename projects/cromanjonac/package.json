@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@pulumi/cloudflare": "6.22.0",
-		"@pulumi/digitalocean": "4.81.0",
+		"@pulumi/digitalocean": "4.82.0",
 		"@pulumi/kubernetes": "4.34.2",
 		"@pulumi/pulumi": "3.267.0",
 		"superstruct": "2.0.2",
