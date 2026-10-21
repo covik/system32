@@ -29,8 +29,8 @@ importers:
   projects/cromanjonac:
     dependencies:
       '@pulumi/cloudflare':
-        specifier: 6.22.1
-        version: 6.22.1(typescript@7.0.2)
+        specifier: 6.23.0
+        version: 6.23.0(typescript@7.0.2)
       '@pulumi/digitalocean':
         specifier: 4.84.1
         version: 4.84.1(typescript@7.0.2)
@@ -60,8 +60,8 @@ importers:
   projects/luigitrans:
     dependencies:
       '@pulumi/cloudflare':
-        specifier: 6.22.1
-        version: 6.22.1(typescript@7.0.2)
+        specifier: 6.23.0
+        version: 6.23.0(typescript@7.0.2)
       '@pulumi/pulumi':
         specifier: 3.270.0
         version: 3.270.0(typescript@7.0.2)
@@ -79,8 +79,8 @@ importers:
   projects/zarafleet:
     dependencies:
       '@pulumi/cloudflare':
-        specifier: 6.22.1
-        version: 6.22.1(typescript@7.0.2)
+        specifier: 6.23.0
+        version: 6.23.0(typescript@7.0.2)
       '@pulumi/pulumi':
         specifier: 3.270.0
         version: 3.270.0(typescript@7.0.2)
@@ -98,8 +98,8 @@ importers:
   projects/zarapromet:
     dependencies:
       '@pulumi/cloudflare':
-        specifier: 6.22.1
-        version: 6.22.1(typescript@7.0.2)
+        specifier: 6.23.0
+        version: 6.23.0(typescript@7.0.2)
       '@pulumi/pulumi':
         specifier: 3.270.0
         version: 3.270.0(typescript@7.0.2)
@@ -450,12 +450,14 @@ packages:
   '@opentelemetry/sdk-trace-base@2.12.0':
     resolution: {integrity: sha512-JOERgZCxRM06FEJ5kEWxlSRChah6MmXDx3KwCruqEv/iEyLkTokCSemf2y1w8oIHtfrr8EVTpzebq/31vn2Cpg==}
     engines: {node: ^18.19.0 || >=20.6.0}
+    deprecated: Use @opentelemetry/sdk-trace package
     peerDependencies:
       '@opentelemetry/api': '>=1.3.0 <1.10.0'
 
   '@opentelemetry/sdk-trace-node@2.12.0':
     resolution: {integrity: sha512-9DufH1IlmQMoKAfot5y/FhTP1RnmhLb5K6eKmJO/bvzPjYwPAazoiAUbTZFdPbqxOXN0FEbhZx/e6SB1Og4jmg==}
     engines: {node: ^18.19.0 || >=20.6.0}
+    deprecated: Use @opentelemetry/sdk-trace package
     peerDependencies:
       '@opentelemetry/api': '>=1.0.0 <1.10.0'
 
@@ -502,8 +504,8 @@ packages:
   '@protobufjs/utf8@1.1.2':
     resolution: {integrity: sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==}
 
-  '@pulumi/cloudflare@6.22.1':
-    resolution: {integrity: sha512-ZpfS7qct6+1vSRXcuCqnNWwsm+EVGxo+JVJW/s4+6x3xCv5EhG/s/mIj2QWPew93aFSiN3GXu14P5GF7GejCeQ==}
+  '@pulumi/cloudflare@6.23.0':
+    resolution: {integrity: sha512-plFXtgb6GOHYQvOvoK8yLjZaDvqvm/aDUrVVzZxXbJJFG/Lr4ZcWdaKMV+TiOKDly3ILU6bJN5OecrT51C18Hw==}
 
   '@pulumi/digitalocean@4.84.1':
     resolution: {integrity: sha512-d4+6qkGyOWIxdr4UkhGPP/hEEkilPsfFThMSY+mt/mLW6aPuhi+WjfOl+10RlLpB+TJcsLEFrH/DMepvOoaa1A==}
@@ -1934,7 +1936,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.2': {}
 
-  '@pulumi/cloudflare@6.22.1(typescript@7.0.2)':
+  '@pulumi/cloudflare@6.23.0(typescript@7.0.2)':
     dependencies:
       '@pulumi/pulumi': 3.270.0(typescript@7.0.2)
     transitivePeerDependencies:
