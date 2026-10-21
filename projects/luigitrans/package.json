@@ -12,7 +12,7 @@
 		"production:cancel": "pulumi cancel --yes --stack production"
 	},
 	"dependencies": {
-		"@pulumi/cloudflare": "6.23.0",
+		"@pulumi/cloudflare": "6.23.1",
 		"@pulumi/pulumi": "3.270.0"
 	},
 	"devDependencies": {
