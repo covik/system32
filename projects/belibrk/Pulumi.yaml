@@ -1,0 +1,6 @@
+name: belibrk
+description: Belibrk DNS infrastructure
+runtime:
+  name: nodejs
+  options:
+    typescript: false

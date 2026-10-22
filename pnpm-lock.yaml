@@ -26,6 +26,25 @@ importers:
 
   packages/typescript-config: {}
 
+  projects/belibrk:
+    dependencies:
+      '@pulumi/cloudflare':
+        specifier: 6.23.1
+        version: 6.23.1(typescript@7.0.2)
+      '@pulumi/pulumi':
+        specifier: 3.271.0
+        version: 3.271.0(typescript@7.0.2)
+    devDependencies:
+      '@package/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@types/node':
+        specifier: 24.19.2
+        version: 24.19.2
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+
   projects/cromanjonac:
     dependencies:
       '@pulumi/cloudflare':

@@ -1,0 +1,3 @@
+config:
+  cloudflare:apiToken:
+    secure: AAABAHXCVhktHyru4+rvO1Trnil7hYP0y5+Y7MHaWHFawyuFu5ADOG8tPmoAB4Vpuw+mTfWqTLAyXKTejsA0rosLL0abCcKx
