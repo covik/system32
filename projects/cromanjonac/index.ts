@@ -12,6 +12,7 @@ import { createMysqlConnectionString } from "./src/utils/index.js";
 const domain = "zth.dev";
 const zarafleetDomain = "zarafleet.com";
 const cromanjonacDomain = "cromanjonac.dev";
+const belibrkDomain = "belibrk.makeup";
 const fmsUrl = `old.${zarafleetDomain}`;
 const snapshooterIps = [
 	"174.138.101.117",
@@ -368,6 +369,7 @@ function setupKubernetesResources(
 					`*.${zarafleetDomain}`,
 					cromanjonacDomain,
 					"zarapromet.hr",
+					belibrkDomain,
 				],
 			},
 		},
@@ -606,6 +608,57 @@ function setupKubernetesResources(
 							{
 								name: zaraprometHomepage.serviceName,
 								port: zaraprometHomepage.servicePort,
+							},
+						],
+					},
+				],
+			},
+		},
+		{
+			provider,
+		},
+	);
+
+	const belibrkHomepage = new app.BelibrkHomePage(
+		"belibrk-homepage",
+		{
+			cpu: "0.09",
+			memory: "200Mi",
+		},
+		kubernetesComponentOptions,
+	);
+
+	new k8s.apiextensions.CustomResource(
+		"belibrk-homepage-route",
+		{
+			apiVersion: "gateway.networking.k8s.io/v1",
+			kind: "HTTPRoute",
+			metadata: {
+				namespace: belibrkHomepage.namespaceName,
+			},
+			spec: {
+				parentRefs: [
+					{
+						name: gatewayInstance.metadata.name,
+						namespace: gatewayInstance.metadata.namespace,
+						sectionName: "https",
+					},
+				],
+				hostnames: [belibrkDomain],
+				rules: [
+					{
+						matches: [
+							{
+								path: {
+									type: "PathPrefix",
+									value: "/",
+								},
+							},
+						],
+						backendRefs: [
+							{
+								name: belibrkHomepage.serviceName,
+								port: belibrkHomepage.servicePort,
 							},
 						],
 					},
