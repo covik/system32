@@ -628,7 +628,7 @@ function setupKubernetesResources(
 		kubernetesComponentOptions,
 	);
 
-	new k8s.apiextensions.CustomResource(
+	const belibrkHomepageRoute = new k8s.apiextensions.CustomResource(
 		"belibrk-homepage-route",
 		{
 			apiVersion: "gateway.networking.k8s.io/v1",
@@ -663,6 +663,45 @@ function setupKubernetesResources(
 						],
 					},
 				],
+			},
+		},
+		{
+			provider,
+		},
+	);
+
+	const belibrkBasicAuthSecret = new k8s.core.v1.Secret(
+		"belibrk-basic-auth-secret",
+		{
+			metadata: { namespace: belibrkHomepage.namespaceName },
+			stringData: {
+				".htpasswd": config.requireSecret("belibrk-basic-auth-htpasswd"),
+			},
+		},
+		{ provider },
+	);
+
+	new k8s.apiextensions.CustomResource(
+		"belibrk-basic-auth-policy",
+		{
+			apiVersion: "gateway.envoyproxy.io/v1alpha1",
+			kind: "SecurityPolicy",
+			metadata: {
+				namespace: belibrkHomepage.namespaceName,
+			},
+			spec: {
+				targetRefs: [
+					{
+						group: "gateway.networking.k8s.io",
+						kind: "HTTPRoute",
+						name: belibrkHomepageRoute.metadata.name,
+					},
+				],
+				basicAuth: {
+					users: {
+						name: belibrkBasicAuthSecret.metadata.name,
+					},
+				},
 			},
 		},
 		{
