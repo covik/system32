@@ -1,9 +1,20 @@
 import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
+import {
+	type ContainerRegistryCredentials,
+	RegistrySecret,
+	resolveRegistryImage,
+} from "../security/container-registry.js";
 
 export interface BelibrkHomePageArgs {
 	cpu: pulumi.Input<string>;
 	memory: pulumi.Input<string>;
+	registryCredentials: ContainerRegistryCredentials;
+	image: {
+		repository: pulumi.Input<string>;
+		tag?: pulumi.Input<string>;
+		digest?: pulumi.Input<string>;
+	};
 }
 
 export class BelibrkHomePage extends pulumi.ComponentResource {
@@ -26,8 +37,22 @@ export class BelibrkHomePage extends pulumi.ComponentResource {
 			{ parent: this, deleteBeforeReplace: true },
 		);
 
+		const registrySecret = RegistrySecret(
+			`${name}-registry-secret`,
+			{
+				namespace,
+				credentials: args.registryCredentials,
+			},
+			{ parent: this },
+		);
+
 		const appLabels = { app: "belibrk-homepage-server" };
-		const image = "nginx:stable";
+		const image = resolveRegistryImage({
+			url: args.registryCredentials.url,
+			repository: args.image.repository,
+			tag: args.image.tag,
+			digest: args.image.digest,
+		});
 		const deployment = new k8s.apps.v1.Deployment(
 			`${name}-deployment`,
 			{
@@ -38,11 +63,12 @@ export class BelibrkHomePage extends pulumi.ComponentResource {
 					template: {
 						metadata: { labels: appLabels },
 						spec: {
+							imagePullSecrets: [{ name: registrySecret.metadata.name }],
 							containers: [
 								{
 									name: "server",
 									image,
-									ports: [{ containerPort: 80 }],
+									ports: [{ containerPort: 3000 }],
 									resources: {
 										requests: {
 											cpu: args.cpu,

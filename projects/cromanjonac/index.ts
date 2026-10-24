@@ -619,11 +619,24 @@ function setupKubernetesResources(
 		},
 	);
 
+	const containerRegistryCredentials = {
+		url: config.require("container-registry-url"),
+		username: config.require("container-registry-user"),
+		password: config.requireSecret("container-registry-token"),
+	};
+
 	const belibrkHomepage = new app.BelibrkHomePage(
 		"belibrk-homepage",
 		{
 			cpu: "0.09",
 			memory: "200Mi",
+			registryCredentials: containerRegistryCredentials,
+			image: {
+				repository: "cromanjonac/belibrk.makeup",
+				tag: "latest",
+				digest:
+					"sha256:6042f6ade154962202533253ff461d259fef7f542c1cc1b5637ff62f0830bf58",
+			},
 		},
 		kubernetesComponentOptions,
 	);
