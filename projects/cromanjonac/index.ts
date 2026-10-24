@@ -635,7 +635,7 @@ function setupKubernetesResources(
 				repository: "cromanjonac/belibrk.makeup",
 				tag: "latest",
 				digest:
-					"sha256:6042f6ade154962202533253ff461d259fef7f542c1cc1b5637ff62f0830bf58",
+					"sha256:52bfdf472ff758cbde530cc9db4993e80ea4292208e825ce569963a4b406f456",
 			},
 		},
 		kubernetesComponentOptions,
