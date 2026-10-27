@@ -8,13 +8,13 @@ version: 0.0.0
 dependencies:
   - name: gateway-helm
     version: 1.9.2
-    repository: 'oci://docker.io/envoyproxy'
+    repository: "oci://docker.io/envoyproxy"
   - name: k8s-monitoring
     version: 3.8.13
-    repository: 'https://grafana.github.io/helm-charts'
+    repository: "https://grafana.github.io/helm-charts"
   - name: cert-manager
     version: v1.21.2
-    repository: 'https://charts.jetstack.io'
+    repository: "https://charts.jetstack.io"
   - name: alloy-crd
     version: 1.0.1
-    repository: 'https://grafana.github.io/helm-charts'
+    repository: "https://grafana.github.io/helm-charts"
