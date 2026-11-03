@@ -54,8 +54,8 @@ importers:
         specifier: 4.84.2
         version: 4.84.2(typescript@7.0.2)
       '@pulumi/kubernetes':
-        specifier: 4.34.2
-        version: 4.34.2(typescript@7.0.2)
+        specifier: 4.34.3
+        version: 4.34.3(typescript@7.0.2)
       '@pulumi/pulumi':
         specifier: 3.273.0
         version: 3.273.0(typescript@7.0.2)
@@ -541,8 +541,8 @@ packages:
   '@pulumi/digitalocean@4.84.2':
     resolution: {integrity: sha512-yZd+Vz4HnNK1GVVjiVnrPkaFLCchhQzLc6jCiw6ePjFsSfgf8l16A1HV4+5IGLfC0CVxitKbzuCSN0PiKLBjzg==}
 
-  '@pulumi/kubernetes@4.34.2':
-    resolution: {integrity: sha512-OcIe8OUwivkEngmjinrmke54INbJ0L6u/CWm8mLh6F7pmIDXyHGTM8PzcZsg5QbSm24HnNUHLl2tEUoOBxDo3w==}
+  '@pulumi/kubernetes@4.34.3':
+    resolution: {integrity: sha512-BNEqCTYWe8n6ZFHXafoTMcQoG9Z6PDDjXujKNrtKlr2SGDjdJTSSxCJWUlmFpsO/FCNC4g4wEeGTGnKmLYOthg==}
 
   '@pulumi/pulumi@3.273.0':
     resolution: {integrity: sha512-Yh2k0Kry4u5LM730KUO5HZFnqHdlW9ypoQ8zgO0Tqam1G6urFXjIUTUaLxvWrdsm6gKCoyVS6CPdeOGcV+Msvg==}
@@ -1991,7 +1991,7 @@ snapshots:
       - ts-node
       - typescript
 
-  '@pulumi/kubernetes@4.34.2(typescript@7.0.2)':
+  '@pulumi/kubernetes@4.34.3(typescript@7.0.2)':
     dependencies:
       '@pulumi/pulumi': 3.273.0(typescript@7.0.2)
       glob: 12.0.0
