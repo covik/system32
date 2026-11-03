@@ -98,8 +98,19 @@ new cloudflare.DnsRecord(`gps-${domainSlug}-a`, {
 });
 
 export const nameservers = dnsZone.nameServers;
-export const botManagementStaleConfiguration =
-	botManagement.staleZoneConfiguration;
+export const botManagementState = {
+	aiBotsProtection: botManagement.aiBotsProtection,
+	contentBotsProtection: botManagement.contentBotsProtection,
+	crawlerProtection: botManagement.crawlerProtection,
+	fightMode: botManagement.fightMode,
+	enableJs: botManagement.enableJs,
+	aiTraining: botManagement.aiTraining,
+	aiUser: botManagement.aiUser,
+	aisearch: botManagement.aisearch,
+	botPreferenceSyncEnabled: botManagement.botPreferenceSyncEnabled,
+	isRobotsTxtManaged: botManagement.isRobotsTxtManaged,
+	usingLatestModel: botManagement.usingLatestModel,
+};
 export const ds = {
 	keyTag: dnssec.keyTag,
 	algorithm: dnssec.algorithm,
