@@ -17,17 +17,16 @@ const dnsZone = new cloudflare.Zone(
 	},
 );
 
-const botManagement = new cloudflare.BotManagement(
-	`${domainSlug}-bot-management`,
-	{
-		zoneId: dnsZone.id,
-		aiBotsProtection: "block",
-		contentBotsProtection: "block",
-		crawlerProtection: "enabled",
-		fightMode: true,
-		enableJs: true,
-	},
-);
+new cloudflare.BotManagement(`${domainSlug}-bot-management`, {
+	zoneId: dnsZone.id,
+	crawlerProtection: "enabled",
+	fightMode: true,
+	enableJs: true,
+	aiTraining: "block",
+	aisearch: "disabled",
+	aiUser: "disabled",
+	botPreferenceSyncEnabled: true,
+});
 
 const dnssec = new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
 	zoneId: dnsZone.id,
@@ -98,19 +97,6 @@ new cloudflare.DnsRecord(`gps-${domainSlug}-a`, {
 });
 
 export const nameservers = dnsZone.nameServers;
-export const botManagementState = {
-	aiBotsProtection: botManagement.aiBotsProtection,
-	contentBotsProtection: botManagement.contentBotsProtection,
-	crawlerProtection: botManagement.crawlerProtection,
-	fightMode: botManagement.fightMode,
-	enableJs: botManagement.enableJs,
-	aiTraining: botManagement.aiTraining,
-	aiUser: botManagement.aiUser,
-	aisearch: botManagement.aisearch,
-	botPreferenceSyncEnabled: botManagement.botPreferenceSyncEnabled,
-	isRobotsTxtManaged: botManagement.isRobotsTxtManaged,
-	usingLatestModel: botManagement.usingLatestModel,
-};
 export const ds = {
 	keyTag: dnssec.keyTag,
 	algorithm: dnssec.algorithm,
