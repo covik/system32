@@ -56,7 +56,7 @@ function resources(): unknown {
 		{
 			name: "fms-mysql",
 			engine: "mysql",
-			version: "8",
+			version: "8.4",
 			size: digitalocean.DatabaseSlug.DB_1VPCU1GB,
 			nodeCount: 1,
 			region,
