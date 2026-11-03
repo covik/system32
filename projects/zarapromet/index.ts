@@ -17,14 +17,17 @@ const dnsZone = new cloudflare.Zone(
 	},
 );
 
-new cloudflare.BotManagement(`${domainSlug}-bot-management`, {
-	zoneId: dnsZone.id,
-	aiBotsProtection: "block",
-	contentBotsProtection: "block",
-	crawlerProtection: "enabled",
-	fightMode: true,
-	enableJs: true,
-});
+const botManagement = new cloudflare.BotManagement(
+	`${domainSlug}-bot-management`,
+	{
+		zoneId: dnsZone.id,
+		aiBotsProtection: "block",
+		contentBotsProtection: "block",
+		crawlerProtection: "enabled",
+		fightMode: true,
+		enableJs: true,
+	},
+);
 
 const dnssec = new cloudflare.ZoneDnssec(`${domainSlug}-dnssec`, {
 	zoneId: dnsZone.id,
@@ -95,6 +98,8 @@ new cloudflare.DnsRecord(`gps-${domainSlug}-a`, {
 });
 
 export const nameservers = dnsZone.nameServers;
+export const botManagementStaleConfiguration =
+	botManagement.staleZoneConfiguration;
 export const ds = {
 	keyTag: dnssec.keyTag,
 	algorithm: dnssec.algorithm,
