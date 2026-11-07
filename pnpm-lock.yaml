@@ -209,8 +209,8 @@ importers:
         specifier: 6.23.3
         version: 6.23.3(typescript@7.0.2)
       '@pulumi/digitalocean':
-        specifier: 4.84.2
-        version: 4.84.2(typescript@7.0.2)
+        specifier: 4.85.0
+        version: 4.85.0(typescript@7.0.2)
       '@pulumi/kubernetes':
         specifier: 4.34.3
         version: 4.34.3(typescript@7.0.2)
@@ -696,8 +696,8 @@ packages:
   '@pulumi/cloudflare@6.23.3':
     resolution: {integrity: sha512-etEo7csPhmv2K2dbRfyj9lCKcka5vTH9qowVufK9b+iDB2qEta9M/CPo+2QgsaANeEmxRTztqg+pIi+Xtzhjow==}
 
-  '@pulumi/digitalocean@4.84.2':
-    resolution: {integrity: sha512-yZd+Vz4HnNK1GVVjiVnrPkaFLCchhQzLc6jCiw6ePjFsSfgf8l16A1HV4+5IGLfC0CVxitKbzuCSN0PiKLBjzg==}
+  '@pulumi/digitalocean@4.85.0':
+    resolution: {integrity: sha512-Yv6HGSdBpJMQNj48F5hFyTymDvS+tnvPBrKujAKNnWdTAZ+y4GQemAH7caUHo83YabQrk9ghcecnQq70MYox4Q==}
 
   '@pulumi/kubernetes@4.34.3':
     resolution: {integrity: sha512-BNEqCTYWe8n6ZFHXafoTMcQoG9Z6PDDjXujKNrtKlr2SGDjdJTSSxCJWUlmFpsO/FCNC4g4wEeGTGnKmLYOthg==}
@@ -2140,7 +2140,7 @@ snapshots:
       - ts-node
       - typescript
 
-  '@pulumi/digitalocean@4.84.2(typescript@7.0.2)':
+  '@pulumi/digitalocean@4.85.0(typescript@7.0.2)':
     dependencies:
       '@pulumi/pulumi': 3.274.0(typescript@7.0.2)
     transitivePeerDependencies:
